@@ -6,12 +6,12 @@ This library is built by repeated digs through our own history. The registry we 
 was the easiest one, and it is nowhere near all of it. This board exists so the gaps stay
 visible instead of being quietly forgotten.
 
-**19 ideas indexed · 7 digs still outstanding.**
+**19 ideas indexed · 6 digs still outstanding.**
 
 | Dig | Status | Yielded | Estimated | Notes |
 |---|---|---|---|---|
 | Hand-written exemplars | ✅ complete | 3 | — | The first ideas, written by hand to set the quality bar for everything after. |
-| Project registry | ⏳ pending | 16 | — | Projects already catalogued in a structured form, so the cheapest pass to run first. |
+| Project registry | ▶ in progress | 16 | — | Projects already catalogued in a structured form, so the cheapest pass to run first. |
 | Working directories | ⏳ pending | 0 | — | Project folders that never made it into the registry. Expect the same idea under several names; dedupe against existing ids. |
 | Published repositories | ⏳ pending | 0 | — | Work that is already public. Lowest risk and highest link value, since each entry can cite its own repo. |
 | Older work | ⏳ pending | 0 | — | Things set aside long enough to have an outcome. Expect dead ideas, which are the most valuable kind here. |

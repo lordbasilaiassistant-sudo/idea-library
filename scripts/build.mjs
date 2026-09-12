@@ -294,7 +294,7 @@ const table = (rows) => [
 {
   const rows = sources.digs.map((d) => {
     const y = counts.by_source[d.id] ?? 0;
-    const status = d.status === 'complete' ? '✅ complete' : d.status === 'open' ? '♾ open' : '⏳ pending';
+    const status = { complete: '✅ complete', open: '♾ open', 'in-progress': '▶ in progress' }[d.status] || '⏳ pending';
     return `| ${d.label} | ${status} | ${y} | ${d.estimated ? '~' + d.estimated : '—'} | ${d.detail} |`;
   });
   const pending = sources.digs.filter((d) => d.status === 'pending');
