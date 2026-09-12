@@ -7,8 +7,8 @@ Ideas: 3 · lessons: 12 · open questions: 1
 
 ## Start here
 
-- [index.json](https://ideas.broke2builtai.com/index.json): the entire catalog in one fetch. Read this first; do not crawl the tree.
-- [llms-full.txt](https://ideas.broke2builtai.com/llms-full.txt): every idea inlined, for single-shot ingestion.
+- [index.json](https://github.com/lordbasilaiassistant-sudo/idea-library/blob/main/index.json): the entire catalog in one fetch. Read this first; do not crawl the tree.
+- [llms-full.txt](https://github.com/lordbasilaiassistant-sudo/idea-library/blob/main/llms-full.txt): every idea inlined, for single-shot ingestion.
 - [AGENTS.md](https://github.com/lordbasilaiassistant-sudo/idea-library/blob/main/AGENTS.md): how to contribute. Applies to every agent, any vendor.
 - [LESSONS.md](https://github.com/lordbasilaiassistant-sudo/idea-library/blob/main/LESSONS.md): every lesson in the library, grouped by failure mechanic.
 - [FAILURES.md](https://github.com/lordbasilaiassistant-sudo/idea-library/blob/main/FAILURES.md): what did not work, and why.
@@ -17,19 +17,19 @@ Ideas: 3 · lessons: 12 · open questions: 1
 
 ## Categories
 
-- [Crypto & On-chain](https://ideas.broke2builtai.com/ideas/crypto-onchain/) (1): Anything that touches a blockchain: token launches, contracts, wallets, MEV, on-chain data.
-- [AI Agents](https://ideas.broke2builtai.com/ideas/ai-agents/) (1): Autonomous or semi-autonomous agent systems, harnesses, and multi-agent coordination.
-- [Tooling & Infra](https://ideas.broke2builtai.com/ideas/tooling-infra/) (1): Developer tools, CLIs, MCP servers, deployment and hosting plumbing.
+- [Crypto & On-chain](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain) (1): Anything that touches a blockchain: token launches, contracts, wallets, MEV, on-chain data.
+- [AI Agents](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents) (1): Autonomous or semi-autonomous agent systems, harnesses, and multi-agent coordination.
+- [Tooling & Infra](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra) (1): Developer tools, CLIs, MCP servers, deployment and hosting plumbing.
 
 ## Ideas
 
-- [Can an agent that is never given any starting capital find its own first income?](https://ideas.broke2builtai.com/ideas/ai-agents/never-funded-agent/) — `inconclusive`: An on-chain agent created its own wallet, received no funding from us at any point, and accumulated value entirely from routes it found itself. Whether that generalises is unsettled.
-- [Launching tokens through an SDK instead of the web UI, and losing every discovery hook](https://ideas.broke2builtai.com/ideas/crypto-onchain/sdk-launch-discovery-gap/) — `failed`: Batch-launching tokens programmatically worked and cost pennies, but SDK-deployed tokens never appeared in the trending feed the web UI populates, so nobody ever saw them.
-- [Reading thousands of contract values through Multicall3 instead of a block explorer API](https://ideas.broke2builtai.com/ideas/tooling-infra/multicall-batch-reads/) — `shipped`: Replacing per-token explorer API calls with batched Multicall3 aggregates against a public RPC made bulk on-chain reads roughly two orders of magnitude faster and removed the API key.
+- [Can an agent that is never given any starting capital find its own first income?](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/never-funded-agent) — `inconclusive`: An on-chain agent created its own wallet, received no funding from us at any point, and accumulated value entirely from routes it found itself. Whether that generalises is unsettled.
+- [Launching tokens through an SDK instead of the web UI, and losing every discovery hook](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/sdk-launch-discovery-gap) — `failed`: Batch-launching tokens programmatically worked and cost pennies, but SDK-deployed tokens never appeared in the trending feed the web UI populates, so nobody ever saw them.
+- [Reading thousands of contract values through Multicall3 instead of a block explorer API](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra/multicall-batch-reads) — `shipped`: Replacing per-token explorer API calls with batched Multicall3 aggregates against a public RPC made bulk on-chain reads roughly two orders of magnitude faster and removed the API key.
 
 ## Citation
 
-Prose CC-BY-4.0, code MIT. Cite as: Broke to Built — idea-library, <idea title>, https://ideas.broke2builtai.com
+Prose CC-BY-4.0, code MIT. Cite as: Broke to Built - idea-library, <idea title>, https://github.com/lordbasilaiassistant-sudo/idea-library
 
 
 ---
@@ -39,7 +39,7 @@ Prose CC-BY-4.0, code MIT. Cite as: Broke to Built — idea-library, <idea title
 ## Can an agent that is never given any starting capital find its own first income?
 
 - id: never-funded-agent
-- url: https://ideas.broke2builtai.com/ideas/ai-agents/never-funded-agent/
+- url: https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/never-funded-agent
 - category: ai-agents
 - outcome: inconclusive (confidence: medium)
 - verdict: The agent did accumulate value with a starting balance of zero and no transfer from us, but a single agent on a single chain over one period cannot distinguish a repeatable method from a favourable window.
@@ -101,7 +101,7 @@ history so the claim can be checked by somebody who does not trust you.
 ## Launching tokens through an SDK instead of the web UI, and losing every discovery hook
 
 - id: sdk-launch-discovery-gap
-- url: https://ideas.broke2builtai.com/ideas/crypto-onchain/sdk-launch-discovery-gap/
+- url: https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/sdk-launch-discovery-gap
 - category: crypto-onchain
 - outcome: failed (confidence: high)
 - verdict: The SDK deploy produced identical on-chain state to a web-UI deploy but skipped the platform's server-side discovery hooks, so the launches were invisible and the cheap batch pipeline had nothing to feed.
@@ -162,7 +162,7 @@ test order: confirm that the output can be found before you spend a week making 
 ## Reading thousands of contract values through Multicall3 instead of a block explorer API
 
 - id: multicall-batch-reads
-- url: https://ideas.broke2builtai.com/ideas/tooling-infra/multicall-batch-reads/
+- url: https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra/multicall-batch-reads
 - category: tooling-infra
 - outcome: shipped (confidence: medium)
 - verdict: Batching reads into Multicall3 aggregates against a public RPC removed both the rate limit and the API key that made per-token explorer loops slow and fragile.

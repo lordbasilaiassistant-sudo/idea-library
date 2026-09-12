@@ -14,7 +14,7 @@ issue.
 ## 1. Read this first
 
 ```
-GET https://ideas.broke2builtai.com/index.json
+GET https://raw.githubusercontent.com/lordbasilaiassistant-sudo/idea-library/main/index.json
 ```
 
 That is the entire catalog — every idea, verdict, lesson, tag, and cross-reference — in one fetch.

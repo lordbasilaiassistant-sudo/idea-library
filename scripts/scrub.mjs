@@ -52,6 +52,7 @@ const SELF_EXEMPT = new Set([
   ['scripts', 'denylist.example.json'].join(sep),
   ['scripts', 'denylist.local.json'].join(sep),
   ['data', 'public-addresses.allow.json'].join(sep),
+  ['data', 'denylist.public.json'].join(sep),
 ]);
 
 // ---------------------------------------------------------------------------
@@ -143,28 +144,41 @@ const ALLOWED_ADDRESSES = new Set(
 );
 
 // ---------------------------------------------------------------------------
-// Class B — our own PII/asset denylist. Never committed.
+// Class B — the denylist, in two halves.
+//   public  (data/denylist.public.json)  operational literals, committed, always on
+//   private (scripts/denylist.local.json or $SCRUB_DENYLIST) personal literals, never committed
+// Both load if both are present. Which layers are active is always reported: a gate
+// that quietly runs at half strength is worse than one that does not run at all.
 // ---------------------------------------------------------------------------
-const denyFile = process.env.SCRUB_DENYLIST || join(ROOT, 'scripts', 'denylist.local.json');
-let DENY = [];
-let denyLoaded = false;
-if (existsSync(denyFile)) {
-  const raw = loadJSON(denyFile, null);
-  if (raw && Array.isArray(raw.terms)) {
-    denyLoaded = true;
-    DENY = raw.terms
-      .filter((t) => t && t.value)
-      .map((t) => ({
-        why: t.why || 'denylisted term',
-        severity: t.severity || 'critical',
-        value: String(t.value),
-        re: new RegExp(
-          String(t.value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),
-          t.caseSensitive ? 'g' : 'gi'
-        ),
-      }));
-  }
+const RE_SPECIALS = /[.*+?^${}()|[\]\\]/g;
+function escapeRegExp(s) {
+  return s.replace(RE_SPECIALS, '\\$&');
 }
+
+function compileTerms(raw, layer) {
+  if (!raw || !Array.isArray(raw.terms)) return [];
+  return raw.terms
+    .filter((t) => t && t.value)
+    .map((t) => ({
+      layer,
+      why: t.why || 'denylisted term',
+      severity: t.severity || 'critical',
+      re: new RegExp(
+        escapeRegExp(String(t.value)),
+        t.caseSensitive ? 'g' : 'gi'
+      ),
+    }));
+}
+
+const publicDenyFile = join(ROOT, 'data', 'denylist.public.json');
+const PUBLIC_DENY = compileTerms(loadJSON(publicDenyFile, null), 'public');
+const publicLoaded = PUBLIC_DENY.length > 0;
+
+const denyFile = process.env.SCRUB_DENYLIST || join(ROOT, 'scripts', 'denylist.local.json');
+const PRIVATE_DENY = existsSync(denyFile) ? compileTerms(loadJSON(denyFile, null), 'private') : [];
+const denyLoaded = PRIVATE_DENY.length > 0;
+
+const DENY = [...PUBLIC_DENY, ...PRIVATE_DENY];
 
 // ---------------------------------------------------------------------------
 // Walk + scan.
@@ -295,9 +309,10 @@ if (FLAGS.has('--json')) {
   console.log(JSON.stringify({ denylistLoaded: denyLoaded, scanned: files.length, findings }, null, 2));
 } else {
   console.log(`scrub: scanned ${files.length} files`);
+  console.log(`scrub: layers — patterns ON · addresses default-deny · denylist.public ${publicLoaded ? 'ON (' + PUBLIC_DENY.length + ' terms)' : 'MISSING'} · denylist.private ${denyLoaded ? 'ON (' + PRIVATE_DENY.length + ' terms)' : 'off'}`);
   if (!denyLoaded) {
-    console.log(`scrub: WARNING — no denylist at ${relative(ROOT, denyFile)}; Class B (our PII) checks are OFF.`);
-    console.log('scrub:           copy scripts/denylist.example.json to denylist.local.json and fill it in.');
+    console.log('scrub:           the personal-literals layer is not loaded. Copy scripts/denylist.example.json');
+    console.log('scrub:           to scripts/denylist.local.json (gitignored) to enable it locally.');
   }
   if (findings.length === 0) {
     console.log('scrub: clean — 0 findings');
@@ -316,7 +331,8 @@ if (FLAGS.has('--json')) {
 // A missing denylist is itself a failure in CI — Class B silently off is the
 // exact way this gate would rot.
 if (findings.length > 0) process.exit(1);
-if (!denyLoaded && process.env.CI) {
-  console.error('scrub: FAIL — running in CI without a denylist. Set SCRUB_DENYLIST or the repo secret.');
+if (!publicLoaded) {
+  console.error('scrub: FAIL — data/denylist.public.json is missing or empty. That file is committed');
+  console.error('scrub:        and must always load; a missing Class B is how this gate would rot.');
   process.exit(1);
 }

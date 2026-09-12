@@ -7,10 +7,27 @@
  * on PRs (a third party's outage is not a contributor's fault).
  */
 
-import { loadIdeas } from './lib/ideas.mjs';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { ROOT, loadIdeas } from './lib/ideas.mjs';
 
 const ideas = loadIdeas().filter((i) => !i._error);
 const targets = [];
+
+// Generated surfaces are checked too. An earlier build hardcoded a site domain that
+// had never been registered into index.json, llms.txt, the sitemap and the citation
+// string — every one of them a 404 published as a canonical URL. In a library whose
+// whole product is "our claims are checkable", that is the worst class of error, so
+// it now has a check rather than a promise.
+for (const f of ['index.json', 'llms.txt', 'README.md', 'AGENTS.md', 'CONTRIBUTING.md']) {
+  let text;
+  try { text = readFileSync(join(ROOT, f), 'utf8'); } catch { continue; }
+  for (const m of text.matchAll(/https:\/\/[^\s"'()<>\]]+/g)) {
+    const url = m[0].replace(/[.,;:*`]+$/, '');
+    if (url.includes('${') || url.includes('example.com')) continue;
+    targets.push({ url, where: f });
+  }
+}
 
 for (const i of ideas) {
   for (const [k, v] of Object.entries(i.links ?? {})) {
@@ -39,7 +56,7 @@ async function probe(url) {
           method,
           redirect: 'follow',
           signal: AbortSignal.timeout(15000),
-          headers: { 'user-agent': 'idea-library link checker (+https://ideas.broke2builtai.com)' },
+          headers: { 'user-agent': 'idea-library link checker (+https://github.com/lordbasilaiassistant-sudo/idea-library)' },
         });
         if (res.status < 400) return { ok: true, status: res.status };
         if (method === 'GET') return { ok: false, status: res.status };

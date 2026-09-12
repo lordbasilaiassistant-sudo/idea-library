@@ -1,0 +1,29 @@
+{
+  "$comment": [
+    "The PUBLIC half of the denylist. Committed on purpose.",
+    "",
+    "Class B splits in two:",
+    "  - OPERATIONAL literals (this file): local store paths that must never appear in a",
+    "    published idea. None of it is personal data, so publishing the list costs nothing",
+    "    while making the gate work for forks, outside contributors, and CI with no secret",
+    "    to configure.",
+    "  - PERSONAL literals (scripts/denylist.local.json): names, addresses, wallets.",
+    "    Gitignored, never committed, optionally supplied to CI via SCRUB_DENYLIST.",
+    "",
+    "Publishing a hash of the personal half was considered and rejected: for a low-entropy",
+    "string like a home address, a hash is a checkable oracle rather than a protection.",
+    "",
+    "Terms here must be UNAMBIGUOUS. Bare env-var names like PRIVATE_KEY or TREASURY were",
+    "tried and removed: they are ordinary words in prose about wallets, and the assigned-secret",
+    "pattern already catches the form that matters (NAME=<real value>). A denylist that fires",
+    "on legitimate writing trains people to ignore it."
+  ],
+  "terms": [
+    { "value": ".claude/secrets", "why": "local secrets store path", "severity": "critical" },
+    { "value": ".claude\\secrets", "why": "local secrets store path", "severity": "critical" },
+    { "value": "OneDrive/Desktop", "why": "local machine path", "severity": "high" },
+    { "value": "OneDrive\\Desktop", "why": "local machine path", "severity": "high" },
+    { "value": "AppData/Local", "why": "local machine path", "severity": "high" },
+    { "value": "AppData\\Local", "why": "local machine path", "severity": "high" }
+  ]
+}

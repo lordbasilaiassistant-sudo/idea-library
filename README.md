@@ -98,4 +98,9 @@ the issue body.
 ## License
 
 Prose is CC-BY-4.0, code in `code/` directories is MIT. Cite as:
-*Broke to Built — idea-library, <idea title>, https://ideas.broke2builtai.com*.
+*Broke to Built — idea-library, <idea title>, https://github.com/lordbasilaiassistant-sudo/idea-library*.
+
+There is no website yet. `data/site.json` holds `site: null`, and until that points at something
+that actually returns 200, every generated URL points at this repo and no `sitemap.xml` or
+`robots.txt` is produced. A library whose product is "our claims are checkable" does not get to
+publish canonical links that 404.

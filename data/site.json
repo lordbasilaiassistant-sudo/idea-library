@@ -1,0 +1,19 @@
+{
+  "$comment": [
+    "Where this library actually lives, and nowhere it does not.",
+    "",
+    "An earlier version of the generator hardcoded https://ideas.broke2builtai.com into",
+    "index.json, llms.txt, sitemap.xml, robots.txt, the README and the citation string.",
+    "That domain has never existed. Every one of those links was a 404 presented as a",
+    "canonical URL — which, in a library whose entire product is 'our claims are checkable',",
+    "is the worst possible thing to get wrong.",
+    "",
+    "So: `site` stays null until a site is actually deployed and returns 200. While it is",
+    "null, every generated URL points at the GitHub repo, which genuinely resolves, and the",
+    "crawler files that only make sense for a website (sitemap.xml, robots.txt) are not",
+    "generated at all. Set `site` when there is something to set it to, not before."
+  ],
+  "site": null,
+  "repo": "https://github.com/lordbasilaiassistant-sudo/idea-library",
+  "attribution": "Broke to Built - idea-library"
+}
