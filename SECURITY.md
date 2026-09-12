@@ -22,6 +22,17 @@ GitHub Actions — because a gate with one chokepoint is a gate with one bypass.
   in `data/public-addresses.allow.json` with a reason. A leak by omission is the failure an
   allowlist prevents and a denylist does not.
 
+**Commit messages are scanned too.** The `commit-msg` hook pipes the message through the same
+scanner, and CI scans every message and author line in a PR's range. An audit found this gap: the
+message body is a public surface with no other gate, and `AGENTS.md` actively asks contributors to
+put substantive evidence prose there — which is exactly the text most likely to carry a path or a
+name. Git history is far more expensive to scrub than a working tree.
+
+**The scanner scans itself.** Only its pattern table is exempt, bounded by region sentinels. The
+same audit pointed out that a blanket path exemption meant the one file a developer is most likely
+to paste a real key into — while tuning a regex to confirm it matches — was the one file the gate
+would never read.
+
 Code is imported into `ideas/**/code/` **file by file**, never by copying a directory, and each file
 is scanned individually. A file that fails is redacted and re-scanned, or left out.
 

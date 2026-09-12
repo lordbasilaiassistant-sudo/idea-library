@@ -34,8 +34,8 @@ const PLANTS = [
   ['wallet-address', j('0x', hex(40, '1'))],
   ['secrets-path', j('~/', '.clau', 'de/secr', 'ets/example.env')],
   ['windows-userpath', j('C:', '\\Us', 'ers\\somebody\\Desktop')],
-  ['email', j('someone', '@', 'example-mail.test')],
-  ['phone', j('607', '-', '555', '-', '0123')],
+  ['email', j('someone', '@', 'not-a-real-domain.example.invalid')],
+  ['phone', j('555', '-', '555', '-', '0123')],
   ['street-address', j('1 Imaginary', ' Str', 'eet')],
 ];
 

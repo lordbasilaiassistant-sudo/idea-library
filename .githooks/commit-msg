@@ -1,2 +1,11 @@
 #!/bin/sh
+# The commit MESSAGE is a public surface too, and AGENTS.md actively asks contributors
+# to put substantive evidence prose in the body — which is exactly the text most likely
+# to carry a path, a name, or a key. Scrub it before it can reach a remote.
+node scripts/scrub.mjs "$1" || {
+  echo ""
+  echo "commit-msg: BLOCKED. The commit message itself contains something that must not be published."
+  echo "Rewrite the message. Git history is far more expensive to scrub than a working tree."
+  exit 1
+}
 node scripts/commitlint.mjs --file "$1" || exit 1

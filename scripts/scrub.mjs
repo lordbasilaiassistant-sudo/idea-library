@@ -16,7 +16,7 @@
  */
 
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
-import { join, relative, sep, extname, basename } from 'node:path';
+import { join, relative, sep, extname, basename, isAbsolute } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
@@ -36,10 +36,19 @@ const BINARY_EXT = new Set([
 ]);
 const MAX_BYTES = 2 * 1024 * 1024;
 
-// scrub.mjs itself and its fixtures describe the patterns; they are exempt by
-// path, never by content.
+// Path-level exemptions are kept as small as possible. This file is deliberately NOT
+// one of them: an audit pointed out that scrub.mjs is the single file a developer is
+// most likely to paste a real key into — while tuning a regex to confirm it matches —
+// and a blanket path exemption meant the gate would never read it. Only the pattern
+// table below is skipped, via a pair of region sentinels, so every other
+// line of this file is scanned like any other.
+//
+// The three that remain are exempt because their entire purpose is to hold the
+// literals the gate matches on, and each is small enough to review by eye:
+//   denylist.local.json    — gitignored, never published
+//   denylist.example.json  — fabricated placeholders only
+//   public-addresses.allow.json — the allowlist itself
 const SELF_EXEMPT = new Set([
-  ['scripts', 'scrub.mjs'].join(sep),
   ['scripts', 'denylist.example.json'].join(sep),
   ['scripts', 'denylist.local.json'].join(sep),
   ['data', 'public-addresses.allow.json'].join(sep),
@@ -48,6 +57,8 @@ const SELF_EXEMPT = new Set([
 // ---------------------------------------------------------------------------
 // Class A — generic secret patterns.
 // ---------------------------------------------------------------------------
+/* scrub-ignore-begin — the pattern table itself. Everything OUTSIDE this block,
+   including anything you paste in below it while testing, IS scanned. */
 const PATTERNS = [
   { id: 'private-key-hex', severity: 'critical',
     why: 'looks like a 64-hex private key',
@@ -104,7 +115,7 @@ const PATTERNS = [
 
   { id: 'email', severity: 'high',
     why: 'email address — use an @broke2builtai.com role address or none',
-    re: /\b[A-Za-z0-9._%+-]+@(?!broke2builtai\.com|example\.(?:com|org)|users\.noreply\.github\.com|noreply\.anthropic\.com)[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g },
+    re: /\b[A-Za-z0-9._%+-]+@(?!broke2builtai\.com|example\.(?:com|org)|users\.noreply\.github\.com|noreply\.anthropic\.com|anthropic\.com|example-mail\.test)[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g },
 
   { id: 'phone', severity: 'high',
     why: 'looks like a phone number',
@@ -114,6 +125,7 @@ const PATTERNS = [
     why: 'looks like a street address',
     re: /\b\d{1,5}\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*\s+(?:St|Street|Ave|Avenue|Rd|Road|Blvd|Dr|Drive|Ln|Lane|Ct|Court|Way|Pl|Place)\b\.?/g },
 ];
+/* scrub-ignore-end */
 
 // ---------------------------------------------------------------------------
 // Class C — wallet addresses are DEFAULT-DENY.
@@ -215,7 +227,7 @@ function scanFile(file) {
 
   let text;
   try { text = readFileSync(file, 'utf8'); } catch { return; }
-  if (text.includes(' ')) return; // binary we did not know about
+  if (text.includes(String.fromCharCode(0))) return; // binary we did not know about
 
   const lines = text.split(/\r?\n/);
 
@@ -258,13 +270,24 @@ function scanFile(file) {
 // ---------------------------------------------------------------------------
 // Run.
 // ---------------------------------------------------------------------------
+// An explicit target may live outside the repo — the commit-msg hook passes the
+// path of .git/COMMIT_EDITMSG. Resolve absolute paths as given; a target that does
+// not resolve is a hard error, never a silent zero-file "clean" run.
 const files = TARGETS.length
   ? TARGETS.flatMap((t) => {
-      const p = join(ROOT, t);
-      if (!existsSync(p)) return [];
+      const p = isAbsolute(t) ? t : join(ROOT, t);
+      if (!existsSync(p)) {
+        console.error(`scrub: FAIL - target does not exist: ${t}`);
+        process.exit(2);
+      }
       return statSync(p).isDirectory() ? walk(p) : [p];
     })
   : walk(ROOT);
+
+if (TARGETS.length && files.length === 0) {
+  console.error('scrub: FAIL - targets resolved to zero files. Refusing to report clean.');
+  process.exit(2);
+}
 
 for (const f of files) scanFile(f);
 

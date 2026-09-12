@@ -20,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }   # rev-list over the PR range needs full history
       - uses: actions/setup-node@v4
         with: { node-version: '20' }
 
@@ -42,11 +43,23 @@ jobs:
           SCRUB_DENYLIST: /tmp/denylist.json
         run: node scripts/scrub.mjs
 
-      - name: scrub (full history of this PR's diff)
+      # Commit MESSAGES are a public surface with no other gate, and AGENTS.md asks
+      # contributors to put substantive evidence prose in the body. Scan every message
+      # in the PR range, not just the tree.
+      - name: scrub commit messages
         if: github.event_name == 'pull_request'
         env:
           SCRUB_DENYLIST: /tmp/denylist.json
-        run: node scripts/scrub.mjs --inbox || true
+        run: |
+          fail=0
+          for sha in $(git rev-list ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}); do
+            git log -1 --format='%an <%ae>%n%B' "$sha" > /tmp/msg.txt
+            if ! node scripts/scrub.mjs /tmp/msg.txt; then
+              echo "::error::commit $sha has a message or author that must not be published"
+              fail=1
+            fi
+          done
+          exit $fail
 
   validate:
     name: validate (schema, vocabulary, quotability)
