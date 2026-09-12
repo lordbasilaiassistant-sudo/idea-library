@@ -463,7 +463,7 @@
       "path": "/ideas/ai-agents/autotrader-journal-hid-losses/",
       "url": "https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/autotrader-journal-hid-losses",
       "repo_path": "ideas/ai-agents/autotrader-journal-hid-losses",
-      "updated": null,
+      "updated": "2026-09-12T15:36:28-04:00",
       "related_all": [
         "never-funded-agent",
         "safety-refusal-blocked-own-qa",
@@ -586,7 +586,7 @@
       "path": "/ideas/ai-agents/safety-refusal-blocked-own-qa/",
       "url": "https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/safety-refusal-blocked-own-qa",
       "repo_path": "ideas/ai-agents/safety-refusal-blocked-own-qa",
-      "updated": null,
+      "updated": "2026-09-12T15:36:28-04:00",
       "related_all": [
         "autotrader-journal-hid-losses"
       ]
@@ -648,7 +648,7 @@
       "path": "/ideas/automation-ops/circular-api-key-registration/",
       "url": "https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/automation-ops/circular-api-key-registration",
       "repo_path": "ideas/automation-ops/circular-api-key-registration",
-      "updated": null,
+      "updated": "2026-09-12T15:36:28-04:00",
       "related_all": [
         "deploy-time-metadata-window"
       ]
@@ -711,7 +711,7 @@
       "path": "/ideas/crypto-onchain/deploy-time-metadata-window/",
       "url": "https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/deploy-time-metadata-window",
       "repo_path": "ideas/crypto-onchain/deploy-time-metadata-window",
-      "updated": null,
+      "updated": "2026-09-12T15:36:28-04:00",
       "related_all": [
         "circular-api-key-registration",
         "fee-claim-needs-trading-first",
@@ -775,7 +775,7 @@
       "path": "/ideas/crypto-onchain/fee-claim-needs-trading-first/",
       "url": "https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/fee-claim-needs-trading-first",
       "repo_path": "ideas/crypto-onchain/fee-claim-needs-trading-first",
-      "updated": null,
+      "updated": "2026-09-12T15:36:28-04:00",
       "related_all": [
         "deploy-time-metadata-window",
         "sdk-launch-discovery-gap"
@@ -837,7 +837,7 @@
       "path": "/ideas/crypto-onchain/key-is-not-ownership/",
       "url": "https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/key-is-not-ownership",
       "repo_path": "ideas/crypto-onchain/key-is-not-ownership",
-      "updated": null,
+      "updated": "2026-09-12T15:36:28-04:00",
       "related_all": [
         "concurrent-nonce-collision",
         "never-funded-agent"
@@ -965,7 +965,7 @@
       "path": "/ideas/security-audit/secrets-committed-to-source/",
       "url": "https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/security-audit/secrets-committed-to-source",
       "repo_path": "ideas/security-audit/secrets-committed-to-source",
-      "updated": null,
+      "updated": "2026-09-12T15:36:28-04:00",
       "related_all": [
         "autotrader-journal-hid-losses"
       ]
@@ -1026,7 +1026,7 @@
       "path": "/ideas/tooling-infra/concurrent-nonce-collision/",
       "url": "https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra/concurrent-nonce-collision",
       "repo_path": "ideas/tooling-infra/concurrent-nonce-collision",
-      "updated": null,
+      "updated": "2026-09-12T15:36:28-04:00",
       "related_all": [
         "key-is-not-ownership",
         "multicall-batch-reads"

@@ -1,0 +1,50 @@
+name: wiki
+
+# The wiki is generated from the same data as index.json. A hand-maintained wiki
+# rots faster than any other surface, because nothing fails when it goes stale —
+# so it is regenerated on every push to main rather than edited in the browser.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ideas/**'
+      - 'data/**'
+      - 'scripts/wiki.mjs'
+      - 'scripts/lib/**'
+      - '.github/workflows/wiki.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wiki
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+
+      - name: Clone wiki
+        run: |
+          git clone "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git" wiki
+
+      - name: Generate
+        run: node scripts/wiki.mjs --out wiki
+
+      - name: Publish
+        working-directory: wiki
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet && git diff --cached --quiet && [ -z "$(git status --porcelain)" ]; then
+            echo "wiki already current"
+            exit 0
+          fi
+          git add -A
+          git commit -m "docs: regenerate wiki from ${{ github.sha }}"
+          git push

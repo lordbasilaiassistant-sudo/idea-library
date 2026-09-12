@@ -19,6 +19,7 @@
     "links": "node scripts/check-links.mjs",
     "commitlint": "node scripts/commitlint.mjs",
     "import": "node scripts/import.mjs",
-    "promote": "node scripts/promote.mjs"
+    "promote": "node scripts/promote.mjs",
+    "wiki": "node scripts/wiki.mjs"
   }
 }
