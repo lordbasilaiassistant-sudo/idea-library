@@ -27,7 +27,10 @@ const tax = loadTaxonomy();
 const ideas = loadIdeas().filter((i) => !i._error);
 
 /* ---------------------------------------------------------------- statics */
-const staticFiles = readdirSync(join(ROOT, 'site')).filter((f) => /\.(html|css|js|svg|png|webp|woff2?)$/.test(f));
+// `_headers` has no extension but must ship: it is what gives HTML a short edge cache,
+// so that a withdrawn entry stops being served in minutes rather than in a week.
+const staticFiles = readdirSync(join(ROOT, 'site'))
+  .filter((f) => /\.(html|css|js|svg|png|webp|woff2?)$/.test(f) || f === '_headers');
 const dataFiles = ['index.json', 'llms.txt', 'llms-full.txt', 'sitemap.xml', 'robots.txt', 'feed.xml'];
 
 for (const f of staticFiles) copyFileSync(join(ROOT, 'site', f), join(OUT, f));
