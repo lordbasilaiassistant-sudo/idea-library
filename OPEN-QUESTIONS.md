@@ -11,3 +11,9 @@ settling one of these is worth more to the library than a new idea.
 An on-chain agent created its own wallet, received no funding from us at any point, and accumulated value entirely from routes it found itself. Whether that generalises is unsettled.
 
 **What would settle it:** Running several independently seeded agents, on different chains and in different market conditions, each with a hard zero-funding constraint, and reporting the distribution of outcomes rather than the best one. A method should survive a bad month.
+
+### [A permissionless fee claim that pays nothing because no one has traded](/ideas/crypto-onchain/fee-claim-needs-trading-first/)
+
+The fee collection function was open to any caller and needed no API key, which felt like a found revenue rail until we noticed fees only exist once other people trade the token.
+
+**What would settle it:** Launch a token where volume is produced by something other than us, then claim. Until the same claim path is exercised against real third-party trading, we have tested the plumbing and not the revenue.

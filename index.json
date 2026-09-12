@@ -9,32 +9,32 @@
     "attribution": "Broke to Built - idea-library"
   },
   "counts": {
-    "total": 3,
+    "total": 11,
     "by_outcome": {
       "revenue": 0,
-      "shipped": 1,
-      "partial": 0,
-      "failed": 1,
+      "shipped": 4,
+      "partial": 1,
+      "failed": 4,
       "abandoned": 0,
-      "inconclusive": 1,
+      "inconclusive": 2,
       "active": 0,
       "parked": 0
     },
     "by_category": {
-      "crypto-onchain": 1,
-      "ai-agents": 1,
+      "crypto-onchain": 4,
+      "ai-agents": 3,
       "ml-research": 0,
-      "tooling-infra": 1,
+      "tooling-infra": 2,
       "web-saas": 0,
       "games": 0,
-      "security-audit": 0,
+      "security-audit": 1,
       "content-media": 0,
-      "automation-ops": 0,
+      "automation-ops": 1,
       "experiments": 0
     },
     "by_source": {
       "seed": 3,
-      "project-registry": 0,
+      "project-registry": 8,
       "working-directories": 0,
       "public-repos": 0,
       "older-work": 0,
@@ -43,8 +43,8 @@
       "onchain": 0,
       "community": 0
     },
-    "lessons": 12,
-    "open_questions": 1
+    "lessons": 46,
+    "open_questions": 2
   },
   "taxonomy": {
     "categories": [
@@ -353,7 +353,7 @@
       "label": "Project registry",
       "detail": "Projects already catalogued in a structured form, so the cheapest pass to run first.",
       "status": "pending",
-      "yield": 0
+      "yield": 8
     },
     {
       "id": "working-directories",
@@ -406,6 +406,70 @@
     }
   ],
   "ideas": [
+    {
+      "id": "autotrader-journal-hid-losses",
+      "title": "An automated trading fleet that reported itself as roughly break-even while losing money",
+      "description": "The fleet's own journal was the only record of its performance, and an audit found it was accounting for about a third of the actual loss.",
+      "category": "ai-agents",
+      "outcome": "failed",
+      "verdict": "The fleet lost money and its self-reported journal showed roughly a third of that loss, because the journal recorded the events the code knew how to write down rather than the money that moved.",
+      "what_would_settle_it": null,
+      "confidence": "high",
+      "started": "2026-05",
+      "ended": "2026-06",
+      "effort": "weeks",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base"
+      ],
+      "tags": [
+        "agent-harness",
+        "trading",
+        "verification-gap",
+        "silent-failure",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "agent-harness",
+          "trading"
+        ],
+        "mechanic": [
+          "verification-gap",
+          "silent-failure"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "An automated system's own log is a record of what its authors anticipated, so using it as the performance measurement means grading the system with a ruler it cut itself.",
+        "Reconcile an automated trader against wallet balance change over the period, because balance is the only number that cannot be shaped by a bug in the code that reports it.",
+        "Costs that arrive through paths the journal has no writer for - failed transactions, slippage, gas on reverts, dust left in intermediate tokens - are exactly the costs that go unrecorded.",
+        "A high request rate against several endpoints is concentration of activity rather than evidence of volume, and reading it as traction inverts what the number means."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "secrets-committed-to-source",
+        "never-funded-agent"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/ai-agents/autotrader-journal-hid-losses/",
+      "url": "https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/autotrader-journal-hid-losses",
+      "repo_path": "ideas/ai-agents/autotrader-journal-hid-losses",
+      "updated": null,
+      "related_all": [
+        "never-funded-agent",
+        "safety-refusal-blocked-own-qa",
+        "secrets-committed-to-source"
+      ]
+    },
     {
       "id": "never-funded-agent",
       "title": "Can an agent that is never given any starting capital find its own first income?",
@@ -462,7 +526,322 @@
       "url": "https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/never-funded-agent",
       "repo_path": "ideas/ai-agents/never-funded-agent",
       "updated": "2026-09-12T14:53:42-04:00",
-      "related_all": []
+      "related_all": [
+        "autotrader-journal-hid-losses",
+        "key-is-not-ownership"
+      ]
+    },
+    {
+      "id": "safety-refusal-blocked-own-qa",
+      "title": "Our own QA agents refused to test our platform because the task sounded like market manipulation",
+      "description": "Asking agents to exercise a trading platform with coordinated orders read as a request to manipulate a market, so they declined, and the honest fix was to describe the work accurately.",
+      "category": "ai-agents",
+      "outcome": "shipped",
+      "verdict": "The refusal was a correct response to how the task was worded rather than to what the task was, and rewriting the brief to describe platform QA on our own system resolved it without argument.",
+      "what_would_settle_it": null,
+      "confidence": "high",
+      "started": "2026-06",
+      "ended": "2026-06",
+      "effort": "hours",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "claude",
+        "multi-agent"
+      ],
+      "tags": [
+        "multi-agent",
+        "agent-harness",
+        "prompt-engineering",
+        "tos-boundary",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "multi-agent",
+          "agent-harness",
+          "prompt-engineering"
+        ],
+        "mechanic": [
+          "tos-boundary"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "A model refusing a task is often a judgement about the wording rather than the work, so the first diagnostic is to describe what is actually happening rather than to escalate or switch models.",
+        "Words like coordinated trading carry a specific meaning about manipulating a market you do not own, and using them for load-testing your own platform invites exactly the reading you did not intend.",
+        "If restating a task honestly makes it refusable, that is information about the task; if the honest restatement is accepted, the original wording was the problem.",
+        "Reaching for a weaker or less aligned model to get past a refusal converts a wording problem into a judgement problem and removes the check that just fired."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "autotrader-journal-hid-losses"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/ai-agents/safety-refusal-blocked-own-qa/",
+      "url": "https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/safety-refusal-blocked-own-qa",
+      "repo_path": "ideas/ai-agents/safety-refusal-blocked-own-qa",
+      "updated": null,
+      "related_all": [
+        "autotrader-journal-hid-losses"
+      ]
+    },
+    {
+      "id": "circular-api-key-registration",
+      "title": "A registration flow where you need the API key to retrieve the API key",
+      "description": "Registering an agent returned a key exactly once, every later command required that key, and re-registering the same wallet failed as already registered. Losing the key locked us out.",
+      "category": "automation-ops",
+      "outcome": "partial",
+      "verdict": "Every command including the one that shows your credentials required the key that registration returned once, so an unsaved key left the account permanently unreachable through the CLI.",
+      "what_would_settle_it": null,
+      "confidence": "high",
+      "started": "2026-04",
+      "ended": "2026-04",
+      "effort": "hours",
+      "cost_usd": 0,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "cli",
+        "base"
+      ],
+      "tags": [
+        "api-integration",
+        "cli-tooling",
+        "token-launch",
+        "api-undocumented-behavior",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "api-integration",
+          "cli-tooling",
+          "token-launch"
+        ],
+        "mechanic": [
+          "api-undocumented-behavior"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Treat any credential a registration flow prints as unrecoverable and write it to storage in the same step that creates it, before doing anything else with the response.",
+        "A CLI whose status command requires the credential it would help you find has a genuine bootstrap cycle, and the only exit is the copy you kept at registration time.",
+        "Re-registering with the same wallet or identity commonly fails as already registered rather than reissuing credentials, so the retry path you expect to exist frequently does not.",
+        "A CLI that defaults to a testnet will happily report success for work that never touched the network you meant, so pass the network explicitly on every command rather than trusting the default.",
+        "Passing a credential through an unset shell variable expands to an empty string, and the request then fails as unauthenticated rather than as malformed, which sends you debugging the wrong layer."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "deploy-time-metadata-window"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/automation-ops/circular-api-key-registration/",
+      "url": "https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/automation-ops/circular-api-key-registration",
+      "repo_path": "ideas/automation-ops/circular-api-key-registration",
+      "updated": null,
+      "related_all": [
+        "deploy-time-metadata-window"
+      ]
+    },
+    {
+      "id": "deploy-time-metadata-window",
+      "title": "Why a token's image and description cannot be fixed after deployment",
+      "description": "Launchpad indexers snapshot a token's metadata once, at deploy time. Post-deploy update calls succeed on chain, change nothing anybody sees, and give you no error to debug.",
+      "category": "crypto-onchain",
+      "outcome": "failed",
+      "verdict": "Metadata update calls after deployment succeed on chain but are never re-indexed, so every token launched with a placeholder image stayed placeholder forever with no failure signal.",
+      "what_would_settle_it": null,
+      "confidence": "high",
+      "started": "2026-04",
+      "ended": "2026-05",
+      "effort": "weeks",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "ethers",
+        "viem",
+        "base",
+        "clanker-sdk"
+      ],
+      "tags": [
+        "token-launch",
+        "smart-contracts",
+        "silent-failure",
+        "api-undocumented-behavior",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "token-launch",
+          "smart-contracts"
+        ],
+        "mechanic": [
+          "silent-failure",
+          "api-undocumented-behavior"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Launchpad indexers snapshot token metadata at deploy time only; a later updateMetadata call changes contract state without changing anything a user or aggregator will ever see.",
+        "A transaction that succeeds on chain is not evidence that the effect you wanted happened, because the part that mattered ran on an indexer that was never listening.",
+        "The listing IS the product for a launched token: image, description and links are set in the deploy transaction or not at all.",
+        "viem coerces a JavaScript object passed as a string argument into the literal text [object Object], so metadata must be JSON.stringify-ed before it goes into calldata."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "sdk-launch-discovery-gap",
+        "fee-claim-needs-trading-first"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/crypto-onchain/deploy-time-metadata-window/",
+      "url": "https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/deploy-time-metadata-window",
+      "repo_path": "ideas/crypto-onchain/deploy-time-metadata-window",
+      "updated": null,
+      "related_all": [
+        "circular-api-key-registration",
+        "fee-claim-needs-trading-first",
+        "sdk-launch-discovery-gap"
+      ]
+    },
+    {
+      "id": "fee-claim-needs-trading-first",
+      "title": "A permissionless fee claim that pays nothing because no one has traded",
+      "description": "The fee collection function was open to any caller and needed no API key, which felt like a found revenue rail until we noticed fees only exist once other people trade the token.",
+      "category": "crypto-onchain",
+      "outcome": "inconclusive",
+      "verdict": "Fee collection really is permissionless and keyless, but it is gated on trading volume that we had no mechanism to create, so the open door led to an empty room.",
+      "what_would_settle_it": "Launch a token where volume is produced by something other than us, then claim. Until the same claim path is exercised against real third-party trading, we have tested the plumbing and not the revenue.",
+      "confidence": "high",
+      "started": "2026-04",
+      "ended": null,
+      "effort": "weeks",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "viem",
+        "base"
+      ],
+      "tags": [
+        "token-launch",
+        "trading",
+        "cold-start",
+        "distribution-gap",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "token-launch",
+          "trading"
+        ],
+        "mechanic": [
+          "cold-start",
+          "distribution-gap"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "A permissionless fee-collection function is a claim mechanism, not a revenue source; the revenue is the trading that produced the fees, and that is a different problem entirely.",
+        "Removing an API key requirement removes a dependency, not a constraint, and confusing the two makes an unsolved problem look solved.",
+        "When an integrator takes a percentage cut, that cut is usually fixed in the deploy transaction, so it is a deploy-time lever and cannot be renegotiated afterwards.",
+        "Verify who is set as the integrator on a token deployed through somebody else's front end, because the front end commonly sets itself and that choice is permanent."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "deploy-time-metadata-window",
+        "sdk-launch-discovery-gap"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/crypto-onchain/fee-claim-needs-trading-first/",
+      "url": "https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/fee-claim-needs-trading-first",
+      "repo_path": "ideas/crypto-onchain/fee-claim-needs-trading-first",
+      "updated": null,
+      "related_all": [
+        "deploy-time-metadata-window",
+        "sdk-launch-discovery-gap"
+      ]
+    },
+    {
+      "id": "key-is-not-ownership",
+      "title": "Holding a wallet's private key does not mean the balance in it is recoverable",
+      "description": "A wallet we held the key for had a transaction history we had never produced, which meant somebody else also held it and the small balance inside was not ours to sweep.",
+      "category": "crypto-onchain",
+      "outcome": "failed",
+      "verdict": "The key opened the wallet but its nonce showed dozens of transactions we never sent, so the balance belonged to whoever else had the same key and the funds were written off.",
+      "what_would_settle_it": null,
+      "confidence": "high",
+      "started": "2026-05",
+      "ended": "2026-05",
+      "effort": "hours",
+      "cost_usd": 1.13,
+      "revenue_usd": 0,
+      "stack": [
+        "ethers-v6",
+        "base"
+      ],
+      "tags": [
+        "onchain-data",
+        "smart-contracts",
+        "verification-gap",
+        "worked-as-designed",
+        "prototyped"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "onchain-data",
+          "smart-contracts"
+        ],
+        "mechanic": [
+          "verification-gap",
+          "worked-as-designed"
+        ],
+        "stage": [
+          "prototyped"
+        ]
+      },
+      "lessons": [
+        "A private key proves you can sign, and proves nothing about exclusivity, so a balance in a wallet whose key you hold is only yours if nobody else has that key.",
+        "Check an address's transaction count against your own records before treating its balance as recoverable; a nonce far higher than your activity means another party is signing from it.",
+        "Keys that arrive from a generator, a tutorial, a shared script or an old backup should be assumed shared until the on-chain history says otherwise.",
+        "The amount at stake sets how much verification is worth doing, but the verification itself - read the nonce, compare to your records - costs one RPC call regardless of the amount."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "concurrent-nonce-collision",
+        "never-funded-agent"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/crypto-onchain/key-is-not-ownership/",
+      "url": "https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/key-is-not-ownership",
+      "repo_path": "ideas/crypto-onchain/key-is-not-ownership",
+      "updated": null,
+      "related_all": [
+        "concurrent-nonce-collision",
+        "never-funded-agent"
+      ]
     },
     {
       "id": "sdk-launch-discovery-gap",
@@ -523,6 +902,133 @@
       "repo_path": "ideas/crypto-onchain/sdk-launch-discovery-gap",
       "updated": "2026-09-12T14:53:42-04:00",
       "related_all": [
+        "deploy-time-metadata-window",
+        "fee-claim-needs-trading-first",
+        "multicall-batch-reads"
+      ]
+    },
+    {
+      "id": "secrets-committed-to-source",
+      "title": "An audit of our own app found a database password, an auth secret and an admin key in the source",
+      "description": "A four-agent security pass over a shipped web app turned up three hardcoded credentials, an unauthenticated treasury endpoint, and a cron that failed open instead of closed.",
+      "category": "security-audit",
+      "outcome": "shipped",
+      "verdict": "Nothing was exploited, but the findings were only found because we ran a deliberate audit, which means the same class of mistake had been shipping unnoticed for as long as the app had existed.",
+      "what_would_settle_it": null,
+      "confidence": "high",
+      "started": "2026-02",
+      "ended": "2026-02",
+      "effort": "days",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "nextjs",
+        "postgres",
+        "solidity",
+        "base"
+      ],
+      "tags": [
+        "smart-contracts",
+        "api-integration",
+        "verification-gap",
+        "worked-as-designed",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "smart-contracts",
+          "api-integration"
+        ],
+        "mechanic": [
+          "verification-gap",
+          "worked-as-designed"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Hardcoded credentials survive in a codebase because nothing routine ever looks for them; every commit hook, test and code review we had passed them without comment.",
+        "A scheduled job that fails open turns an outage in one dependency into an authorisation bypass, so cron and webhook handlers should deny by default when a check cannot complete.",
+        "An endpoint that triggers a treasury action needs authentication even when it is undocumented, because obscurity of a route is not a control over it.",
+        "Error handlers that return the raw exception message leak schema names, file paths and query fragments to anyone who can provoke a failure.",
+        "A payment or claim flow needs a database-level uniqueness constraint rather than an application-level check, because two concurrent requests will both pass the check before either writes."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "autotrader-journal-hid-losses"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/security-audit/secrets-committed-to-source/",
+      "url": "https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/security-audit/secrets-committed-to-source",
+      "repo_path": "ideas/security-audit/secrets-committed-to-source",
+      "updated": null,
+      "related_all": [
+        "autotrader-journal-hid-losses"
+      ]
+    },
+    {
+      "id": "concurrent-nonce-collision",
+      "title": "Why a wallet script kept failing when a live backend shared the same key",
+      "description": "A consolidation script read the wallet nonce once and built its transactions from it, while a production backend was signing from the same key, so half the sends collided and vanished.",
+      "category": "tooling-infra",
+      "outcome": "shipped",
+      "verdict": "Caching the nonce at startup is correct only for a key nobody else is using, and the fix was to refetch the pending nonce immediately before every single send.",
+      "what_would_settle_it": null,
+      "confidence": "high",
+      "started": "2026-05",
+      "ended": "2026-05",
+      "effort": "hours",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base"
+      ],
+      "tags": [
+        "smart-contracts",
+        "onchain-data",
+        "silent-failure",
+        "wrong-abstraction",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "smart-contracts",
+          "onchain-data"
+        ],
+        "mechanic": [
+          "silent-failure",
+          "wrong-abstraction"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "A transaction nonce is shared mutable state belonging to the account, not to your script, so any key a live service also signs with makes a cached nonce wrong the moment you read it.",
+        "Refetch the pending nonce immediately before each send rather than incrementing a local counter, whenever there is any chance another process signs from the same key.",
+        "A replaced transaction fails in a way that looks like a network problem rather than a logic problem, which sends you debugging the RPC instead of the assumption.",
+        "An operational wallet used by a running backend should not also be the wallet your maintenance scripts sign from; the collision is a symptom of the key doing two jobs."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "multicall-batch-reads"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/tooling-infra/concurrent-nonce-collision/",
+      "url": "https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra/concurrent-nonce-collision",
+      "repo_path": "ideas/tooling-infra/concurrent-nonce-collision",
+      "updated": null,
+      "related_all": [
+        "key-is-not-ownership",
         "multicall-batch-reads"
       ]
     },
@@ -585,6 +1091,7 @@
       "repo_path": "ideas/tooling-infra/multicall-batch-reads",
       "updated": "2026-09-12T14:53:42-04:00",
       "related_all": [
+        "concurrent-nonce-collision",
         "sdk-launch-discovery-gap"
       ]
     }

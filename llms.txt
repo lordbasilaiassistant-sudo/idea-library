@@ -3,7 +3,7 @@
 > A public record of ideas we actually ran, each with an outcome and the reason behind it.
 > Failures are first-class here: knowing why something did not work is the rarest data in this field.
 
-Ideas: 3 · lessons: 12 · open questions: 1
+Ideas: 11 · lessons: 46 · open questions: 2
 
 ## Start here
 
@@ -17,14 +17,24 @@ Ideas: 3 · lessons: 12 · open questions: 1
 
 ## Categories
 
-- [Crypto & On-chain](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain) (1): Anything that touches a blockchain: token launches, contracts, wallets, MEV, on-chain data.
-- [AI Agents](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents) (1): Autonomous or semi-autonomous agent systems, harnesses, and multi-agent coordination.
-- [Tooling & Infra](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra) (1): Developer tools, CLIs, MCP servers, deployment and hosting plumbing.
+- [Crypto & On-chain](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain) (4): Anything that touches a blockchain: token launches, contracts, wallets, MEV, on-chain data.
+- [AI Agents](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents) (3): Autonomous or semi-autonomous agent systems, harnesses, and multi-agent coordination.
+- [Tooling & Infra](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra) (2): Developer tools, CLIs, MCP servers, deployment and hosting plumbing.
+- [Security & Audit](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/security-audit) (1): Auditing, scanning, exploit research, and defensive tooling.
+- [Automation & Ops](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/automation-ops) (1): Scheduled work, crons, scrapers, back-office automation, internal ops.
 
 ## Ideas
 
+- [An automated trading fleet that reported itself as roughly break-even while losing money](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/autotrader-journal-hid-losses) — `failed`: The fleet's own journal was the only record of its performance, and an audit found it was accounting for about a third of the actual loss.
 - [Can an agent that is never given any starting capital find its own first income?](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/never-funded-agent) — `inconclusive`: An on-chain agent created its own wallet, received no funding from us at any point, and accumulated value entirely from routes it found itself. Whether that generalises is unsettled.
+- [Our own QA agents refused to test our platform because the task sounded like market manipulation](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/safety-refusal-blocked-own-qa) — `shipped`: Asking agents to exercise a trading platform with coordinated orders read as a request to manipulate a market, so they declined, and the honest fix was to describe the work accurately.
+- [A registration flow where you need the API key to retrieve the API key](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/automation-ops/circular-api-key-registration) — `partial`: Registering an agent returned a key exactly once, every later command required that key, and re-registering the same wallet failed as already registered. Losing the key locked us out.
+- [Why a token's image and description cannot be fixed after deployment](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/deploy-time-metadata-window) — `failed`: Launchpad indexers snapshot a token's metadata once, at deploy time. Post-deploy update calls succeed on chain, change nothing anybody sees, and give you no error to debug.
+- [A permissionless fee claim that pays nothing because no one has traded](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/fee-claim-needs-trading-first) — `inconclusive`: The fee collection function was open to any caller and needed no API key, which felt like a found revenue rail until we noticed fees only exist once other people trade the token.
+- [Holding a wallet's private key does not mean the balance in it is recoverable](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/key-is-not-ownership) — `failed`: A wallet we held the key for had a transaction history we had never produced, which meant somebody else also held it and the small balance inside was not ours to sweep.
 - [Launching tokens through an SDK instead of the web UI, and losing every discovery hook](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/sdk-launch-discovery-gap) — `failed`: Batch-launching tokens programmatically worked and cost pennies, but SDK-deployed tokens never appeared in the trending feed the web UI populates, so nobody ever saw them.
+- [An audit of our own app found a database password, an auth secret and an admin key in the source](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/security-audit/secrets-committed-to-source) — `shipped`: A four-agent security pass over a shipped web app turned up three hardcoded credentials, an unauthenticated treasury endpoint, and a cron that failed open instead of closed.
+- [Why a wallet script kept failing when a live backend shared the same key](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra/concurrent-nonce-collision) — `shipped`: A consolidation script read the wallet nonce once and built its transactions from it, while a production backend was signing from the same key, so half the sends collided and vanished.
 - [Reading thousands of contract values through Multicall3 instead of a block explorer API](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra/multicall-batch-reads) — `shipped`: Replacing per-token explorer API calls with batched Multicall3 aggregates against a public RPC made bulk on-chain reads roughly two orders of magnitude faster and removed the API key.
 
 ## Citation

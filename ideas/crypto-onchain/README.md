@@ -4,10 +4,13 @@
 
 Anything that touches a blockchain: token launches, contracts, wallets, MEV, on-chain data.
 
-1 idea(s).
+4 idea(s).
 
 | Idea | Outcome | Effort | Cost | Why |
 |---|---|---|---|---|
+| [Why a token's image and description cannot be fixed after deployment](/ideas/crypto-onchain/deploy-time-metadata-window/) | `failed` | weeks | — | Metadata update calls after deployment succeed on chain but are never re-indexed, so every token launched with a placeholder image stayed placeholder forever with no failure signal. |
+| [A permissionless fee claim that pays nothing because no one has traded](/ideas/crypto-onchain/fee-claim-needs-trading-first/) | `inconclusive` | weeks | — | Fee collection really is permissionless and keyless, but it is gated on trading volume that we had no mechanism to create, so the open door led to an empty room. |
+| [Holding a wallet's private key does not mean the balance in it is recoverable](/ideas/crypto-onchain/key-is-not-ownership/) | `failed` | hours | $1.13 | The key opened the wallet but its nonce showed dozens of transactions we never sent, so the balance belonged to whoever else had the same key and the funds were written off. |
 | [Launching tokens through an SDK instead of the web UI, and losing every discovery hook](/ideas/crypto-onchain/sdk-launch-discovery-gap/) | `failed` | weeks | $0.48 | The SDK deploy produced identical on-chain state to a web-UI deploy but skipped the platform's server-side discovery hooks, so the launches were invisible and the cheap batch pipeline had nothing to feed. |
 
 [← all categories](https://github.com/lordbasilaiassistant-sudo/idea-library#categories)

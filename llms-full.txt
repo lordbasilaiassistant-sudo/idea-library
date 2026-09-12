@@ -3,7 +3,7 @@
 > A public record of ideas we actually ran, each with an outcome and the reason behind it.
 > Failures are first-class here: knowing why something did not work is the rarest data in this field.
 
-Ideas: 3 · lessons: 12 · open questions: 1
+Ideas: 11 · lessons: 46 · open questions: 2
 
 ## Start here
 
@@ -17,14 +17,24 @@ Ideas: 3 · lessons: 12 · open questions: 1
 
 ## Categories
 
-- [Crypto & On-chain](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain) (1): Anything that touches a blockchain: token launches, contracts, wallets, MEV, on-chain data.
-- [AI Agents](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents) (1): Autonomous or semi-autonomous agent systems, harnesses, and multi-agent coordination.
-- [Tooling & Infra](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra) (1): Developer tools, CLIs, MCP servers, deployment and hosting plumbing.
+- [Crypto & On-chain](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain) (4): Anything that touches a blockchain: token launches, contracts, wallets, MEV, on-chain data.
+- [AI Agents](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents) (3): Autonomous or semi-autonomous agent systems, harnesses, and multi-agent coordination.
+- [Tooling & Infra](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra) (2): Developer tools, CLIs, MCP servers, deployment and hosting plumbing.
+- [Security & Audit](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/security-audit) (1): Auditing, scanning, exploit research, and defensive tooling.
+- [Automation & Ops](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/automation-ops) (1): Scheduled work, crons, scrapers, back-office automation, internal ops.
 
 ## Ideas
 
+- [An automated trading fleet that reported itself as roughly break-even while losing money](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/autotrader-journal-hid-losses) — `failed`: The fleet's own journal was the only record of its performance, and an audit found it was accounting for about a third of the actual loss.
 - [Can an agent that is never given any starting capital find its own first income?](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/never-funded-agent) — `inconclusive`: An on-chain agent created its own wallet, received no funding from us at any point, and accumulated value entirely from routes it found itself. Whether that generalises is unsettled.
+- [Our own QA agents refused to test our platform because the task sounded like market manipulation](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/safety-refusal-blocked-own-qa) — `shipped`: Asking agents to exercise a trading platform with coordinated orders read as a request to manipulate a market, so they declined, and the honest fix was to describe the work accurately.
+- [A registration flow where you need the API key to retrieve the API key](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/automation-ops/circular-api-key-registration) — `partial`: Registering an agent returned a key exactly once, every later command required that key, and re-registering the same wallet failed as already registered. Losing the key locked us out.
+- [Why a token's image and description cannot be fixed after deployment](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/deploy-time-metadata-window) — `failed`: Launchpad indexers snapshot a token's metadata once, at deploy time. Post-deploy update calls succeed on chain, change nothing anybody sees, and give you no error to debug.
+- [A permissionless fee claim that pays nothing because no one has traded](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/fee-claim-needs-trading-first) — `inconclusive`: The fee collection function was open to any caller and needed no API key, which felt like a found revenue rail until we noticed fees only exist once other people trade the token.
+- [Holding a wallet's private key does not mean the balance in it is recoverable](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/key-is-not-ownership) — `failed`: A wallet we held the key for had a transaction history we had never produced, which meant somebody else also held it and the small balance inside was not ours to sweep.
 - [Launching tokens through an SDK instead of the web UI, and losing every discovery hook](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/sdk-launch-discovery-gap) — `failed`: Batch-launching tokens programmatically worked and cost pennies, but SDK-deployed tokens never appeared in the trending feed the web UI populates, so nobody ever saw them.
+- [An audit of our own app found a database password, an auth secret and an admin key in the source](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/security-audit/secrets-committed-to-source) — `shipped`: A four-agent security pass over a shipped web app turned up three hardcoded credentials, an unauthenticated treasury endpoint, and a cron that failed open instead of closed.
+- [Why a wallet script kept failing when a live backend shared the same key](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra/concurrent-nonce-collision) — `shipped`: A consolidation script read the wallet nonce once and built its transactions from it, while a production backend was signing from the same key, so half the sends collided and vanished.
 - [Reading thousands of contract values through Multicall3 instead of a block explorer API](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra/multicall-batch-reads) — `shipped`: Replacing per-token explorer API calls with batched Multicall3 aggregates against a public RPC made bulk on-chain reads roughly two orders of magnitude faster and removed the API key.
 
 ## Citation
@@ -35,6 +45,70 @@ Prose CC-BY-4.0, code MIT. Cite as: Broke to Built - idea-library, <idea title>,
 ---
 
 # Full corpus
+
+## An automated trading fleet that reported itself as roughly break-even while losing money
+
+- id: autotrader-journal-hid-losses
+- url: https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/autotrader-journal-hid-losses
+- category: ai-agents
+- outcome: failed (confidence: high)
+- verdict: The fleet lost money and its self-reported journal showed roughly a third of that loss, because the journal recorded the events the code knew how to write down rather than the money that moved.
+- effort: weeks · revenue: $0
+- tags: agent-harness, trading, verification-gap, silent-failure, deployed
+
+### Lessons
+- An automated system's own log is a record of what its authors anticipated, so using it as the performance measurement means grading the system with a ruler it cut itself.
+- Reconcile an automated trader against wallet balance change over the period, because balance is the only number that cannot be shaped by a bug in the code that reports it.
+- Costs that arrive through paths the journal has no writer for - failed transactions, slippage, gas on reverts, dust left in intermediate tokens - are exactly the costs that go unrecorded.
+- A high request rate against several endpoints is concentration of activity rather than evidence of volume, and reading it as traction inverts what the number means.
+
+## What we tried
+
+We ran a fleet of automated trading agents and instrumented them to write a journal of every action:
+entries, exits, sizes, outcomes. The journal was the dashboard, the debugging surface, and the
+performance record.
+
+## Why we thought it would work
+
+Instrumenting your own system is standard practice, and the journal was detailed. It had per-trade
+records and rolled up cleanly. There was no reason on the face of it to distrust it — it was written
+by the same careful process as the trading logic.
+
+## What actually happened
+
+An audit that reconciled the journal against actual wallet balances found the fleet had lost
+meaningfully more than it reported. The journal captured roughly a third of the real loss.
+
+Nothing in it was falsified. It recorded, accurately, every event for which somebody had written a
+recording path. What it missed were the costs with no writer: reverted transactions that consumed
+gas, slippage between the quoted and executed price, dust stranded in intermediate tokens, and
+retries that each cost something. Every one of those is a real debit and none of them looked like a
+"trade" to the code.
+
+We had also been reading a high request rate across several RPC endpoints as a sign of activity.
+It was concentration — the same work hitting more endpoints — not more work.
+
+## Why it worked / why it failed
+
+The failure was epistemic, not financial. The money was gone either way; what made it a compound
+failure is that our measurement instrument was built by the same process as the thing being
+measured, and shared its blind spots exactly. A bug in the trading logic and a gap in the journal
+have a common cause, so the journal is least trustworthy precisely when it matters most.
+
+The general form: any system that grades itself will pass. This is the same reason a test you wrote
+for your own code proves less than one written by somebody who has not seen it.
+
+## What you would need to change
+
+Measure with something the system does not control. Wallet balance at the start of the period versus
+balance at the end, net of deposits, is crude, complete, and impossible for a logging bug to distort.
+Use the journal for diagnosis — it is genuinely good at telling you why — but never for scoring. If
+the two disagree, the balance is right.
+
+## What to reuse
+
+The reconciliation habit. For anything automated that touches money, define the ground-truth number
+before you build the instrumentation, and make it a number that comes from outside the system.
 
 ## Can an agent that is never given any starting capital find its own first income?
 
@@ -98,6 +172,312 @@ The constraint mechanism rather than the agent. Put the no-funding rule in the c
 send value, make it refuse rather than warn, and write the verification as a query over chain
 history so the claim can be checked by somebody who does not trust you.
 
+## Our own QA agents refused to test our platform because the task sounded like market manipulation
+
+- id: safety-refusal-blocked-own-qa
+- url: https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/safety-refusal-blocked-own-qa
+- category: ai-agents
+- outcome: shipped (confidence: high)
+- verdict: The refusal was a correct response to how the task was worded rather than to what the task was, and rewriting the brief to describe platform QA on our own system resolved it without argument.
+- effort: hours · revenue: $0
+- tags: multi-agent, agent-harness, prompt-engineering, tos-boundary, deployed
+
+### Lessons
+- A model refusing a task is often a judgement about the wording rather than the work, so the first diagnostic is to describe what is actually happening rather than to escalate or switch models.
+- Words like coordinated trading carry a specific meaning about manipulating a market you do not own, and using them for load-testing your own platform invites exactly the reading you did not intend.
+- If restating a task honestly makes it refusable, that is information about the task; if the honest restatement is accepted, the original wording was the problem.
+- Reaching for a weaker or less aligned model to get past a refusal converts a wording problem into a judgement problem and removes the check that just fired.
+
+## What we tried
+
+We wanted agents to exercise a trading platform we had built: place many orders across many
+accounts, in patterns, to see how the matching and liquidity logic held up under load. The brief
+described this as coordinated trading across a fleet of wallets.
+
+## Why we thought it would work
+
+It was our platform, our test tokens, and our money on both sides of every trade. From inside the
+project it was obviously a load test, so the refusals were surprising.
+
+## What actually happened
+
+The agents declined. Not all of them, not always, but often enough to make the workflow unusable —
+and inconsistently, which was worse than a flat refusal because it looked like flakiness.
+
+Rewriting the brief fixed it completely. The new version said what was true: this is quality
+assurance against a platform we operate, with accounts we control, to find failure modes in our own
+matching engine. Same work, same actions, no refusals.
+
+## Why it worked / why it failed
+
+"Coordinated trading" describes a real category of market abuse, and a model reading that phrase has
+no way to know from the phrase alone that the market belongs to the person asking. The refusal was
+well-calibrated to the description it was given. Our brief was inaccurate — not dishonestly, but
+lazily, using insider shorthand that had a specific adverse meaning outside the project.
+
+The reason this is worth recording is the tempting wrong fix. When a model refuses, the reflex is to
+route around it: try a different model, split the task so no single step looks bad, or wrap it in
+framing designed to slip past. All of those degrade the signal. The check fired on a genuine
+ambiguity in what we said, and the fix that costs nothing is to stop being ambiguous.
+
+## What you would need to change
+
+Nothing about the models. Write briefs that state the ownership and the purpose explicitly, because
+a task's legitimacy usually lives in facts the wording omits — whose system, whose money, whose
+consent. If you find yourself unable to write an accurate description that survives review, the
+refusal has told you something useful and you should listen rather than route around it.
+
+## What to reuse
+
+The diagnostic order: rewrite honestly first, and only then conclude the model is wrong. In our case
+the honest version was both shorter and more accurate, which is the usual outcome.
+
+## A registration flow where you need the API key to retrieve the API key
+
+- id: circular-api-key-registration
+- url: https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/automation-ops/circular-api-key-registration
+- category: automation-ops
+- outcome: partial (confidence: high)
+- verdict: Every command including the one that shows your credentials required the key that registration returned once, so an unsaved key left the account permanently unreachable through the CLI.
+- effort: hours · cost: $0 · revenue: $0
+- tags: api-integration, cli-tooling, token-launch, api-undocumented-behavior, deployed
+
+### Lessons
+- Treat any credential a registration flow prints as unrecoverable and write it to storage in the same step that creates it, before doing anything else with the response.
+- A CLI whose status command requires the credential it would help you find has a genuine bootstrap cycle, and the only exit is the copy you kept at registration time.
+- Re-registering with the same wallet or identity commonly fails as already registered rather than reissuing credentials, so the retry path you expect to exist frequently does not.
+- A CLI that defaults to a testnet will happily report success for work that never touched the network you meant, so pass the network explicitly on every command rather than trusting the default.
+- Passing a credential through an unset shell variable expands to an empty string, and the request then fails as unauthenticated rather than as malformed, which sends you debugging the wrong layer.
+
+## What we tried
+
+We registered an automated agent with a third-party launch service through its CLI, intending to
+drive it on a schedule. Registration succeeded and printed an API key.
+
+## Why we thought it would work
+
+Standard shape: register, get a key, use the key. We expected a dashboard, a re-issue command, or at
+minimum a way to read the key back from the account we had just created.
+
+## What actually happened
+
+The key was printed once. Every subsequent command — including the status command that reports your
+agent's configuration — required it as an argument. Attempting to register again with the same
+wallet returned "already registered" rather than reissuing, so there was no path back to a key we
+had not saved.
+
+Two smaller traps sat alongside it. The CLI defaulted to a testnet, so commands appeared to succeed
+while operating on a network we did not care about, and had to be given the network explicitly every
+time. And passing the key through a shell variable that was not set expanded to an empty string,
+producing an authentication failure that looked like a bad key rather than a missing one.
+
+## Why it worked / why it failed
+
+`partial` because the service worked once configured; what failed was everything around obtaining
+and holding the credential. The bootstrap cycle is real and has no software workaround: the only
+copy of the key is the one you captured at the moment it was issued.
+
+None of these are exotic. They are the ordinary texture of integrating against a young tool, and the
+reason they cost hours rather than minutes is that each one fails in a way that points somewhere
+else — the testnet default looks like success, the empty variable looks like a rejected key, and the
+re-registration error looks like the account already being set up correctly.
+
+## What you would need to change
+
+On our side: capture credentials to persistent storage inside the same step that creates them, and
+never let a registration response pass through a terminal as its only home. On the service's side,
+a re-issue path would remove the cycle entirely.
+
+## What to reuse
+
+A habit for any new CLI or API: assume a printed credential is issued exactly once, assume the
+default network or environment is not the one you want, and echo the variable you are about to
+interpolate before you interpolate it.
+
+## Why a token's image and description cannot be fixed after deployment
+
+- id: deploy-time-metadata-window
+- url: https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/deploy-time-metadata-window
+- category: crypto-onchain
+- outcome: failed (confidence: high)
+- verdict: Metadata update calls after deployment succeed on chain but are never re-indexed, so every token launched with a placeholder image stayed placeholder forever with no failure signal.
+- effort: weeks · revenue: $0
+- tags: token-launch, smart-contracts, silent-failure, api-undocumented-behavior, deployed
+
+### Lessons
+- Launchpad indexers snapshot token metadata at deploy time only; a later updateMetadata call changes contract state without changing anything a user or aggregator will ever see.
+- A transaction that succeeds on chain is not evidence that the effect you wanted happened, because the part that mattered ran on an indexer that was never listening.
+- The listing IS the product for a launched token: image, description and links are set in the deploy transaction or not at all.
+- viem coerces a JavaScript object passed as a string argument into the literal text [object Object], so metadata must be JSON.stringify-ed before it goes into calldata.
+
+## What we tried
+
+We deployed tokens quickly with placeholder metadata, intending to set the real image, description
+and social links afterwards through the launchpad contract's `updateMetadata` and `updateImage`
+functions. Those functions exist, are permissioned to the token admin, and were called successfully.
+
+## Why we thought it would work
+
+The functions are on the contract, they are documented, and they emit events. Every mental model
+from ordinary web development says that a record you can update is a record that will display the
+update. Deploying fast and polishing after is also the correct instinct almost everywhere else.
+
+## What actually happened
+
+The transactions succeeded. Contract state changed. Nothing visible changed — not on the launchpad's
+own site, not in the trending feed, not on the price aggregators. The tokens kept the placeholder
+image permanently. There was no error, no warning, and no failed transaction to investigate, which
+is why it took multiple launches to notice rather than one.
+
+A second, separate version of the same trap: passing a JavaScript object where the ABI expects a
+string produced the literal text `[object Object]` in the deployed metadata, again with a
+successful transaction.
+
+## Why it worked / why it failed
+
+The indexer that populates every user-visible surface reads the token's metadata once, when it first
+sees the deployment, and never re-reads it. The update function is real and the event is real, but
+nothing downstream subscribes to it. The on-chain write and the thing we actually wanted were two
+different systems, and only one of them was listening.
+
+This is the silent-failure shape at its purest: the feedback channel confirmed the part that did not
+matter. A 2xx, a green transaction, or a state change is not evidence that the effect landed.
+
+## What you would need to change
+
+Set everything in the deploy transaction. Treat the deploy call as a one-shot publish with no edit
+afterwards, and build the metadata — including the hosted image URL — before you deploy anything.
+The verdict would only flip if an indexer began watching update events, which is a change on the
+platform's side that no amount of client work can force.
+
+## What to reuse
+
+The habit rather than the code: after any write whose visible effect lives in somebody else's
+system, go and look at that system. "The transaction succeeded" answers a question you were not
+asking.
+
+## A permissionless fee claim that pays nothing because no one has traded
+
+- id: fee-claim-needs-trading-first
+- url: https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/fee-claim-needs-trading-first
+- category: crypto-onchain
+- outcome: inconclusive (confidence: high)
+- verdict: Fee collection really is permissionless and keyless, but it is gated on trading volume that we had no mechanism to create, so the open door led to an empty room.
+- what would settle it: Launch a token where volume is produced by something other than us, then claim. Until the same claim path is exercised against real third-party trading, we have tested the plumbing and not the revenue.
+- effort: weeks · revenue: $0
+- tags: token-launch, trading, cold-start, distribution-gap, deployed
+
+### Lessons
+- A permissionless fee-collection function is a claim mechanism, not a revenue source; the revenue is the trading that produced the fees, and that is a different problem entirely.
+- Removing an API key requirement removes a dependency, not a constraint, and confusing the two makes an unsolved problem look solved.
+- When an integrator takes a percentage cut, that cut is usually fixed in the deploy transaction, so it is a deploy-time lever and cannot be renegotiated afterwards.
+- Verify who is set as the integrator on a token deployed through somebody else's front end, because the front end commonly sets itself and that choice is permanent.
+
+## What we tried
+
+We traced the fee path for tokens launched through a third-party front end and found that the
+underlying fee manager exposed a `collectFees` call that any address could make. No sign-in, no API
+key, no dashboard. We built the claim tooling and ran it on a schedule.
+
+## Why we thought it would work
+
+A permissionless function that moves money to a fee owner reads like a rail: no gatekeeper, no
+account to get banned, nothing to rate limit. Compared to every other revenue path we had looked
+at, the absence of an authentication step made it look unusually available.
+
+## What actually happened
+
+The claim worked. It claimed nothing, repeatedly, because fees accrue only when somebody swaps the
+token, and nobody was swapping. We had built a correct, cheap, reliable mechanism for collecting a
+number that was zero.
+
+We also found that the front end used to deploy had written itself in as the integrator, taking a
+percentage of fees that would have existed had there been any — a parameter fixed in the deploy
+transaction and unchangeable afterwards.
+
+## Why it worked / why it failed
+
+Neither, which is why this is `inconclusive` rather than `failed`. The claim path is genuinely
+sound and we would use it again. What we never tested is the thing it depends on. We had mistaken
+the absence of an access barrier for the presence of an opportunity, and those look identical right
+up until you measure the output.
+
+The pattern generalises past crypto: any "free money if you just call this endpoint" is really a
+question about who generates the underlying activity, and the answer is almost never you.
+
+## What you would need to change
+
+Produce, or borrow, real third-party volume first, and only then judge the claim path. The
+threshold that would flip this to `shipped` is a single claim that returns more than the gas it
+cost, paid for by trades we did not make. If you are launching through somebody else's interface,
+inspect the integrator field before deploying, because it is your only chance to set it.
+
+## What to reuse
+
+The diagnostic question, which cost us weeks to learn to ask: when something is permissionless,
+find out what it is gated on instead. Access and availability are not the same constraint, and the
+binding one is rarely the one with a login form.
+
+## Holding a wallet's private key does not mean the balance in it is recoverable
+
+- id: key-is-not-ownership
+- url: https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/key-is-not-ownership
+- category: crypto-onchain
+- outcome: failed (confidence: high)
+- verdict: The key opened the wallet but its nonce showed dozens of transactions we never sent, so the balance belonged to whoever else had the same key and the funds were written off.
+- effort: hours · cost: $1.13 · revenue: $0
+- tags: onchain-data, smart-contracts, verification-gap, worked-as-designed, prototyped
+
+### Lessons
+- A private key proves you can sign, and proves nothing about exclusivity, so a balance in a wallet whose key you hold is only yours if nobody else has that key.
+- Check an address's transaction count against your own records before treating its balance as recoverable; a nonce far higher than your activity means another party is signing from it.
+- Keys that arrive from a generator, a tutorial, a shared script or an old backup should be assumed shared until the on-chain history says otherwise.
+- The amount at stake sets how much verification is worth doing, but the verification itself - read the nonce, compare to your records - costs one RPC call regardless of the amount.
+
+## What we tried
+
+While consolidating scattered funds we found an old wallet we had the private key for, holding a
+small balance. The plan was to sweep it into the main account along with everything else.
+
+## Why we thought it would work
+
+We had the key. In every mental model of a crypto wallet, the key is ownership: whoever holds it
+controls the funds. Nothing about the situation looked unusual.
+
+## What actually happened
+
+Before sweeping we read the account's transaction count and found dozens of transactions we had no
+record of sending. The wallet had an activity history that was not ours. Whatever the balance was
+doing there, it was being managed by somebody else who held the same key, and a sweep would have
+been taking their funds rather than recovering ours.
+
+We left it alone and wrote off the balance — a little over a dollar.
+
+## Why it worked / why it failed
+
+It failed in the useful direction: we discovered the ambiguity before acting on it rather than
+after. The check that caught it was one RPC call.
+
+The underlying mistake was treating "I can sign for this address" as equivalent to "this address is
+mine". Those come apart whenever a key has an origin you do not fully control — generated by a
+shared script, copied from a tutorial, restored from a backup somebody else also restored, or
+derived from a seed used in more than one place. Exclusivity is an assumption, and it is checkable.
+
+The stakes here were a rounding error. The same reasoning error at a larger balance is how people
+take funds that are not theirs while sincerely believing otherwise.
+
+## What you would need to change
+
+Nothing would make this wallet recoverable; the key is shared and that is permanent. What changes is
+the procedure: before treating any found key as a recovery, compare the address's nonce and transfer
+history against your own records, and treat any activity you cannot account for as a hard stop.
+
+## What to reuse
+
+The one-line check. Read the transaction count, compare it to what you know you did, and stop if
+they disagree. It costs a single call and it is the difference between recovering your own funds and
+quietly spending somebody else's.
+
 ## Launching tokens through an SDK instead of the web UI, and losing every discovery hook
 
 - id: sdk-launch-discovery-gap
@@ -158,6 +538,132 @@ rather than the platform's own feed.
 
 Nothing in the pipeline is worth lifting, and that is the finding. The transferable artifact is the
 test order: confirm that the output can be found before you spend a week making the output cheaper.
+
+## An audit of our own app found a database password, an auth secret and an admin key in the source
+
+- id: secrets-committed-to-source
+- url: https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/security-audit/secrets-committed-to-source
+- category: security-audit
+- outcome: shipped (confidence: high)
+- verdict: Nothing was exploited, but the findings were only found because we ran a deliberate audit, which means the same class of mistake had been shipping unnoticed for as long as the app had existed.
+- effort: days · revenue: $0
+- tags: smart-contracts, api-integration, verification-gap, worked-as-designed, deployed
+
+### Lessons
+- Hardcoded credentials survive in a codebase because nothing routine ever looks for them; every commit hook, test and code review we had passed them without comment.
+- A scheduled job that fails open turns an outage in one dependency into an authorisation bypass, so cron and webhook handlers should deny by default when a check cannot complete.
+- An endpoint that triggers a treasury action needs authentication even when it is undocumented, because obscurity of a route is not a control over it.
+- Error handlers that return the raw exception message leak schema names, file paths and query fragments to anyone who can provoke a failure.
+- A payment or claim flow needs a database-level uniqueness constraint rather than an application-level check, because two concurrent requests will both pass the check before either writes.
+
+## What we tried
+
+We ran a deliberate security pass over a live web application and its contracts, using several
+agents working in parallel on different surfaces — contracts, backend, frontend, infrastructure —
+rather than a single review. Roughly thirty distinct tasks came out of it.
+
+## Why we thought it would work
+
+We did not expect much. The app worked, had been running for a while, and had been read many times
+during development. The audit was scheduled as diligence rather than because anything looked wrong,
+which turned out to be the point.
+
+## What actually happened
+
+It found a database password, an authentication secret, and an admin key hardcoded in committed
+source. It found an endpoint that triggered a treasury operation with no authentication at all. It
+found a scheduled job that, when its verification step errored, proceeded as though verification had
+passed. It found a claim flow where two concurrent requests could both succeed, and more than twenty
+places where a raw exception message was returned to the caller.
+
+All of it was fixed. None of it had been exploited as far as we could tell. But none of it had been
+noticed either, across every prior read of the same code.
+
+## Why it worked / why it failed
+
+The audit worked because it was a different activity from development, run by readers whose only
+job was to look for this class of thing. Ordinary development attention slides straight past a
+hardcoded password, because when you are reading for behaviour, a working credential looks like
+working code.
+
+The honest finding is not the list of bugs. It is that the list existed at all in a codebase we
+believed we knew, and that our normal process had no step that would ever have surfaced it. The
+fix for that is mechanical detection that runs whether or not anyone is paying attention — which is
+why this library itself ships a blocking secret scanner rather than a code review guideline.
+
+## What you would need to change
+
+Move every one of these from "someone should notice" to "something always checks": a secret scanner
+in the commit hook and in CI, a test that asserts an unauthenticated request to a privileged route
+is rejected, and a default-deny branch in every handler where a verification step can throw. An
+audit is a snapshot; a check is a ratchet.
+
+## What to reuse
+
+Run the audit as a separate activity with its own readers, and treat anything it finds as evidence
+about your process rather than about that one bug. The question worth asking afterwards is not
+"how did this get in" but "what would have caught it, and why was that not running".
+
+## Why a wallet script kept failing when a live backend shared the same key
+
+- id: concurrent-nonce-collision
+- url: https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra/concurrent-nonce-collision
+- category: tooling-infra
+- outcome: shipped (confidence: high)
+- verdict: Caching the nonce at startup is correct only for a key nobody else is using, and the fix was to refetch the pending nonce immediately before every single send.
+- effort: hours · revenue: $0
+- tags: smart-contracts, onchain-data, silent-failure, wrong-abstraction, deployed
+
+### Lessons
+- A transaction nonce is shared mutable state belonging to the account, not to your script, so any key a live service also signs with makes a cached nonce wrong the moment you read it.
+- Refetch the pending nonce immediately before each send rather than incrementing a local counter, whenever there is any chance another process signs from the same key.
+- A replaced transaction fails in a way that looks like a network problem rather than a logic problem, which sends you debugging the RPC instead of the assumption.
+- An operational wallet used by a running backend should not also be the wallet your maintenance scripts sign from; the collision is a symptom of the key doing two jobs.
+
+## What we tried
+
+We wrote a script to consolidate funds out of a wallet by sending a batch of transactions. The
+standard pattern: read the account's transaction count once, then increment a local counter for
+each transaction in the batch so they queue in order.
+
+## Why we thought it would work
+
+This is the textbook batching approach and it is correct in the ordinary case, where your script is
+the only thing signing. Reading the nonce once avoids a network round trip per transaction, which
+is exactly the kind of small optimisation that normally pays off.
+
+## What actually happened
+
+Roughly half the sends failed or were silently replaced. The failures looked like RPC flakiness —
+timeouts, "replacement transaction underpriced", nothing that pointed at our logic — so the first
+hour went into retry policy and provider configuration rather than into the actual cause.
+
+The cause was that a production backend was signing transactions from the same wallet at the same
+time. Every transaction it sent consumed a nonce our script believed it owned, and our carefully
+sequenced batch was building on a number that had gone stale between reading it and using it.
+
+## Why it worked / why it failed
+
+The fix worked and is boring: refetch the pending nonce immediately before every send, accept the
+extra round trip, and treat each transaction as independent. Throughput dropped and reliability went
+to full.
+
+The deeper failure was architectural rather than technical. One key was doing two jobs — serving a
+live product and running maintenance — and a shared-mutable-state bug is the predictable result. The
+nonce collision was the symptom that made an existing design problem visible.
+
+## What you would need to change
+
+If you control the architecture, separate the keys: a service key for the running backend and a
+different key for operational scripts. If you cannot, refetch per send and never batch-increment.
+The optimisation of reading once is only safe when you can prove sole ownership of the account, and
+in a system with a live backend you usually cannot.
+
+## What to reuse
+
+The debugging lesson more than the fix. When an error surfaces at the transport layer, check whether
+something upstream is sharing state with you before you spend time on the transport. The error
+message names where the failure appeared, not where it came from.
 
 ## Reading thousands of contract values through Multicall3 instead of a block explorer API
 
