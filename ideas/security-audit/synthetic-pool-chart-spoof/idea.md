@@ -9,7 +9,7 @@ outcome: shipped
 verdict: >-
   The pool existed as a contract producing chart-shaped data without holding reserves, so the
   aggregator rendered a market that had nothing behind it.
-confidence: high
+confidence: medium
 started: 2026-06
 ended: 2026-06
 effort: hours
@@ -24,7 +24,7 @@ lessons:
   - "Displayed liquidity and withdrawable liquidity are different quantities, and only the second one is yours."
   - "Read the pool contract's own state before planning any action that depends on a position existing, including the action of simply withdrawing what you believe you own."
 supersedes: []
-related: [indexer-pings-are-not-demand, self-reported-rewards-vs-balance, key-is-not-ownership]
+related: [self-reported-rewards-vs-balance]
 source: project-registry
 links: {}
 evidence: []

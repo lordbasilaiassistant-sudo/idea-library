@@ -16,4 +16,4 @@ An on-chain agent created its own wallet, received no funding from us at any poi
 
 The fee collection function was open to any caller and needed no API key, which felt like a found revenue rail until we noticed fees only exist once other people trade the token.
 
-**What would settle it:** Launch a token where volume is produced by something other than us, then claim. Until the same claim path is exercised against real third-party trading, we have tested the plumbing and not the revenue.
+**What would settle it:** Launch a token where volume comes from genuine third-party traders, then claim. Until the same claim path is exercised against real outside trading, we have tested the plumbing and not the revenue.

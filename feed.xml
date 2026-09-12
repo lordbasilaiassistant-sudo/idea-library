@@ -8,7 +8,7 @@
     <link>https://ideas.broke2builtai.com/ideas/experiments/scan-for-money-loop/</link>
     <guid>https://ideas.broke2builtai.com/ideas/experiments/scan-for-money-loop/</guid>
     <pubDate>Wed, 01 Jul 2026 00:00:00 GMT</pubDate>
-    <description>Scanning contracts for unclaimed funds failed, and we returned to it repeatedly because each session started without the memory of the last one having tried it. (abandoned)</description>
+    <description>An on-chain search strategy failed, and we kept coming back to it because each new session started without any record that the last one had already tried it. (abandoned)</description>
   </item>
   <item>
     <title>An automated trading fleet that reported itself as roughly break-even while losing money</title>
@@ -25,18 +25,11 @@
     <description>An on-chain agent created its own wallet, received no funding from us at any point, and accumulated value entirely from routes it found itself. Whether that generalises is unsettled. (inconclusive)</description>
   </item>
   <item>
-    <title>Our own QA agents refused to test our platform because the task sounded like market manipulation</title>
-    <link>https://ideas.broke2builtai.com/ideas/ai-agents/safety-refusal-blocked-own-qa/</link>
-    <guid>https://ideas.broke2builtai.com/ideas/ai-agents/safety-refusal-blocked-own-qa/</guid>
-    <pubDate>Mon, 01 Jun 2026 00:00:00 GMT</pubDate>
-    <description>Asking agents to exercise a trading platform with coordinated orders read as a request to manipulate a market, so they declined, and the honest fix was to describe the work accurately. (shipped)</description>
-  </item>
-  <item>
-    <title>Cross-DEX arbitrage, sandwiching and scalping are all closed to a small wallet, with numbers</title>
+    <title>Cross-DEX arbitrage and DEX scalping are both closed to a small wallet</title>
     <link>https://ideas.broke2builtai.com/ideas/crypto-onchain/retail-arbitrage-is-closed/</link>
     <guid>https://ideas.broke2builtai.com/ideas/crypto-onchain/retail-arbitrage-is-closed/</guid>
     <pubDate>Mon, 01 Jun 2026 00:00:00 GMT</pubDate>
-    <description>We measured three classic on-chain money strategies from a tiny wallet on a fast L2. All three are negative expected value for structural reasons, and the numbers say why. (failed)</description>
+    <description>We tested two classic on-chain trading strategies from a tiny wallet on a fast L2. Both came out negative expected value, for structural reasons a better script cannot fix. (failed)</description>
   </item>
   <item>
     <title>A liquidity pool that showed a price chart and held no liquidity</title>
@@ -58,13 +51,6 @@
     <guid>https://ideas.broke2builtai.com/ideas/crypto-onchain/five-hundred-tokens-zero-volume/</guid>
     <pubDate>Fri, 01 May 2026 00:00:00 GMT</pubDate>
     <description>Deploys were free and gas was sponsored, so we launched at volume to see whether quantity could substitute for narrative. It cannot, and the result was unambiguous. (failed)</description>
-  </item>
-  <item>
-    <title>Holding a wallet's private key does not mean the balance in it is recoverable</title>
-    <link>https://ideas.broke2builtai.com/ideas/crypto-onchain/key-is-not-ownership/</link>
-    <guid>https://ideas.broke2builtai.com/ideas/crypto-onchain/key-is-not-ownership/</guid>
-    <pubDate>Fri, 01 May 2026 00:00:00 GMT</pubDate>
-    <description>A wallet we held the key for had a transaction history we had never produced, which meant somebody else also held it and the small balance inside was not ours to sweep. (failed)</description>
   </item>
   <item>
     <title>Launching tokens through an SDK instead of the web UI, and losing every discovery hook</title>
@@ -102,13 +88,6 @@
     <description>The fee collection function was open to any caller and needed no API key, which felt like a found revenue rail until we noticed fees only exist once other people trade the token. (inconclusive)</description>
   </item>
   <item>
-    <title>Fifty-one liquidity pools produced buy events that were not buyers</title>
-    <link>https://ideas.broke2builtai.com/ideas/crypto-onchain/indexer-pings-are-not-demand/</link>
-    <guid>https://ideas.broke2builtai.com/ideas/crypto-onchain/indexer-pings-are-not-demand/</guid>
-    <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
-    <description>Creating small pools reliably triggered one or two buys each, which looked like the strategy working. The buys were indexers registering a new pool, not anybody trading. (partial)</description>
-  </item>
-  <item>
     <title>Reading thousands of contract values through Multicall3 instead of a block explorer API</title>
     <link>https://ideas.broke2builtai.com/ideas/tooling-infra/multicall-batch-reads/</link>
     <guid>https://ideas.broke2builtai.com/ideas/tooling-infra/multicall-batch-reads/</guid>
@@ -123,17 +102,16 @@
     <description>Thirty-five working paid endpoints, eight broken, zero external buyers. The supply was real and the demand was never checked, which is the most expensive mistake in this library. (failed)</description>
   </item>
   <item>
-    <title>An audit of our own app found a database password, an auth secret and an admin key in the source</title>
-    <link>https://ideas.broke2builtai.com/ideas/security-audit/secrets-committed-to-source/</link>
-    <guid>https://ideas.broke2builtai.com/ideas/security-audit/secrets-committed-to-source/</guid>
-    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
-    <description>A four-agent security pass over a shipped web app turned up three hardcoded credentials, an unauthenticated treasury endpoint, and a cron that failed open instead of closed. (shipped)</description>
-  </item>
-  <item>
     <title>A single mistyped event hash made every scanner return zero results for months</title>
     <link>https://ideas.broke2builtai.com/ideas/tooling-infra/hardcoded-event-topic-hash/</link>
     <guid>https://ideas.broke2builtai.com/ideas/tooling-infra/hardcoded-event-topic-hash/</guid>
     <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
     <description>Every token scanner we wrote reported nothing found. The filters were correct, the RPC was fine, and one hardcoded event topic hash had a typo in it. (shipped)</description>
+  </item>
+  <item>
+    <title>An audit of our own app found hardcoded credentials that every prior read had missed</title>
+    <link>https://ideas.broke2builtai.com/ideas/security-audit/secrets-committed-to-source/</link>
+    <guid>https://ideas.broke2builtai.com/ideas/security-audit/secrets-committed-to-source/</guid>
+    <description>A multi-agent security pass over one of our shipped web apps found hardcoded credentials, an unauthenticated privileged endpoint, and a scheduled job that failed open. (shipped)</description>
   </item>
 </channel></rss>

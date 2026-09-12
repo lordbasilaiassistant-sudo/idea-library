@@ -405,7 +405,9 @@ if (HAS_SITE) {
     `#   ${SITE}/llms-full.txt   entire corpus inline`,
   ].join(NL));
 
-  const rfc822 = (iso) => (iso ? new Date(iso).toUTCString() : new Date().toUTCString());
+  // No fallback to "now": an idea with no recorded dates made pubDate change on every
+  // build, which broke build-idempotent. A missing date is omitted, not invented.
+  const rfc822 = (iso) => (iso ? new Date(iso).toUTCString() : null);
   write('feed.xml', [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<rss version="2.0"><channel>',
@@ -418,10 +420,10 @@ if (HAS_SITE) {
         `    <title>${escXml(c.title)}</title>`,
         `    <link>${c.url}</link>`,
         `    <guid>${c.url}</guid>`,
-        `    <pubDate>${rfc822(c.updated)}</pubDate>`,
+        c.updated ? `    <pubDate>${rfc822(c.updated)}</pubDate>` : null,
         `    <description>${escXml(c.description)} (${c.outcome})</description>`,
         '  </item>',
-      ].join(NL)),
+      ].filter((line) => line !== null).join(NL)),
     '</channel></rss>',
   ].join(NL));
 }

@@ -20,7 +20,7 @@
       "title": "A single mistyped event hash made every scanner return zero results for months",
       "category": "tooling-infra",
       "outcome": "shipped",
-      "total": 74,
+      "total": 69,
       "components": {
         "reality": {
           "score": 28,
@@ -29,9 +29,9 @@
           ]
         },
         "evidence": {
-          "score": 18,
+          "score": 13,
           "parts": [
-            "confidence:high +12",
+            "confidence:medium +7",
             "measured numbers:2 +6"
           ]
         },
@@ -40,7 +40,7 @@
           "parts": [
             "lessons:4 +16",
             "mechanic tags:2 +8",
-            "related ideas:3 +4"
+            "related ideas:2 +4"
           ]
         },
         "votes": {
@@ -56,11 +56,11 @@
       "rank": 1
     },
     {
-      "id": "synthetic-pool-chart-spoof",
-      "title": "A liquidity pool that showed a price chart and held no liquidity",
+      "id": "secrets-committed-to-source",
+      "title": "An audit of our own app found hardcoded credentials that every prior read had missed",
       "category": "security-audit",
       "outcome": "shipped",
-      "total": 74,
+      "total": 68,
       "components": {
         "reality": {
           "score": 28,
@@ -69,18 +69,18 @@
           ]
         },
         "evidence": {
-          "score": 18,
+          "score": 10,
           "parts": [
-            "confidence:high +12",
-            "measured numbers:2 +6"
+            "confidence:medium +7",
+            "measured numbers:1 +3"
           ]
         },
         "transfer": {
-          "score": 28,
+          "score": 30,
           "parts": [
-            "lessons:4 +16",
+            "lessons:6 +20",
             "mechanic tags:2 +8",
-            "related ideas:3 +4"
+            "related ideas:1 +2"
           ]
         },
         "votes": {
@@ -94,86 +94,6 @@
         }
       },
       "rank": 2
-    },
-    {
-      "id": "secrets-committed-to-source",
-      "title": "An audit of our own app found a database password, an auth secret and an admin key in the source",
-      "category": "security-audit",
-      "outcome": "shipped",
-      "total": 73,
-      "components": {
-        "reality": {
-          "score": 28,
-          "parts": [
-            "outcome:shipped +28"
-          ]
-        },
-        "evidence": {
-          "score": 15,
-          "parts": [
-            "confidence:high +12",
-            "measured numbers:1 +3"
-          ]
-        },
-        "transfer": {
-          "score": 30,
-          "parts": [
-            "lessons:5 +20",
-            "mechanic tags:2 +8",
-            "related ideas:1 +2"
-          ]
-        },
-        "votes": {
-          "score": 0,
-          "raw": 0,
-          "parts": []
-        },
-        "penalties": {
-          "score": 0,
-          "parts": []
-        }
-      },
-      "rank": 3
-    },
-    {
-      "id": "concurrent-nonce-collision",
-      "title": "Why a wallet script kept failing when a live backend shared the same key",
-      "category": "tooling-infra",
-      "outcome": "shipped",
-      "total": 69,
-      "components": {
-        "reality": {
-          "score": 28,
-          "parts": [
-            "outcome:shipped +28"
-          ]
-        },
-        "evidence": {
-          "score": 15,
-          "parts": [
-            "confidence:high +12",
-            "measured numbers:1 +3"
-          ]
-        },
-        "transfer": {
-          "score": 26,
-          "parts": [
-            "lessons:4 +16",
-            "mechanic tags:2 +8",
-            "related ideas:1 +2"
-          ]
-        },
-        "votes": {
-          "score": 0,
-          "raw": 0,
-          "parts": []
-        },
-        "penalties": {
-          "score": 0,
-          "parts": []
-        }
-      },
-      "rank": 4
     },
     {
       "id": "multicall-batch-reads",
@@ -213,7 +133,47 @@
           "parts": []
         }
       },
-      "rank": 5
+      "rank": 3
+    },
+    {
+      "id": "synthetic-pool-chart-spoof",
+      "title": "A liquidity pool that showed a price chart and held no liquidity",
+      "category": "security-audit",
+      "outcome": "shipped",
+      "total": 67,
+      "components": {
+        "reality": {
+          "score": 28,
+          "parts": [
+            "outcome:shipped +28"
+          ]
+        },
+        "evidence": {
+          "score": 13,
+          "parts": [
+            "confidence:medium +7",
+            "measured numbers:2 +6"
+          ]
+        },
+        "transfer": {
+          "score": 26,
+          "parts": [
+            "lessons:4 +16",
+            "mechanic tags:2 +8",
+            "related ideas:1 +2"
+          ]
+        },
+        "votes": {
+          "score": 0,
+          "raw": 0,
+          "parts": []
+        },
+        "penalties": {
+          "score": 0,
+          "parts": []
+        }
+      },
+      "rank": 4
     },
     {
       "id": "self-reported-rewards-vs-balance",
@@ -253,54 +213,14 @@
           "parts": []
         }
       },
-      "rank": 6
+      "rank": 5
     },
     {
-      "id": "indexer-pings-are-not-demand",
-      "title": "Fifty-one liquidity pools produced buy events that were not buyers",
-      "category": "crypto-onchain",
-      "outcome": "partial",
-      "total": 65,
-      "components": {
-        "reality": {
-          "score": 18,
-          "parts": [
-            "outcome:partial +18"
-          ]
-        },
-        "evidence": {
-          "score": 15,
-          "parts": [
-            "confidence:high +12",
-            "measured numbers:1 +3"
-          ]
-        },
-        "transfer": {
-          "score": 32,
-          "parts": [
-            "lessons:5 +20",
-            "mechanic tags:2 +8",
-            "related ideas:3 +4"
-          ]
-        },
-        "votes": {
-          "score": 0,
-          "raw": 0,
-          "parts": []
-        },
-        "penalties": {
-          "score": 0,
-          "parts": []
-        }
-      },
-      "rank": 7
-    },
-    {
-      "id": "safety-refusal-blocked-own-qa",
-      "title": "Our own QA agents refused to test our platform because the task sounded like market manipulation",
-      "category": "ai-agents",
+      "id": "concurrent-nonce-collision",
+      "title": "Why a wallet script kept failing when a live backend shared the same key",
+      "category": "tooling-infra",
       "outcome": "shipped",
-      "total": 65,
+      "total": 64,
       "components": {
         "reality": {
           "score": 28,
@@ -309,17 +229,17 @@
           ]
         },
         "evidence": {
-          "score": 15,
+          "score": 10,
           "parts": [
-            "confidence:high +12",
+            "confidence:medium +7",
             "measured numbers:1 +3"
           ]
         },
         "transfer": {
-          "score": 22,
+          "score": 26,
           "parts": [
             "lessons:4 +16",
-            "mechanic tags:1 +4",
+            "mechanic tags:2 +8",
             "related ideas:1 +2"
           ]
         },
@@ -333,14 +253,14 @@
           "parts": []
         }
       },
-      "rank": 8
+      "rank": 6
     },
     {
       "id": "circular-api-key-registration",
       "title": "A registration flow where you need the API key to retrieve the API key",
       "category": "automation-ops",
       "outcome": "partial",
-      "total": 62,
+      "total": 57,
       "components": {
         "reality": {
           "score": 18,
@@ -349,9 +269,9 @@
           ]
         },
         "evidence": {
-          "score": 18,
+          "score": 13,
           "parts": [
-            "confidence:high +12",
+            "confidence:medium +7",
             "measured numbers:2 +6"
           ]
         },
@@ -373,14 +293,14 @@
           "parts": []
         }
       },
-      "rank": 9
+      "rank": 7
     },
     {
       "id": "fee-claim-needs-trading-first",
       "title": "A permissionless fee claim that pays nothing because no one has traded",
       "category": "crypto-onchain",
       "outcome": "inconclusive",
-      "total": 59,
+      "total": 50,
       "components": {
         "reality": {
           "score": 10,
@@ -389,16 +309,16 @@
           ]
         },
         "evidence": {
-          "score": 15,
+          "score": 10,
           "parts": [
-            "confidence:high +12",
+            "confidence:medium +7",
             "measured numbers:1 +3"
           ]
         },
         "transfer": {
-          "score": 34,
+          "score": 30,
           "parts": [
-            "lessons:4 +16",
+            "lessons:3 +12",
             "mechanic tags:2 +8",
             "states what would settle it +6",
             "related ideas:2 +4"
@@ -414,167 +334,7 @@
           "parts": []
         }
       },
-      "rank": 10
-    },
-    {
-      "id": "five-hundred-tokens-zero-volume",
-      "title": "Five hundred tokens, one hundred and forty generic names, and zero trading volume",
-      "category": "crypto-onchain",
-      "outcome": "failed",
-      "total": 53,
-      "components": {
-        "reality": {
-          "score": 6,
-          "parts": [
-            "outcome:failed +6"
-          ]
-        },
-        "evidence": {
-          "score": 15,
-          "parts": [
-            "confidence:high +12",
-            "measured numbers:1 +3"
-          ]
-        },
-        "transfer": {
-          "score": 32,
-          "parts": [
-            "lessons:5 +20",
-            "mechanic tags:3 +8",
-            "related ideas:3 +4"
-          ]
-        },
-        "votes": {
-          "score": 0,
-          "raw": 0,
-          "parts": []
-        },
-        "penalties": {
-          "score": 0,
-          "parts": []
-        }
-      },
-      "rank": 11
-    },
-    {
-      "id": "forty-three-services-no-customers",
-      "title": "We built forty-three paid micro-services and never found a single customer",
-      "category": "web-saas",
-      "outcome": "failed",
-      "total": 53,
-      "components": {
-        "reality": {
-          "score": 6,
-          "parts": [
-            "outcome:failed +6"
-          ]
-        },
-        "evidence": {
-          "score": 15,
-          "parts": [
-            "confidence:high +12",
-            "measured numbers:1 +3"
-          ]
-        },
-        "transfer": {
-          "score": 32,
-          "parts": [
-            "lessons:5 +20",
-            "mechanic tags:2 +8",
-            "related ideas:2 +4"
-          ]
-        },
-        "votes": {
-          "score": 0,
-          "raw": 0,
-          "parts": []
-        },
-        "penalties": {
-          "score": 0,
-          "parts": []
-        }
-      },
-      "rank": 12
-    },
-    {
-      "id": "retail-arbitrage-is-closed",
-      "title": "Cross-DEX arbitrage, sandwiching and scalping are all closed to a small wallet, with numbers",
-      "category": "crypto-onchain",
-      "outcome": "failed",
-      "total": 53,
-      "components": {
-        "reality": {
-          "score": 6,
-          "parts": [
-            "outcome:failed +6"
-          ]
-        },
-        "evidence": {
-          "score": 15,
-          "parts": [
-            "confidence:high +12",
-            "measured numbers:1 +3"
-          ]
-        },
-        "transfer": {
-          "score": 32,
-          "parts": [
-            "lessons:6 +20",
-            "mechanic tags:2 +8",
-            "related ideas:2 +4"
-          ]
-        },
-        "votes": {
-          "score": 0,
-          "raw": 0,
-          "parts": []
-        },
-        "penalties": {
-          "score": 0,
-          "parts": []
-        }
-      },
-      "rank": 13
-    },
-    {
-      "id": "key-is-not-ownership",
-      "title": "Holding a wallet's private key does not mean the balance in it is recoverable",
-      "category": "crypto-onchain",
-      "outcome": "failed",
-      "total": 52,
-      "components": {
-        "reality": {
-          "score": 6,
-          "parts": [
-            "outcome:failed +6"
-          ]
-        },
-        "evidence": {
-          "score": 18,
-          "parts": [
-            "confidence:high +12",
-            "measured numbers:2 +6"
-          ]
-        },
-        "transfer": {
-          "score": 28,
-          "parts": [
-            "lessons:4 +16",
-            "mechanic tags:2 +8",
-            "related ideas:2 +4"
-          ]
-        },
-        "votes": {
-          "score": 0,
-          "raw": 0,
-          "parts": []
-        },
-        "penalties": {
-          "score": 0,
-          "parts": []
-        }
-      },
-      "rank": 14
+      "rank": 8
     },
     {
       "id": "never-funded-agent",
@@ -614,14 +374,93 @@
           "parts": []
         }
       },
-      "rank": 15
+      "rank": 9
+    },
+    {
+      "id": "five-hundred-tokens-zero-volume",
+      "title": "Five hundred tokens, one hundred and forty generic names, and zero trading volume",
+      "category": "crypto-onchain",
+      "outcome": "failed",
+      "total": 48,
+      "components": {
+        "reality": {
+          "score": 6,
+          "parts": [
+            "outcome:failed +6"
+          ]
+        },
+        "evidence": {
+          "score": 10,
+          "parts": [
+            "confidence:medium +7",
+            "measured numbers:1 +3"
+          ]
+        },
+        "transfer": {
+          "score": 32,
+          "parts": [
+            "lessons:5 +20",
+            "mechanic tags:3 +8",
+            "related ideas:3 +4"
+          ]
+        },
+        "votes": {
+          "score": 0,
+          "raw": 0,
+          "parts": []
+        },
+        "penalties": {
+          "score": 0,
+          "parts": []
+        }
+      },
+      "rank": 10
+    },
+    {
+      "id": "forty-three-services-no-customers",
+      "title": "We built forty-three paid micro-services and never found a single customer",
+      "category": "web-saas",
+      "outcome": "failed",
+      "total": 45,
+      "components": {
+        "reality": {
+          "score": 6,
+          "parts": [
+            "outcome:failed +6"
+          ]
+        },
+        "evidence": {
+          "score": 7,
+          "parts": [
+            "confidence:medium +7"
+          ]
+        },
+        "transfer": {
+          "score": 32,
+          "parts": [
+            "lessons:5 +20",
+            "mechanic tags:2 +8",
+            "related ideas:2 +4"
+          ]
+        },
+        "votes": {
+          "score": 0,
+          "raw": 0,
+          "parts": []
+        },
+        "penalties": {
+          "score": 0,
+          "parts": []
+        }
+      },
+      "rank": 11
     },
     {
       "id": "scan-for-money-loop",
       "title": "We re-derived the same dead strategy across many sessions without noticing",
       "category": "experiments",
       "outcome": "abandoned",
-      "total": 50,
+      "total": 45,
       "components": {
         "reality": {
           "score": 3,
@@ -630,9 +469,9 @@
           ]
         },
         "evidence": {
-          "score": 15,
+          "score": 10,
           "parts": [
-            "confidence:high +12",
+            "confidence:medium +7",
             "measured numbers:1 +3"
           ]
         },
@@ -654,14 +493,14 @@
           "parts": []
         }
       },
-      "rank": 16
+      "rank": 12
     },
     {
-      "id": "sdk-launch-discovery-gap",
-      "title": "Launching tokens through an SDK instead of the web UI, and losing every discovery hook",
-      "category": "crypto-onchain",
+      "id": "autotrader-journal-hid-losses",
+      "title": "An automated trading fleet that reported itself as roughly break-even while losing money",
+      "category": "ai-agents",
       "outcome": "failed",
-      "total": 50,
+      "total": 44,
       "components": {
         "reality": {
           "score": 6,
@@ -670,10 +509,90 @@
           ]
         },
         "evidence": {
-          "score": 18,
+          "score": 10,
           "parts": [
-            "confidence:high +12",
-            "measured numbers:2 +6"
+            "confidence:medium +7",
+            "measured numbers:1 +3"
+          ]
+        },
+        "transfer": {
+          "score": 28,
+          "parts": [
+            "lessons:4 +16",
+            "mechanic tags:2 +8",
+            "related ideas:2 +4"
+          ]
+        },
+        "votes": {
+          "score": 0,
+          "raw": 0,
+          "parts": []
+        },
+        "penalties": {
+          "score": 0,
+          "parts": []
+        }
+      },
+      "rank": 13
+    },
+    {
+      "id": "deploy-time-metadata-window",
+      "title": "Why a token's image and description cannot be fixed after deployment",
+      "category": "crypto-onchain",
+      "outcome": "failed",
+      "total": 44,
+      "components": {
+        "reality": {
+          "score": 6,
+          "parts": [
+            "outcome:failed +6"
+          ]
+        },
+        "evidence": {
+          "score": 10,
+          "parts": [
+            "confidence:medium +7",
+            "measured numbers:1 +3"
+          ]
+        },
+        "transfer": {
+          "score": 28,
+          "parts": [
+            "lessons:4 +16",
+            "mechanic tags:2 +8",
+            "related ideas:2 +4"
+          ]
+        },
+        "votes": {
+          "score": 0,
+          "raw": 0,
+          "parts": []
+        },
+        "penalties": {
+          "score": 0,
+          "parts": []
+        }
+      },
+      "rank": 14
+    },
+    {
+      "id": "retail-arbitrage-is-closed",
+      "title": "Cross-DEX arbitrage and DEX scalping are both closed to a small wallet",
+      "category": "crypto-onchain",
+      "outcome": "failed",
+      "total": 42,
+      "components": {
+        "reality": {
+          "score": 6,
+          "parts": [
+            "outcome:failed +6"
+          ]
+        },
+        "evidence": {
+          "score": 10,
+          "parts": [
+            "confidence:medium +7",
+            "measured numbers:1 +3"
           ]
         },
         "transfer": {
@@ -694,54 +613,14 @@
           "parts": []
         }
       },
-      "rank": 17
+      "rank": 15
     },
     {
-      "id": "autotrader-journal-hid-losses",
-      "title": "An automated trading fleet that reported itself as roughly break-even while losing money",
-      "category": "ai-agents",
-      "outcome": "failed",
-      "total": 49,
-      "components": {
-        "reality": {
-          "score": 6,
-          "parts": [
-            "outcome:failed +6"
-          ]
-        },
-        "evidence": {
-          "score": 15,
-          "parts": [
-            "confidence:high +12",
-            "measured numbers:1 +3"
-          ]
-        },
-        "transfer": {
-          "score": 28,
-          "parts": [
-            "lessons:4 +16",
-            "mechanic tags:2 +8",
-            "related ideas:2 +4"
-          ]
-        },
-        "votes": {
-          "score": 0,
-          "raw": 0,
-          "parts": []
-        },
-        "penalties": {
-          "score": 0,
-          "parts": []
-        }
-      },
-      "rank": 18
-    },
-    {
-      "id": "deploy-time-metadata-window",
-      "title": "Why a token's image and description cannot be fixed after deployment",
+      "id": "sdk-launch-discovery-gap",
+      "title": "Launching tokens through an SDK instead of the web UI, and losing every discovery hook",
       "category": "crypto-onchain",
       "outcome": "failed",
-      "total": 49,
+      "total": 42,
       "components": {
         "reality": {
           "score": 6,
@@ -750,18 +629,18 @@
           ]
         },
         "evidence": {
-          "score": 15,
+          "score": 10,
           "parts": [
-            "confidence:high +12",
+            "confidence:medium +7",
             "measured numbers:1 +3"
           ]
         },
         "transfer": {
-          "score": 28,
+          "score": 26,
           "parts": [
             "lessons:4 +16",
             "mechanic tags:2 +8",
-            "related ideas:2 +4"
+            "related ideas:1 +2"
           ]
         },
         "votes": {
@@ -774,7 +653,7 @@
           "parts": []
         }
       },
-      "rank": 19
+      "rank": 16
     }
   ]
 }

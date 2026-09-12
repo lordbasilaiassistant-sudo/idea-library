@@ -9,12 +9,12 @@ outcome: failed
 verdict: >-
   Every unit of effort went into supply and none into demand, so we ended with a catalogue of
   working services that nobody had ever asked for and no channel through which anyone could.
-confidence: high
+confidence: medium
 started: 2026-03
 ended: 2026-04
 effort: months
 cost_usd: null
-revenue_usd: 30.33
+revenue_usd: null
 stack: [node, cloudflare-workers, x402, base]
 tags: [payments, api-integration, marketplace, distribution-gap, oversaturated, deployed]
 reusable: []
@@ -49,7 +49,7 @@ trivially worth it.
 ## What actually happened
 
 Zero external customers. Not a low number — zero, across the entire fleet, for the whole period.
-The only revenue attached to the project was $30.33, and it came from liquidity-pool fees on an
+The only revenue attached to the project — about thirty dollars, per our own notes rather than a record we can publish — came from liquidity-pool fees on an
 unrelated mechanism we already owned, not from anybody buying a service. Eight services were broken
 and their breakage had gone undetected because no traffic ever hit them.
 
@@ -65,7 +65,7 @@ customer is ambiguous, externally dependent, and can fail in ways that feel pers
 left alone will always choose the first, and the count of shipped things becomes a substitute for a
 result.
 
-The $30.33 deserves its own note, because it was actively harmful. It let the project report
+That thirty dollars deserves its own note, because it was actively harmful. It let the project report
 non-zero revenue. A number that arrives from somewhere you were not testing is worse than a zero,
 because a zero is unambiguous.
 
@@ -73,9 +73,8 @@ because a zero is unambiguous.
 
 Invert the order completely. Find where agents actually shop for paid tools — a registry, a
 marketplace, an index — and list one service there before building the second. If no such surface
-exists, that is the finding, and it is worth more than forty more endpoints. Our own measurement
-elsewhere is that indexes and marketplaces did essentially all of the discovery in the cases we
-could verify, and we had listed on none of them.
+exists, that is the finding, and it is worth more than forty more endpoints. We had listed on none
+of them.
 
 ## What to reuse
 

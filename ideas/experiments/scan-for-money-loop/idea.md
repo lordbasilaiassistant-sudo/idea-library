@@ -2,14 +2,14 @@
 id: scan-for-money-loop
 title: We re-derived the same dead strategy across many sessions without noticing
 description: >-
-  Scanning contracts for unclaimed funds failed, and we returned to it repeatedly because each
-  session started without the memory of the last one having tried it.
+  An on-chain search strategy failed, and we kept coming back to it because each new session
+  started without any record that the last one had already tried it.
 category: experiments
 outcome: abandoned
 verdict: >-
   The strategy was dead after the first honest attempt, but nothing recorded that verdict where
   the next session would read it, so the same ground was re-excavated until a human intervened.
-confidence: high
+confidence: medium
 started: 2026-04
 ended: 2026-07
 effort: months
@@ -33,51 +33,50 @@ evidence: []
 
 ## What we tried
 
-Scanning deployed contracts for stranded or unclaimed balances — value sitting in contracts whose
-owners had abandoned them or whose claim functions were open — and collecting whatever was
-recoverable.
+A read-only on-chain search strategy that we expected to turn up something worth acting on. We
+deliberately do not describe the strategy itself here: this entry is about the loop around it, and
+the strategy was not the interesting failure.
 
 ## Why we thought it would work
 
-There is genuinely forgotten value on chain, the scanning is read-only and costs nothing but time,
-and the failure mode appeared to be simply finding nothing. It reads as a zero-downside search.
+The search was read-only, cost nothing but time, and appeared to have no downside beyond finding
+nothing. On first inspection it looks like free optionality, which is exactly the property that
+makes it easy to pick up again.
 
 ## What actually happened
 
-It found very little, and what it found was not recoverable for reasons that were consistent: the
-balances were either already claimed, protected by access controls, or small enough that gas
-exceeded them.
+It found nothing worth acting on.
 
-The failure is not that. The failure is that we did it again. And again. Across multiple sessions
-over several months, the same approach was proposed, built, run and found wanting, each time with
+The failure is not that. The failure is that we did it again, and again. Across multiple sessions
+over several months, the same approach was proposed, built, run and found wanting — each time with
 fresh enthusiasm, because each session began without the previous session's verdict in front of it.
 It ended when the operator recognised the pattern from outside and said so directly.
 
 ## Why it worked / why it failed
 
-The idea was mediocre. The process failure was serious, and it is the reason this entry exists.
+The idea was mediocre. The process failure was serious, and it is why this entry exists.
 
-A negative result only saves future effort if it is recorded somewhere the future will look. Ours
-existed as scattered notes in per-session files, which meant that in practice it did not exist. So
-the idea presented itself as novel each time — and it is genuinely appealing on first inspection,
-which is exactly why it kept getting picked up.
+A negative result only saves future effort if it is recorded where the future will look. Ours lived
+in scattered per-session notes, which in practice meant it did not exist. So the idea presented
+itself as new every time — and it is genuinely appealing at first glance, which is why it kept being
+picked up.
 
-Notice the compounding: the first attempt was a reasonable experiment that produced real
-information. Every repeat produced the same information at the same cost and added nothing, so the
-expected value of the work went negative and stayed there.
+The costs compound. The first attempt was a reasonable experiment that produced real information.
+Every repeat produced the same information at the same cost, so the expected value of the work went
+negative and stayed there.
 
-The detector of last resort was a human noticing. That works, but it is the slowest possible
-mechanism and it only fires after the cost has been paid several times.
+The detector of last resort was a human noticing. That works, but it is the slowest mechanism
+available and it only fires after the cost has been paid several times.
 
 ## What you would need to change
 
 Write the verdict down where the next attempt will read it, with the reason attached. That is the
-specific fix, and it is the reason this library exists in the form it does: a public record with a
-cause attached to every outcome, indexed by the mechanic that killed it, readable in one fetch before
-work begins. A negative result that nobody can find is not a negative result.
+specific fix, and it is why this library exists in the form it does: a public record with a cause
+attached to every outcome, indexed by the mechanic that killed it, readable in one fetch before work
+begins. A negative result nobody can find is not a negative result.
 
 ## What to reuse
 
-The diagnosis rather than the code. If you find yourself building something that feels new and
-obvious at the same time, check whether you have already tried it. The feeling of obviousness is
-what a forgotten dead end feels like from the inside.
+The diagnosis rather than any code. If something feels new and obvious at the same time, check
+whether you have already tried it. That feeling is what a forgotten dead end looks like from the
+inside.

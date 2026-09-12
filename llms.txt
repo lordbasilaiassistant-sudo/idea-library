@@ -3,7 +3,7 @@
 > A public record of ideas we actually ran, each with an outcome and the reason behind it.
 > Failures are first-class here: knowing why something did not work is the rarest data in this field.
 
-Ideas: 19 · lessons: 84 · open questions: 2
+Ideas: 16 · lessons: 69 · open questions: 2
 
 ## Start here
 
@@ -17,8 +17,8 @@ Ideas: 19 · lessons: 84 · open questions: 2
 
 ## Categories
 
-- [Crypto & On-chain](https://ideas.broke2builtai.com/ideas/crypto-onchain/) (7): Anything that touches a blockchain: token launches, contracts, wallets, MEV, on-chain data.
-- [AI Agents](https://ideas.broke2builtai.com/ideas/ai-agents/) (3): Autonomous or semi-autonomous agent systems, harnesses, and multi-agent coordination.
+- [Crypto & On-chain](https://ideas.broke2builtai.com/ideas/crypto-onchain/) (5): Anything that touches a blockchain: token launches, contracts, wallets, MEV, on-chain data.
+- [AI Agents](https://ideas.broke2builtai.com/ideas/ai-agents/) (2): Autonomous or semi-autonomous agent systems, harnesses, and multi-agent coordination.
 - [Tooling & Infra](https://ideas.broke2builtai.com/ideas/tooling-infra/) (3): Developer tools, CLIs, MCP servers, deployment and hosting plumbing.
 - [Web & SaaS](https://ideas.broke2builtai.com/ideas/web-saas/) (1): Web apps and products with users and a front end.
 - [Security & Audit](https://ideas.broke2builtai.com/ideas/security-audit/) (3): Auditing, scanning, exploit research, and defensive tooling.
@@ -29,17 +29,14 @@ Ideas: 19 · lessons: 84 · open questions: 2
 
 - [An automated trading fleet that reported itself as roughly break-even while losing money](https://ideas.broke2builtai.com/ideas/ai-agents/autotrader-journal-hid-losses/) — `failed`: The fleet's own journal was the only record of its performance, and an audit found it was accounting for about a third of the actual loss.
 - [Can an agent that is never given any starting capital find its own first income?](https://ideas.broke2builtai.com/ideas/ai-agents/never-funded-agent/) — `inconclusive`: An on-chain agent created its own wallet, received no funding from us at any point, and accumulated value entirely from routes it found itself. Whether that generalises is unsettled.
-- [Our own QA agents refused to test our platform because the task sounded like market manipulation](https://ideas.broke2builtai.com/ideas/ai-agents/safety-refusal-blocked-own-qa/) — `shipped`: Asking agents to exercise a trading platform with coordinated orders read as a request to manipulate a market, so they declined, and the honest fix was to describe the work accurately.
 - [A registration flow where you need the API key to retrieve the API key](https://ideas.broke2builtai.com/ideas/automation-ops/circular-api-key-registration/) — `partial`: Registering an agent returned a key exactly once, every later command required that key, and re-registering the same wallet failed as already registered. Losing the key locked us out.
 - [Why a token's image and description cannot be fixed after deployment](https://ideas.broke2builtai.com/ideas/crypto-onchain/deploy-time-metadata-window/) — `failed`: Launchpad indexers snapshot a token's metadata once, at deploy time. Post-deploy update calls succeed on chain, change nothing anybody sees, and give you no error to debug.
 - [A permissionless fee claim that pays nothing because no one has traded](https://ideas.broke2builtai.com/ideas/crypto-onchain/fee-claim-needs-trading-first/) — `inconclusive`: The fee collection function was open to any caller and needed no API key, which felt like a found revenue rail until we noticed fees only exist once other people trade the token.
 - [Five hundred tokens, one hundred and forty generic names, and zero trading volume](https://ideas.broke2builtai.com/ideas/crypto-onchain/five-hundred-tokens-zero-volume/) — `failed`: Deploys were free and gas was sponsored, so we launched at volume to see whether quantity could substitute for narrative. It cannot, and the result was unambiguous.
-- [Fifty-one liquidity pools produced buy events that were not buyers](https://ideas.broke2builtai.com/ideas/crypto-onchain/indexer-pings-are-not-demand/) — `partial`: Creating small pools reliably triggered one or two buys each, which looked like the strategy working. The buys were indexers registering a new pool, not anybody trading.
-- [Holding a wallet's private key does not mean the balance in it is recoverable](https://ideas.broke2builtai.com/ideas/crypto-onchain/key-is-not-ownership/) — `failed`: A wallet we held the key for had a transaction history we had never produced, which meant somebody else also held it and the small balance inside was not ours to sweep.
-- [Cross-DEX arbitrage, sandwiching and scalping are all closed to a small wallet, with numbers](https://ideas.broke2builtai.com/ideas/crypto-onchain/retail-arbitrage-is-closed/) — `failed`: We measured three classic on-chain money strategies from a tiny wallet on a fast L2. All three are negative expected value for structural reasons, and the numbers say why.
+- [Cross-DEX arbitrage and DEX scalping are both closed to a small wallet](https://ideas.broke2builtai.com/ideas/crypto-onchain/retail-arbitrage-is-closed/) — `failed`: We tested two classic on-chain trading strategies from a tiny wallet on a fast L2. Both came out negative expected value, for structural reasons a better script cannot fix.
 - [Launching tokens through an SDK instead of the web UI, and losing every discovery hook](https://ideas.broke2builtai.com/ideas/crypto-onchain/sdk-launch-discovery-gap/) — `failed`: Batch-launching tokens programmatically worked and cost pennies, but SDK-deployed tokens never appeared in the trending feed the web UI populates, so nobody ever saw them.
-- [We re-derived the same dead strategy across many sessions without noticing](https://ideas.broke2builtai.com/ideas/experiments/scan-for-money-loop/) — `abandoned`: Scanning contracts for unclaimed funds failed, and we returned to it repeatedly because each session started without the memory of the last one having tried it.
-- [An audit of our own app found a database password, an auth secret and an admin key in the source](https://ideas.broke2builtai.com/ideas/security-audit/secrets-committed-to-source/) — `shipped`: A four-agent security pass over a shipped web app turned up three hardcoded credentials, an unauthenticated treasury endpoint, and a cron that failed open instead of closed.
+- [We re-derived the same dead strategy across many sessions without noticing](https://ideas.broke2builtai.com/ideas/experiments/scan-for-money-loop/) — `abandoned`: An on-chain search strategy failed, and we kept coming back to it because each new session started without any record that the last one had already tried it.
+- [An audit of our own app found hardcoded credentials that every prior read had missed](https://ideas.broke2builtai.com/ideas/security-audit/secrets-committed-to-source/) — `shipped`: A multi-agent security pass over one of our shipped web apps found hardcoded credentials, an unauthenticated privileged endpoint, and a scheduled job that failed open.
 - [A protocol reported claimable rewards that did not exist when claimed](https://ideas.broke2builtai.com/ideas/security-audit/self-reported-rewards-vs-balance/) — `shipped`: A contract's view function showed a pending reward balance. Batch-claiming across many positions returned materially less than the sum it had reported.
 - [A liquidity pool that showed a price chart and held no liquidity](https://ideas.broke2builtai.com/ideas/security-audit/synthetic-pool-chart-spoof/) — `shipped`: A price aggregator displayed a pool with a chart and a market. On chain there was no liquidity position to withdraw and never had been.
 - [Why a wallet script kept failing when a live backend shared the same key](https://ideas.broke2builtai.com/ideas/tooling-infra/concurrent-nonce-collision/) — `shipped`: A consolidation script read the wallet nonce once and built its transactions from it, while a production backend was signing from the same key, so half the sends collided and vanished.
