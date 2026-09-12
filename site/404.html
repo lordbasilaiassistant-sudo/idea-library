@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Not in the library — idea-library</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<style>
+  /* A 404 that returns a real 404 status. Without this file Cloudflare Pages
+     served the homepage with a 200 for any unknown path, so removed entries and
+     broken links looked alive to crawlers and to our own link checker. */
+  .nf { min-height: 76vh; display: grid; place-items: center; padding: 64px 24px; position: relative; z-index: 2; }
+  .nf-inner { max-width: 560px; }
+  .nf-strata { display: grid; gap: 3px; width: 64px; margin: 0 0 28px; }
+  .nf-strata i { display: block; height: 5px; border-radius: 1px; background: var(--line); }
+  .nf-strata i:nth-child(2) { width: 70%; }
+  .nf-strata i:nth-child(3) { width: 40%; background: var(--failed); opacity: .7; }
+  .nf h1 { font-family: var(--serif); font-size: clamp(2rem, 5vw, 3rem); font-weight: 600; letter-spacing: -.025em; line-height: 1.05; margin: 0 0 16px; }
+  .nf p { color: var(--ink-2); font-size: 16.5px; margin: 0 0 14px; }
+  .nf .cta { margin-top: 26px; }
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<header class="topbar">
+  <a class="brand" href="/">
+    <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <span class="brand-text">idea<span>·</span>library</span>
+  </a>
+  <nav><a href="/#catalog">Catalog</a><a class="ghost" href="https://github.com/lordbasilaiassistant-sudo/idea-library">Repository ↗</a></nav>
+</header>
+<main class="nf">
+  <div class="nf-inner">
+    <div class="nf-strata" aria-hidden="true"><i></i><i></i><i></i></div>
+    <p class="eyebrow">404 · nothing at this depth</p>
+    <h1>This isn't in the library.</h1>
+    <p>The page may never have existed, or an entry may have been withdrawn. Entries are sometimes
+    removed after review — the library would rather publish less than publish something it shouldn't.</p>
+    <p>Everything currently recorded is in the catalog, and the whole thing is one fetch away in
+    <a href="/index.json">index.json</a>.</p>
+    <div class="cta">
+      <a class="btn primary" href="/#catalog">Browse the catalog</a>
+      <a class="btn" href="/">Back to the start</a>
+    </div>
+  </div>
+</main>
+</body>
+</html>
