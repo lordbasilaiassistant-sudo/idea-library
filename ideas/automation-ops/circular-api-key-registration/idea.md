@@ -9,7 +9,7 @@ outcome: partial
 verdict: >-
   Every command including the one that shows your credentials required the key that registration
   returned once, so an unsaved key left the account permanently unreachable through the CLI.
-confidence: high
+confidence: medium
 started: 2026-04
 ended: 2026-04
 effort: hours

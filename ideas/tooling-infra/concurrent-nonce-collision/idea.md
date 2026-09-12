@@ -9,7 +9,7 @@ outcome: shipped
 verdict: >-
   Caching the nonce at startup is correct only for a key nobody else is using, and the fix was to
   refetch the pending nonce immediately before every single send.
-confidence: high
+confidence: medium
 started: 2026-05
 ended: 2026-05
 effort: hours

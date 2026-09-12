@@ -9,13 +9,13 @@ outcome: failed
 verdict: >-
   Metadata update calls after deployment succeed on chain but are never re-indexed, so every
   token launched with a placeholder image stayed placeholder forever with no failure signal.
-confidence: high
+confidence: medium
 started: 2026-04
 ended: 2026-05
 effort: weeks
 cost_usd: null
 revenue_usd: 0
-stack: [ethers, viem, base, clanker-sdk]
+stack: [ethers, viem, base]
 tags: [token-launch, smart-contracts, silent-failure, api-undocumented-behavior, deployed]
 reusable: []
 lessons:

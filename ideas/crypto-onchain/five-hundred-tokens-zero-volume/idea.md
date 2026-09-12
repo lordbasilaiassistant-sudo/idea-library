@@ -9,7 +9,7 @@ outcome: failed
 verdict: >-
   Launch quantity has no relationship to trading volume, because a token with no narrative, no
   distinctive art and no community signal gives a buyer nothing to act on however many exist.
-confidence: high
+confidence: medium
 started: 2026-02
 ended: 2026-05
 effort: months

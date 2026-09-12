@@ -4,16 +4,14 @@
 
 Anything that touches a blockchain: token launches, contracts, wallets, MEV, on-chain data.
 
-7 idea(s).
+5 idea(s).
 
 | Idea | Outcome | Effort | Cost | Why |
 |---|---|---|---|---|
 | [Why a token's image and description cannot be fixed after deployment](/ideas/crypto-onchain/deploy-time-metadata-window/) | `failed` | weeks | — | Metadata update calls after deployment succeed on chain but are never re-indexed, so every token launched with a placeholder image stayed placeholder forever with no failure signal. |
 | [A permissionless fee claim that pays nothing because no one has traded](/ideas/crypto-onchain/fee-claim-needs-trading-first/) | `inconclusive` | weeks | — | Fee collection really is permissionless and keyless, but it is gated on trading volume that we had no mechanism to create, so the open door led to an empty room. |
 | [Five hundred tokens, one hundred and forty generic names, and zero trading volume](/ideas/crypto-onchain/five-hundred-tokens-zero-volume/) | `failed` | months | — | Launch quantity has no relationship to trading volume, because a token with no narrative, no distinctive art and no community signal gives a buyer nothing to act on however many exist. |
-| [Fifty-one liquidity pools produced buy events that were not buyers](/ideas/crypto-onchain/indexer-pings-are-not-demand/) | `partial` | weeks | — | The mechanism really did fire on every pool, but the resulting buy events were automated indexers acknowledging a new market rather than economic demand, so the signal measured our own activity. |
-| [Holding a wallet's private key does not mean the balance in it is recoverable](/ideas/crypto-onchain/key-is-not-ownership/) | `failed` | hours | $1.13 | The key opened the wallet but its nonce showed dozens of transactions we never sent, so the balance belonged to whoever else had the same key and the funds were written off. |
-| [Cross-DEX arbitrage, sandwiching and scalping are all closed to a small wallet, with numbers](/ideas/crypto-onchain/retail-arbitrage-is-closed/) | `failed` | months | — | Each strategy fails to a different structural cause - professional latency, a private mempool, and a fee floor above the volatility - and none of the three can be fixed by a better script. |
-| [Launching tokens through an SDK instead of the web UI, and losing every discovery hook](/ideas/crypto-onchain/sdk-launch-discovery-gap/) | `failed` | weeks | $0.48 | The SDK deploy produced identical on-chain state to a web-UI deploy but skipped the platform's server-side discovery hooks, so the launches were invisible and the cheap batch pipeline had nothing to feed. |
+| [Cross-DEX arbitrage and DEX scalping are both closed to a small wallet](/ideas/crypto-onchain/retail-arbitrage-is-closed/) | `failed` | months | — | Arbitrage fails on professional latency and scalping fails on a fee floor above the volatility being harvested, and neither cause is something a retail participant can change. |
+| [Launching tokens through an SDK instead of the web UI, and losing every discovery hook](/ideas/crypto-onchain/sdk-launch-discovery-gap/) | `failed` | weeks | — | The SDK deploy produced identical on-chain state to a web-UI deploy but skipped the platform's server-side discovery hooks, so the launches were invisible and the cheap batch pipeline had nothing to feed. |
 
 [← all categories](https://github.com/lordbasilaiassistant-sudo/idea-library#categories)

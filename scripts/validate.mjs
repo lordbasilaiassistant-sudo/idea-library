@@ -144,6 +144,13 @@ for (const idea of ideas) {
       err(where, 'verdict is too short to carry a reason', 'One full sentence naming the cause.');
     }
   }
+  // `high` is DEFINED in taxonomy.json as "we measured it; there is evidence in the folder".
+  // An audit found every entry claiming high with an empty evidence list, so the
+  // definition is now enforced rather than trusted.
+  if (idea.confidence === 'high' && !(Array.isArray(idea.evidence) && idea.evidence.length)) {
+    err(where, '`confidence: high` with no evidence files',
+      'high means there is evidence in the folder. Add files under evidence/ and list them, or use medium.');
+  }
   if (idea.outcome === 'inconclusive' && !idea.what_would_settle_it) {
     err(where, '`inconclusive` requires `what_would_settle_it:`',
       'Name the measurement that would decide it. That turns our ignorance into a public task.');

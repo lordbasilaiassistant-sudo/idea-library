@@ -10,11 +10,11 @@ verdict: >-
   The SDK deploy produced identical on-chain state to a web-UI deploy but skipped the
   platform's server-side discovery hooks, so the launches were invisible and the cheap
   batch pipeline had nothing to feed.
-confidence: high
+confidence: medium
 started: 2026-05
 ended: 2026-05
 effort: weeks
-cost_usd: 0.48
+cost_usd: null
 revenue_usd: 0
 stack: [typescript, ethers, base, launchpad-sdk]
 tags: [token-launch, smart-contracts, distribution-gap, api-undocumented-behavior, deployed]
@@ -35,7 +35,7 @@ evidence: []
 
 We built a batch launch pipeline against a Base launchpad's TypeScript SDK: generate art from a
 keyless image endpoint, host it on a public repo, deploy through the SDK, repeat. Six launches ran
-end to end for $0.48 total in gas and zero API spend. Mechanically the pipeline did exactly what it
+end to end for well under a dollar in gas and zero API spend. Mechanically the pipeline did exactly what it
 was designed to do.
 
 ## Why we thought it would work

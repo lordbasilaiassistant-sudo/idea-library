@@ -9,7 +9,7 @@ outcome: failed
 verdict: >-
   The fleet lost money and its self-reported journal showed roughly a third of that loss, because
   the journal recorded the events the code knew how to write down rather than the money that moved.
-confidence: high
+confidence: medium
 started: 2026-05
 ended: 2026-06
 effort: weeks

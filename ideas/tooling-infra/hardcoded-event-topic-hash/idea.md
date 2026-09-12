@@ -9,7 +9,7 @@ outcome: shipped
 verdict: >-
   A copied-and-mistyped event topic hash matched nothing, so every log query returned an empty
   set and reported it as a clean result rather than as an error.
-confidence: high
+confidence: medium
 started: 2026-02
 ended: 2026-02
 effort: weeks
@@ -24,7 +24,7 @@ lessons:
   - "Any scanner that can legitimately return zero needs a positive control: point it at an address you know has activity and assert it finds something, or you cannot tell working from broken."
   - "Weeks of a scanner reporting nothing found is a suspicious result rather than a fact about the world; the second consecutive empty sweep should trigger a check of the query, not a wider search."
 supersedes: []
-related: [autotrader-journal-hid-losses, deploy-time-metadata-window, key-is-not-ownership]
+related: [autotrader-journal-hid-losses, deploy-time-metadata-window]
 source: project-registry
 links: {}
 evidence: []
