@@ -1,0 +1,100 @@
+name: bot-groundskeeper
+
+# The mechanical maintainer. Regenerates every derived surface, checks that
+# external links still resolve, and opens a PR if anything drifted.
+#
+# This role is allowed to automerge on green because its work is mechanical and
+# reversible — it only ever rewrites files that are already generated from data
+# it did not author. Anything that adds an idea or changes a verdict is NOT
+# allowed to automerge: automation that can merge its own judgement is not a
+# library, it is a rumour mill. See the Bot Protocol page in the wiki.
+
+on:
+  schedule:
+    - cron: '17 6 * * *'   # daily, off the hour so it does not queue behind everything else
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: groundskeeper
+  cancel-in-progress: false
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+
+      - name: Materialise denylist
+        env:
+          DENYLIST: ${{ secrets.SCRUB_DENYLIST_JSON }}
+        run: |
+          if [ -n "$DENYLIST" ]; then printf '%s' "$DENYLIST" > /tmp/denylist.json; fi
+
+      # The gate runs first here too. A maintainer that can rewrite files without
+      # passing the scrub would be a hole straight through the whole design.
+      - name: scrub
+        env:
+          SCRUB_DENYLIST: /tmp/denylist.json
+        run: node scripts/scrub.mjs
+
+      - name: Regenerate
+        run: |
+          node scripts/validate.mjs
+          node scripts/build.mjs
+          node scripts/scoreboard.mjs
+
+      - name: Link check (advisory)
+        id: links
+        continue-on-error: true
+        run: node scripts/check-links.mjs | tee /tmp/links.txt
+
+      - name: Open a PR if anything drifted
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "nothing drifted — no PR needed"
+            exit 0
+          fi
+
+          BRANCH="bot/groundskeeper-$(date -u +%Y%m%d)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add -A
+          git commit -m "chore: regenerate derived files" -m "$(cat <<'MSG'
+          Automated sweep by bot:groundskeeper.
+
+          Regenerated the derived surfaces from the idea files. Only generated
+          files are touched; nothing here is a judgement about an idea.
+
+          model: none (deterministic scripts only)
+          cost: $0
+          MSG
+          )"
+          git push -u origin "$BRANCH"
+
+          gh pr create \
+            --title "chore: regenerate derived files" \
+            --body "Daily mechanical sweep. Only generated files changed — no verdicts, no new ideas, nothing an agent had an opinion about.
+
+          Link check output:
+
+          \`\`\`
+          $(tail -20 /tmp/links.txt 2>/dev/null || echo 'not run')
+          \`\`\`
+
+          **model:** none — deterministic scripts only
+          **cost:** \$0
+
+          Eligible for automerge under the bot protocol: mechanical and reversible." \
+            --label "bot:groundskeeper" || true
+
+          gh pr merge --auto --squash "$BRANCH" || true

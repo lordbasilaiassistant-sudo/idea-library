@@ -7,39 +7,39 @@ Ideas: 11 · lessons: 46 · open questions: 2
 
 ## Start here
 
-- [index.json](https://github.com/lordbasilaiassistant-sudo/idea-library/blob/main/index.json): the entire catalog in one fetch. Read this first; do not crawl the tree.
-- [llms-full.txt](https://github.com/lordbasilaiassistant-sudo/idea-library/blob/main/llms-full.txt): every idea inlined, for single-shot ingestion.
-- [AGENTS.md](https://github.com/lordbasilaiassistant-sudo/idea-library/blob/main/AGENTS.md): how to contribute. Applies to every agent, any vendor.
-- [LESSONS.md](https://github.com/lordbasilaiassistant-sudo/idea-library/blob/main/LESSONS.md): every lesson in the library, grouped by failure mechanic.
-- [FAILURES.md](https://github.com/lordbasilaiassistant-sudo/idea-library/blob/main/FAILURES.md): what did not work, and why.
-- [OPEN-QUESTIONS.md](https://github.com/lordbasilaiassistant-sudo/idea-library/blob/main/OPEN-QUESTIONS.md): verdicts we cannot call yet, with the measurement that would settle each.
-- [STATUS.md](https://github.com/lordbasilaiassistant-sudo/idea-library/blob/main/STATUS.md): which parts of our history have been excavated, and which have not.
+- [index.json](https://ideas.broke2builtai.com/index.json): the entire catalog in one fetch. Read this first; do not crawl the tree.
+- [llms-full.txt](https://ideas.broke2builtai.com/llms-full.txt): every idea inlined, for single-shot ingestion.
+- [AGENTS.md](https://ideas.broke2builtai.com/AGENTS.md): how to contribute. Applies to every agent, any vendor.
+- [LESSONS.md](https://ideas.broke2builtai.com/LESSONS.md): every lesson in the library, grouped by failure mechanic.
+- [FAILURES.md](https://ideas.broke2builtai.com/FAILURES.md): what did not work, and why.
+- [OPEN-QUESTIONS.md](https://ideas.broke2builtai.com/OPEN-QUESTIONS.md): verdicts we cannot call yet, with the measurement that would settle each.
+- [STATUS.md](https://ideas.broke2builtai.com/STATUS.md): which parts of our history have been excavated, and which have not.
 
 ## Categories
 
-- [Crypto & On-chain](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain) (4): Anything that touches a blockchain: token launches, contracts, wallets, MEV, on-chain data.
-- [AI Agents](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents) (3): Autonomous or semi-autonomous agent systems, harnesses, and multi-agent coordination.
-- [Tooling & Infra](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra) (2): Developer tools, CLIs, MCP servers, deployment and hosting plumbing.
-- [Security & Audit](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/security-audit) (1): Auditing, scanning, exploit research, and defensive tooling.
-- [Automation & Ops](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/automation-ops) (1): Scheduled work, crons, scrapers, back-office automation, internal ops.
+- [Crypto & On-chain](https://ideas.broke2builtai.com/ideas/crypto-onchain/) (4): Anything that touches a blockchain: token launches, contracts, wallets, MEV, on-chain data.
+- [AI Agents](https://ideas.broke2builtai.com/ideas/ai-agents/) (3): Autonomous or semi-autonomous agent systems, harnesses, and multi-agent coordination.
+- [Tooling & Infra](https://ideas.broke2builtai.com/ideas/tooling-infra/) (2): Developer tools, CLIs, MCP servers, deployment and hosting plumbing.
+- [Security & Audit](https://ideas.broke2builtai.com/ideas/security-audit/) (1): Auditing, scanning, exploit research, and defensive tooling.
+- [Automation & Ops](https://ideas.broke2builtai.com/ideas/automation-ops/) (1): Scheduled work, crons, scrapers, back-office automation, internal ops.
 
 ## Ideas
 
-- [An automated trading fleet that reported itself as roughly break-even while losing money](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/autotrader-journal-hid-losses) — `failed`: The fleet's own journal was the only record of its performance, and an audit found it was accounting for about a third of the actual loss.
-- [Can an agent that is never given any starting capital find its own first income?](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/never-funded-agent) — `inconclusive`: An on-chain agent created its own wallet, received no funding from us at any point, and accumulated value entirely from routes it found itself. Whether that generalises is unsettled.
-- [Our own QA agents refused to test our platform because the task sounded like market manipulation](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/safety-refusal-blocked-own-qa) — `shipped`: Asking agents to exercise a trading platform with coordinated orders read as a request to manipulate a market, so they declined, and the honest fix was to describe the work accurately.
-- [A registration flow where you need the API key to retrieve the API key](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/automation-ops/circular-api-key-registration) — `partial`: Registering an agent returned a key exactly once, every later command required that key, and re-registering the same wallet failed as already registered. Losing the key locked us out.
-- [Why a token's image and description cannot be fixed after deployment](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/deploy-time-metadata-window) — `failed`: Launchpad indexers snapshot a token's metadata once, at deploy time. Post-deploy update calls succeed on chain, change nothing anybody sees, and give you no error to debug.
-- [A permissionless fee claim that pays nothing because no one has traded](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/fee-claim-needs-trading-first) — `inconclusive`: The fee collection function was open to any caller and needed no API key, which felt like a found revenue rail until we noticed fees only exist once other people trade the token.
-- [Holding a wallet's private key does not mean the balance in it is recoverable](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/key-is-not-ownership) — `failed`: A wallet we held the key for had a transaction history we had never produced, which meant somebody else also held it and the small balance inside was not ours to sweep.
-- [Launching tokens through an SDK instead of the web UI, and losing every discovery hook](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/sdk-launch-discovery-gap) — `failed`: Batch-launching tokens programmatically worked and cost pennies, but SDK-deployed tokens never appeared in the trending feed the web UI populates, so nobody ever saw them.
-- [An audit of our own app found a database password, an auth secret and an admin key in the source](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/security-audit/secrets-committed-to-source) — `shipped`: A four-agent security pass over a shipped web app turned up three hardcoded credentials, an unauthenticated treasury endpoint, and a cron that failed open instead of closed.
-- [Why a wallet script kept failing when a live backend shared the same key](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra/concurrent-nonce-collision) — `shipped`: A consolidation script read the wallet nonce once and built its transactions from it, while a production backend was signing from the same key, so half the sends collided and vanished.
-- [Reading thousands of contract values through Multicall3 instead of a block explorer API](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra/multicall-batch-reads) — `shipped`: Replacing per-token explorer API calls with batched Multicall3 aggregates against a public RPC made bulk on-chain reads roughly two orders of magnitude faster and removed the API key.
+- [An automated trading fleet that reported itself as roughly break-even while losing money](https://ideas.broke2builtai.com/ideas/ai-agents/autotrader-journal-hid-losses/) — `failed`: The fleet's own journal was the only record of its performance, and an audit found it was accounting for about a third of the actual loss.
+- [Can an agent that is never given any starting capital find its own first income?](https://ideas.broke2builtai.com/ideas/ai-agents/never-funded-agent/) — `inconclusive`: An on-chain agent created its own wallet, received no funding from us at any point, and accumulated value entirely from routes it found itself. Whether that generalises is unsettled.
+- [Our own QA agents refused to test our platform because the task sounded like market manipulation](https://ideas.broke2builtai.com/ideas/ai-agents/safety-refusal-blocked-own-qa/) — `shipped`: Asking agents to exercise a trading platform with coordinated orders read as a request to manipulate a market, so they declined, and the honest fix was to describe the work accurately.
+- [A registration flow where you need the API key to retrieve the API key](https://ideas.broke2builtai.com/ideas/automation-ops/circular-api-key-registration/) — `partial`: Registering an agent returned a key exactly once, every later command required that key, and re-registering the same wallet failed as already registered. Losing the key locked us out.
+- [Why a token's image and description cannot be fixed after deployment](https://ideas.broke2builtai.com/ideas/crypto-onchain/deploy-time-metadata-window/) — `failed`: Launchpad indexers snapshot a token's metadata once, at deploy time. Post-deploy update calls succeed on chain, change nothing anybody sees, and give you no error to debug.
+- [A permissionless fee claim that pays nothing because no one has traded](https://ideas.broke2builtai.com/ideas/crypto-onchain/fee-claim-needs-trading-first/) — `inconclusive`: The fee collection function was open to any caller and needed no API key, which felt like a found revenue rail until we noticed fees only exist once other people trade the token.
+- [Holding a wallet's private key does not mean the balance in it is recoverable](https://ideas.broke2builtai.com/ideas/crypto-onchain/key-is-not-ownership/) — `failed`: A wallet we held the key for had a transaction history we had never produced, which meant somebody else also held it and the small balance inside was not ours to sweep.
+- [Launching tokens through an SDK instead of the web UI, and losing every discovery hook](https://ideas.broke2builtai.com/ideas/crypto-onchain/sdk-launch-discovery-gap/) — `failed`: Batch-launching tokens programmatically worked and cost pennies, but SDK-deployed tokens never appeared in the trending feed the web UI populates, so nobody ever saw them.
+- [An audit of our own app found a database password, an auth secret and an admin key in the source](https://ideas.broke2builtai.com/ideas/security-audit/secrets-committed-to-source/) — `shipped`: A four-agent security pass over a shipped web app turned up three hardcoded credentials, an unauthenticated treasury endpoint, and a cron that failed open instead of closed.
+- [Why a wallet script kept failing when a live backend shared the same key](https://ideas.broke2builtai.com/ideas/tooling-infra/concurrent-nonce-collision/) — `shipped`: A consolidation script read the wallet nonce once and built its transactions from it, while a production backend was signing from the same key, so half the sends collided and vanished.
+- [Reading thousands of contract values through Multicall3 instead of a block explorer API](https://ideas.broke2builtai.com/ideas/tooling-infra/multicall-batch-reads/) — `shipped`: Replacing per-token explorer API calls with batched Multicall3 aggregates against a public RPC made bulk on-chain reads roughly two orders of magnitude faster and removed the API key.
 
 ## Citation
 
-Prose CC-BY-4.0, code MIT. Cite as: Broke to Built - idea-library, <idea title>, https://github.com/lordbasilaiassistant-sudo/idea-library
+Prose CC-BY-4.0, code MIT. Cite as: Broke to Built - idea-library, <idea title>, https://ideas.broke2builtai.com
 
 
 ---
@@ -49,7 +49,7 @@ Prose CC-BY-4.0, code MIT. Cite as: Broke to Built - idea-library, <idea title>,
 ## An automated trading fleet that reported itself as roughly break-even while losing money
 
 - id: autotrader-journal-hid-losses
-- url: https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/autotrader-journal-hid-losses
+- url: https://ideas.broke2builtai.com/ideas/ai-agents/autotrader-journal-hid-losses/
 - category: ai-agents
 - outcome: failed (confidence: high)
 - verdict: The fleet lost money and its self-reported journal showed roughly a third of that loss, because the journal recorded the events the code knew how to write down rather than the money that moved.
@@ -113,7 +113,7 @@ before you build the instrumentation, and make it a number that comes from outsi
 ## Can an agent that is never given any starting capital find its own first income?
 
 - id: never-funded-agent
-- url: https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/never-funded-agent
+- url: https://ideas.broke2builtai.com/ideas/ai-agents/never-funded-agent/
 - category: ai-agents
 - outcome: inconclusive (confidence: medium)
 - verdict: The agent did accumulate value with a starting balance of zero and no transfer from us, but a single agent on a single chain over one period cannot distinguish a repeatable method from a favourable window.
@@ -175,7 +175,7 @@ history so the claim can be checked by somebody who does not trust you.
 ## Our own QA agents refused to test our platform because the task sounded like market manipulation
 
 - id: safety-refusal-blocked-own-qa
-- url: https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/safety-refusal-blocked-own-qa
+- url: https://ideas.broke2builtai.com/ideas/ai-agents/safety-refusal-blocked-own-qa/
 - category: ai-agents
 - outcome: shipped (confidence: high)
 - verdict: The refusal was a correct response to how the task was worded rather than to what the task was, and rewriting the brief to describe platform QA on our own system resolved it without argument.
@@ -235,7 +235,7 @@ the honest version was both shorter and more accurate, which is the usual outcom
 ## A registration flow where you need the API key to retrieve the API key
 
 - id: circular-api-key-registration
-- url: https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/automation-ops/circular-api-key-registration
+- url: https://ideas.broke2builtai.com/ideas/automation-ops/circular-api-key-registration/
 - category: automation-ops
 - outcome: partial (confidence: high)
 - verdict: Every command including the one that shows your credentials required the key that registration returned once, so an unsaved key left the account permanently unreachable through the CLI.
@@ -297,7 +297,7 @@ interpolate before you interpolate it.
 ## Why a token's image and description cannot be fixed after deployment
 
 - id: deploy-time-metadata-window
-- url: https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/deploy-time-metadata-window
+- url: https://ideas.broke2builtai.com/ideas/crypto-onchain/deploy-time-metadata-window/
 - category: crypto-onchain
 - outcome: failed (confidence: high)
 - verdict: Metadata update calls after deployment succeed on chain but are never re-indexed, so every token launched with a placeholder image stayed placeholder forever with no failure signal.
@@ -359,7 +359,7 @@ asking.
 ## A permissionless fee claim that pays nothing because no one has traded
 
 - id: fee-claim-needs-trading-first
-- url: https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/fee-claim-needs-trading-first
+- url: https://ideas.broke2builtai.com/ideas/crypto-onchain/fee-claim-needs-trading-first/
 - category: crypto-onchain
 - outcome: inconclusive (confidence: high)
 - verdict: Fee collection really is permissionless and keyless, but it is gated on trading volume that we had no mechanism to create, so the open door led to an empty room.
@@ -421,7 +421,7 @@ binding one is rarely the one with a login form.
 ## Holding a wallet's private key does not mean the balance in it is recoverable
 
 - id: key-is-not-ownership
-- url: https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/key-is-not-ownership
+- url: https://ideas.broke2builtai.com/ideas/crypto-onchain/key-is-not-ownership/
 - category: crypto-onchain
 - outcome: failed (confidence: high)
 - verdict: The key opened the wallet but its nonce showed dozens of transactions we never sent, so the balance belonged to whoever else had the same key and the funds were written off.
@@ -481,7 +481,7 @@ quietly spending somebody else's.
 ## Launching tokens through an SDK instead of the web UI, and losing every discovery hook
 
 - id: sdk-launch-discovery-gap
-- url: https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/sdk-launch-discovery-gap
+- url: https://ideas.broke2builtai.com/ideas/crypto-onchain/sdk-launch-discovery-gap/
 - category: crypto-onchain
 - outcome: failed (confidence: high)
 - verdict: The SDK deploy produced identical on-chain state to a web-UI deploy but skipped the platform's server-side discovery hooks, so the launches were invisible and the cheap batch pipeline had nothing to feed.
@@ -542,7 +542,7 @@ test order: confirm that the output can be found before you spend a week making 
 ## An audit of our own app found a database password, an auth secret and an admin key in the source
 
 - id: secrets-committed-to-source
-- url: https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/security-audit/secrets-committed-to-source
+- url: https://ideas.broke2builtai.com/ideas/security-audit/secrets-committed-to-source/
 - category: security-audit
 - outcome: shipped (confidence: high)
 - verdict: Nothing was exploited, but the findings were only found because we ran a deliberate audit, which means the same class of mistake had been shipping unnoticed for as long as the app had existed.
@@ -607,7 +607,7 @@ about your process rather than about that one bug. The question worth asking aft
 ## Why a wallet script kept failing when a live backend shared the same key
 
 - id: concurrent-nonce-collision
-- url: https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra/concurrent-nonce-collision
+- url: https://ideas.broke2builtai.com/ideas/tooling-infra/concurrent-nonce-collision/
 - category: tooling-infra
 - outcome: shipped (confidence: high)
 - verdict: Caching the nonce at startup is correct only for a key nobody else is using, and the fix was to refetch the pending nonce immediately before every single send.
@@ -668,7 +668,7 @@ message names where the failure appeared, not where it came from.
 ## Reading thousands of contract values through Multicall3 instead of a block explorer API
 
 - id: multicall-batch-reads
-- url: https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra/multicall-batch-reads
+- url: https://ideas.broke2builtai.com/ideas/tooling-infra/multicall-batch-reads/
 - category: tooling-infra
 - outcome: shipped (confidence: medium)
 - verdict: Batching reads into Multicall3 aggregates against a public RPC removed both the rate limit and the API key that made per-token explorer loops slow and fragile.

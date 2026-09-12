@@ -1,0 +1,102 @@
+/* Per-idea reading page. Long-form, single column, generous measure.
+   Deliberately quieter than the landing page: this is where somebody reads a
+   thousand words about why something failed, so nothing here competes with the
+   text. */
+
+.idea-page article {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 52px 24px 80px;
+  position: relative;
+  z-index: 2;
+}
+
+.crumb { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; margin: 0 0 18px; }
+.crumb a { color: var(--accent); text-decoration: none; }
+
+.idea-page h1 {
+  font-family: var(--serif);
+  font-size: clamp(1.9rem, 4.6vw, 2.9rem);
+  font-weight: 600; line-height: 1.08; letter-spacing: -.025em;
+  margin: 0 0 24px;
+}
+
+.verdict-lead {
+  font-size: 19px; line-height: 1.5; color: var(--ink);
+  border-left: 3px solid var(--oc, var(--accent));
+  padding: 4px 0 4px 18px; margin: 0 0 10px;
+}
+.oc-badge {
+  display: inline-block; font-family: var(--mono); font-size: 10.5px;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--oc, var(--accent));
+  border: 1px solid var(--oc, var(--accent)); border-radius: 2px;
+  padding: 2px 7px; margin-right: 10px; vertical-align: 2px;
+}
+.oc-def { font-size: 13.5px; color: var(--ink-3); margin: 0 0 34px; padding-left: 21px; }
+.oc-def span { display: block; margin-top: 3px; }
+.oc-def b { color: var(--ink-2); }
+
+.settle {
+  background: var(--bg-2); border: 1px solid var(--line);
+  border-left: 3px solid var(--inconclusive);
+  border-radius: 3px; padding: 20px 22px; margin: 0 0 34px;
+}
+.settle h2 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .13em; text-transform: uppercase;
+  color: var(--inconclusive); margin: 0 0 9px;
+}
+.settle p { margin: 0; font-size: 15.5px; color: var(--ink); }
+.settle .settle-cta { margin-top: 12px; font-size: 14px; color: var(--ink-2); }
+.settle a { color: var(--accent); }
+
+.facts {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1px; background: var(--line-soft); border: 1px solid var(--line-soft);
+  margin: 0 0 40px;
+}
+.facts div { background: var(--bg-2); padding: 13px 15px; }
+.facts dt { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
+.facts dd { margin: 5px 0 0; font-size: 15px; font-weight: 500; }
+.facts dd em { font-style: normal; color: var(--ink-3); font-weight: 400; font-size: 13.5px; }
+
+.lessons { margin: 0 0 44px; }
+.lessons h2, .body h2, .meta h2, .related h2 {
+  font-family: var(--serif); font-size: 1.45rem; font-weight: 600;
+  letter-spacing: -.02em; margin: 40px 0 14px;
+}
+.lessons h2 { margin-top: 0; }
+.lessons-note { font-size: 13.5px; color: var(--ink-3); margin: 0 0 16px; }
+.lessons ol { margin: 0; padding-left: 22px; display: grid; gap: 13px; }
+.lessons li { font-size: 16.5px; line-height: 1.55; }
+.lessons li code { font-family: var(--mono); font-size: .88em; background: var(--bg-3); padding: 1px 5px; border-radius: 2px; }
+.anchor { opacity: 0; text-decoration: none; color: var(--ink-3); padding-left: 4px; }
+.lessons li:hover .anchor { opacity: 1; }
+.lessons li:target { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+
+.body p { font-size: 16.5px; line-height: 1.72; color: var(--ink-2); margin: 0 0 18px; }
+.body h2 { color: var(--ink); }
+.body strong { color: var(--ink); }
+.body code { font-family: var(--mono); font-size: .88em; background: var(--bg-3); padding: 1px 5px; border-radius: 2px; color: var(--ink); }
+.body pre { background: var(--bg-2); border: 1px solid var(--line); border-radius: 3px; padding: 14px 16px; overflow-x: auto; }
+.body pre code { background: none; padding: 0; font-size: 13px; line-height: 1.6; }
+.body ul { padding-left: 22px; }
+.body li { font-size: 16.5px; line-height: 1.65; color: var(--ink-2); margin-bottom: 8px; }
+
+.axis { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 0 0 10px; }
+.axis-name { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); width: 74px; flex-shrink: 0; }
+
+.related ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.related li { padding-bottom: 12px; border-bottom: 1px solid var(--line-soft); }
+.related a { color: var(--ink); text-decoration: none; font-size: 16px; font-weight: 500; }
+.related a:hover { color: var(--accent); }
+.related .oc-def { padding-left: 0; margin: 4px 0 0; }
+
+.idea-foot { margin-top: 52px; padding-top: 26px; border-top: 1px solid var(--line); }
+.idea-foot p { font-size: 14.5px; color: var(--ink-2); }
+.idea-foot a { color: var(--accent); }
+.idea-foot .cite { font-family: var(--mono); font-size: 11.5px; color: var(--ink-3); margin-top: 16px; line-height: 1.6; }
+
+@media (max-width: 700px) {
+  .idea-page article { padding: 36px 16px 60px; }
+  .axis-name { width: 100%; }
+}
