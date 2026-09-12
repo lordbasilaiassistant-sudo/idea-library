@@ -6,12 +6,12 @@ This library is built by repeated digs through our own history. The registry we 
 was the easiest one, and it is nowhere near all of it. This board exists so the gaps stay
 visible instead of being quietly forgotten.
 
-**11 ideas indexed · 7 digs still outstanding.**
+**19 ideas indexed · 7 digs still outstanding.**
 
 | Dig | Status | Yielded | Estimated | Notes |
 |---|---|---|---|---|
 | Hand-written exemplars | ✅ complete | 3 | — | The first ideas, written by hand to set the quality bar for everything after. |
-| Project registry | ⏳ pending | 8 | — | Projects already catalogued in a structured form, so the cheapest pass to run first. |
+| Project registry | ⏳ pending | 16 | — | Projects already catalogued in a structured form, so the cheapest pass to run first. |
 | Working directories | ⏳ pending | 0 | — | Project folders that never made it into the registry. Expect the same idea under several names; dedupe against existing ids. |
 | Published repositories | ⏳ pending | 0 | — | Work that is already public. Lowest risk and highest link value, since each entry can cite its own repo. |
 | Older work | ⏳ pending | 0 | — | Things set aside long enough to have an outcome. Expect dead ideas, which are the most valuable kind here. |
@@ -25,10 +25,10 @@ visible instead of being quietly forgotten.
 | Outcome | Count | Meaning |
 |---|---|---|
 | 💰 `revenue` | 0 | Made money from a non-founder payer, verified at the source. |
-| 🚢 `shipped` | 4 | Built, deployed, and used by someone — but no verified revenue. |
-| ◐ `partial` | 1 | The core mechanic worked; something specific capped it short of the goal. |
-| ✖ `failed` | 4 | Ran it, and it did not work. We know why. |
-| ⏹ `abandoned` | 0 | Stopped before a verdict, by choice. We know why we stopped. |
+| 🚢 `shipped` | 7 | Built, deployed, and used by someone — but no verified revenue. |
+| ◐ `partial` | 2 | The core mechanic worked; something specific capped it short of the goal. |
+| ✖ `failed` | 7 | Ran it, and it did not work. We know why. |
+| ⏹ `abandoned` | 1 | Stopped before a verdict, by choice. We know why we stopped. |
 | ? `inconclusive` | 2 | Genuinely undetermined. We state what measurement would settle it. |
 | ▶ `active` | 0 | Running right now. No verdict yet, by definition. |
 | ⏸ `parked` | 0 | Blocked on a named external unblocker, waiting for it. |

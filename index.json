@@ -9,32 +9,32 @@
     "attribution": "Broke to Built - idea-library"
   },
   "counts": {
-    "total": 11,
+    "total": 19,
     "by_outcome": {
       "revenue": 0,
-      "shipped": 4,
-      "partial": 1,
-      "failed": 4,
-      "abandoned": 0,
+      "shipped": 7,
+      "partial": 2,
+      "failed": 7,
+      "abandoned": 1,
       "inconclusive": 2,
       "active": 0,
       "parked": 0
     },
     "by_category": {
-      "crypto-onchain": 4,
+      "crypto-onchain": 7,
       "ai-agents": 3,
       "ml-research": 0,
-      "tooling-infra": 2,
-      "web-saas": 0,
+      "tooling-infra": 3,
+      "web-saas": 1,
       "games": 0,
-      "security-audit": 1,
+      "security-audit": 3,
       "content-media": 0,
       "automation-ops": 1,
-      "experiments": 0
+      "experiments": 1
     },
     "by_source": {
       "seed": 3,
-      "project-registry": 8,
+      "project-registry": 16,
       "working-directories": 0,
       "public-repos": 0,
       "older-work": 0,
@@ -43,7 +43,7 @@
       "onchain": 0,
       "community": 0
     },
-    "lessons": 46,
+    "lessons": 84,
     "open_questions": 2
   },
   "taxonomy": {
@@ -357,7 +357,7 @@
       "label": "Project registry",
       "detail": "Projects already catalogued in a structured form, so the cheapest pass to run first.",
       "status": "pending",
-      "yield": 8
+      "yield": 16
     },
     {
       "id": "working-directories",
@@ -467,11 +467,15 @@
       "path": "/ideas/ai-agents/autotrader-journal-hid-losses/",
       "url": "https://ideas.broke2builtai.com/ideas/ai-agents/autotrader-journal-hid-losses/",
       "repo_path": "ideas/ai-agents/autotrader-journal-hid-losses",
-      "updated": "2026-09-12T15:36:28-04:00",
+      "updated": "2026-06-01T00:00:00Z",
       "related_all": [
+        "hardcoded-event-topic-hash",
+        "indexer-pings-are-not-demand",
         "never-funded-agent",
+        "retail-arbitrage-is-closed",
         "safety-refusal-blocked-own-qa",
-        "secrets-committed-to-source"
+        "secrets-committed-to-source",
+        "self-reported-rewards-vs-balance"
       ]
     },
     {
@@ -529,7 +533,7 @@
       "path": "/ideas/ai-agents/never-funded-agent/",
       "url": "https://ideas.broke2builtai.com/ideas/ai-agents/never-funded-agent/",
       "repo_path": "ideas/ai-agents/never-funded-agent",
-      "updated": "2026-09-12T14:53:42-04:00",
+      "updated": "2026-06-01T00:00:00Z",
       "related_all": [
         "autotrader-journal-hid-losses",
         "key-is-not-ownership"
@@ -590,7 +594,7 @@
       "path": "/ideas/ai-agents/safety-refusal-blocked-own-qa/",
       "url": "https://ideas.broke2builtai.com/ideas/ai-agents/safety-refusal-blocked-own-qa/",
       "repo_path": "ideas/ai-agents/safety-refusal-blocked-own-qa",
-      "updated": "2026-09-12T15:36:28-04:00",
+      "updated": "2026-06-01T00:00:00Z",
       "related_all": [
         "autotrader-journal-hid-losses"
       ]
@@ -652,7 +656,7 @@
       "path": "/ideas/automation-ops/circular-api-key-registration/",
       "url": "https://ideas.broke2builtai.com/ideas/automation-ops/circular-api-key-registration/",
       "repo_path": "ideas/automation-ops/circular-api-key-registration",
-      "updated": "2026-09-12T15:36:28-04:00",
+      "updated": "2026-04-01T00:00:00Z",
       "related_all": [
         "deploy-time-metadata-window"
       ]
@@ -715,10 +719,12 @@
       "path": "/ideas/crypto-onchain/deploy-time-metadata-window/",
       "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/deploy-time-metadata-window/",
       "repo_path": "ideas/crypto-onchain/deploy-time-metadata-window",
-      "updated": "2026-09-12T15:36:28-04:00",
+      "updated": "2026-05-01T00:00:00Z",
       "related_all": [
         "circular-api-key-registration",
         "fee-claim-needs-trading-first",
+        "five-hundred-tokens-zero-volume",
+        "hardcoded-event-topic-hash",
         "sdk-launch-discovery-gap"
       ]
     },
@@ -779,10 +785,152 @@
       "path": "/ideas/crypto-onchain/fee-claim-needs-trading-first/",
       "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/fee-claim-needs-trading-first/",
       "repo_path": "ideas/crypto-onchain/fee-claim-needs-trading-first",
-      "updated": "2026-09-12T15:36:28-04:00",
+      "updated": "2026-04-01T00:00:00Z",
       "related_all": [
         "deploy-time-metadata-window",
+        "forty-three-services-no-customers",
+        "sdk-launch-discovery-gap",
+        "self-reported-rewards-vs-balance"
+      ]
+    },
+    {
+      "id": "five-hundred-tokens-zero-volume",
+      "title": "Five hundred tokens, one hundred and forty generic names, and zero trading volume",
+      "description": "Deploys were free and gas was sponsored, so we launched at volume to see whether quantity could substitute for narrative. It cannot, and the result was unambiguous.",
+      "category": "crypto-onchain",
+      "outcome": "failed",
+      "verdict": "Launch quantity has no relationship to trading volume, because a token with no narrative, no distinctive art and no community signal gives a buyer nothing to act on however many exist.",
+      "what_would_settle_it": null,
+      "confidence": "high",
+      "started": "2026-02",
+      "ended": "2026-05",
+      "effort": "months",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "base",
+        "solana",
+        "canvas",
+        "launchpad-sdk"
+      ],
+      "tags": [
+        "token-launch",
+        "trading",
+        "oversaturated",
+        "craft-floor",
+        "distribution-gap",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "token-launch",
+          "trading"
+        ],
+        "mechanic": [
+          "oversaturated",
+          "craft-floor",
+          "distribution-gap"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Free deploys and sponsored gas remove the cost of launching and change nothing about the cost of being worth buying, which is why a launch count is not a strategy.",
+        "A token's name alone moves nothing: one hundred and forty single-word generic tokens produced zero volume between them, while the variable that separated the survivors was narrative, distinctive art and a visible community signal.",
+        "Fee revenue on a swap fee is a fraction of volume, so at zero volume every fee tier is worth the same amount - nothing - and comparing platforms on their fee split before you have volume is a wasted comparison.",
+        "Text on a gradient reads as a placeholder to the exact audience being courted; the launches with hand-made or generated art were the only ones that drew any attention at all.",
+        "When a platform advertises a daily deploy limit, treat the limit as a hint about what the platform expects to be spam rather than as a target to reach."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "forty-three-services-no-customers",
+        "sdk-launch-discovery-gap",
+        "deploy-time-metadata-window"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/crypto-onchain/five-hundred-tokens-zero-volume/",
+      "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/five-hundred-tokens-zero-volume/",
+      "repo_path": "ideas/crypto-onchain/five-hundred-tokens-zero-volume",
+      "updated": "2026-05-01T00:00:00Z",
+      "related_all": [
+        "deploy-time-metadata-window",
+        "forty-three-services-no-customers",
+        "indexer-pings-are-not-demand",
         "sdk-launch-discovery-gap"
+      ]
+    },
+    {
+      "id": "indexer-pings-are-not-demand",
+      "title": "Fifty-one liquidity pools produced buy events that were not buyers",
+      "description": "Creating small pools reliably triggered one or two buys each, which looked like the strategy working. The buys were indexers registering a new pool, not anybody trading.",
+      "category": "crypto-onchain",
+      "outcome": "partial",
+      "verdict": "The mechanism really did fire on every pool, but the resulting buy events were automated indexers acknowledging a new market rather than economic demand, so the signal measured our own activity.",
+      "what_would_settle_it": null,
+      "confidence": "high",
+      "started": "2026-03",
+      "ended": "2026-04",
+      "effort": "weeks",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base",
+        "multicall3"
+      ],
+      "tags": [
+        "token-launch",
+        "trading",
+        "onchain-data",
+        "verification-gap",
+        "silent-failure",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "token-launch",
+          "trading",
+          "onchain-data"
+        ],
+        "mechanic": [
+          "verification-gap",
+          "silent-failure"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "One or two buys arriving immediately after a new pool is created are almost always automated indexers registering the market, and they arrive whether or not a single human has seen the token.",
+        "A buy event is not a buyer: classify inbound trades by whether the counterparty has any history before counting them as demand.",
+        "A signal that fires reliably on every attempt and never varies with the quality of the attempt is measuring your own action rather than anybody's response.",
+        "Tokens that already had markets elsewhere attracted an order of magnitude more activity than new ones under identical mechanics, which points at pre-existing distribution rather than at the mechanic.",
+        "A high-volume trading address in a token's history is more often a shared router contract than a bot, and mistaking one for the other sends you hunting a whitelist that does not exist."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "five-hundred-tokens-zero-volume",
+        "autotrader-journal-hid-losses",
+        "multicall-batch-reads"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/crypto-onchain/indexer-pings-are-not-demand/",
+      "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/indexer-pings-are-not-demand/",
+      "repo_path": "ideas/crypto-onchain/indexer-pings-are-not-demand",
+      "updated": "2026-04-01T00:00:00Z",
+      "related_all": [
+        "autotrader-journal-hid-losses",
+        "five-hundred-tokens-zero-volume",
+        "multicall-batch-reads",
+        "synthetic-pool-chart-spoof"
       ]
     },
     {
@@ -841,10 +989,79 @@
       "path": "/ideas/crypto-onchain/key-is-not-ownership/",
       "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/key-is-not-ownership/",
       "repo_path": "ideas/crypto-onchain/key-is-not-ownership",
-      "updated": "2026-09-12T15:36:28-04:00",
+      "updated": "2026-05-01T00:00:00Z",
       "related_all": [
         "concurrent-nonce-collision",
-        "never-funded-agent"
+        "hardcoded-event-topic-hash",
+        "never-funded-agent",
+        "retail-arbitrage-is-closed",
+        "synthetic-pool-chart-spoof"
+      ]
+    },
+    {
+      "id": "retail-arbitrage-is-closed",
+      "title": "Cross-DEX arbitrage, sandwiching and scalping are all closed to a small wallet, with numbers",
+      "description": "We measured three classic on-chain money strategies from a tiny wallet on a fast L2. All three are negative expected value for structural reasons, and the numbers say why.",
+      "category": "crypto-onchain",
+      "outcome": "failed",
+      "verdict": "Each strategy fails to a different structural cause - professional latency, a private mempool, and a fee floor above the volatility - and none of the three can be fixed by a better script.",
+      "what_would_settle_it": null,
+      "confidence": "high",
+      "started": "2026-03",
+      "ended": "2026-06",
+      "effort": "months",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base"
+      ],
+      "tags": [
+        "trading",
+        "onchain-data",
+        "unit-economics",
+        "capital-required",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "trading",
+          "onchain-data"
+        ],
+        "mechanic": [
+          "unit-economics",
+          "capital-required"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Simple cross-DEX arbitrage on a fast L2 is closed to anyone without professional latency, because the spread is captured within the same block by parties whose infrastructure is the entire product.",
+        "Sandwich strategies do not work on a chain with a centralised sequencer and a private mempool: the pending transactions the strategy depends on seeing are not visible to you.",
+        "Large-cap scalping on a DEX is negative expected value before it begins when round-trip fees are around 3.6% and the volatility being harvested is smaller than that.",
+        "Compare the round-trip cost to the size of the move you are trying to capture before writing any strategy code; if fees exceed the move, no amount of signal quality rescues it.",
+        "Flash loans remove the capital constraint and leave the opportunity constraint untouched - borrowing tens of thousands of ETH at zero fee still found no profitable route, because the routes were already taken.",
+        "A liquidation opportunity is real but competitive and event-driven, so it rewards being permanently ready rather than being clever, which is a different kind of system than a trading bot."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "autotrader-journal-hid-losses",
+        "key-is-not-ownership"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/crypto-onchain/retail-arbitrage-is-closed/",
+      "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/retail-arbitrage-is-closed/",
+      "repo_path": "ideas/crypto-onchain/retail-arbitrage-is-closed",
+      "updated": "2026-06-01T00:00:00Z",
+      "related_all": [
+        "autotrader-journal-hid-losses",
+        "key-is-not-ownership",
+        "scan-for-money-loop"
       ]
     },
     {
@@ -904,11 +1121,76 @@
       "path": "/ideas/crypto-onchain/sdk-launch-discovery-gap/",
       "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/sdk-launch-discovery-gap/",
       "repo_path": "ideas/crypto-onchain/sdk-launch-discovery-gap",
-      "updated": "2026-09-12T14:53:42-04:00",
+      "updated": "2026-05-01T00:00:00Z",
       "related_all": [
         "deploy-time-metadata-window",
         "fee-claim-needs-trading-first",
+        "five-hundred-tokens-zero-volume",
         "multicall-batch-reads"
+      ]
+    },
+    {
+      "id": "scan-for-money-loop",
+      "title": "We re-derived the same dead strategy across many sessions without noticing",
+      "description": "Scanning contracts for unclaimed funds failed, and we returned to it repeatedly because each session started without the memory of the last one having tried it.",
+      "category": "experiments",
+      "outcome": "abandoned",
+      "verdict": "The strategy was dead after the first honest attempt, but nothing recorded that verdict where the next session would read it, so the same ground was re-excavated until a human intervened.",
+      "what_would_settle_it": null,
+      "confidence": "high",
+      "started": "2026-04",
+      "ended": "2026-07",
+      "effort": "months",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base"
+      ],
+      "tags": [
+        "onchain-data",
+        "agent-harness",
+        "wrong-abstraction",
+        "maintenance-cost",
+        "prototyped"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "onchain-data",
+          "agent-harness"
+        ],
+        "mechanic": [
+          "wrong-abstraction",
+          "maintenance-cost"
+        ],
+        "stage": [
+          "prototyped"
+        ]
+      },
+      "lessons": [
+        "A strategy that failed is only abandoned if the verdict is written somewhere the next attempt will read before starting, otherwise a fresh session will rediscover the idea and find it appealing for the same reasons it originally did.",
+        "Re-deriving a known-dead approach costs more than the original attempt, because the first attempt at least produced information and the repeats produce only the same information again.",
+        "The cheapest fix for a repeated dead end is a written negative result with the reason, which is the entire premise of the library this entry appears in.",
+        "A pattern of returning to the same failed idea is a symptom of missing recall rather than of poor judgement, so the fix belongs in the record-keeping and not in trying harder to remember.",
+        "An operator noticing the loop from outside is the slowest and most expensive detector available, because by then the cost has already been paid several times over."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "forty-three-services-no-customers",
+        "retail-arbitrage-is-closed"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/experiments/scan-for-money-loop/",
+      "url": "https://ideas.broke2builtai.com/ideas/experiments/scan-for-money-loop/",
+      "repo_path": "ideas/experiments/scan-for-money-loop",
+      "updated": "2026-07-01T00:00:00Z",
+      "related_all": [
+        "forty-three-services-no-customers",
+        "retail-arbitrage-is-closed"
       ]
     },
     {
@@ -969,9 +1251,142 @@
       "path": "/ideas/security-audit/secrets-committed-to-source/",
       "url": "https://ideas.broke2builtai.com/ideas/security-audit/secrets-committed-to-source/",
       "repo_path": "ideas/security-audit/secrets-committed-to-source",
-      "updated": "2026-09-12T15:36:28-04:00",
+      "updated": "2026-02-01T00:00:00Z",
       "related_all": [
         "autotrader-journal-hid-losses"
+      ]
+    },
+    {
+      "id": "self-reported-rewards-vs-balance",
+      "title": "A protocol reported claimable rewards that did not exist when claimed",
+      "description": "A contract's view function showed a pending reward balance. Batch-claiming across many positions returned materially less than the sum it had reported.",
+      "category": "security-audit",
+      "outcome": "shipped",
+      "verdict": "The reported figure was an estimate computed under assumptions that no longer held at claim time, so trusting it and batching on top of it spent gas on claims that returned nothing.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-05",
+      "ended": "2026-05",
+      "effort": "hours",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base"
+      ],
+      "tags": [
+        "smart-contracts",
+        "onchain-data",
+        "verification-gap",
+        "silent-failure",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "smart-contracts",
+          "onchain-data"
+        ],
+        "mechanic": [
+          "verification-gap",
+          "silent-failure"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "A view function reporting a pending or claimable amount is that contract's estimate under its own assumptions, and it is not a promise that the amount will arrive when claimed.",
+        "Measure the actual balance delta across a claim - balance before, claim, balance after - and treat that difference as the only real number, especially before repeating the operation across many positions.",
+        "Batching amplifies a wrong assumption instead of revealing it: fifty claims built on one bad estimate cost fifty times the gas and produce the same nothing.",
+        "Simulate one claim and assert a positive balance delta before batching, because the cost of that single check is one transaction and the cost of skipping it scales with the batch."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "autotrader-journal-hid-losses",
+        "hardcoded-event-topic-hash",
+        "fee-claim-needs-trading-first"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/security-audit/self-reported-rewards-vs-balance/",
+      "url": "https://ideas.broke2builtai.com/ideas/security-audit/self-reported-rewards-vs-balance/",
+      "repo_path": "ideas/security-audit/self-reported-rewards-vs-balance",
+      "updated": "2026-05-01T00:00:00Z",
+      "related_all": [
+        "autotrader-journal-hid-losses",
+        "fee-claim-needs-trading-first",
+        "hardcoded-event-topic-hash",
+        "synthetic-pool-chart-spoof"
+      ]
+    },
+    {
+      "id": "synthetic-pool-chart-spoof",
+      "title": "A liquidity pool that showed a price chart and held no liquidity",
+      "description": "A price aggregator displayed a pool with a chart and a market. On chain there was no liquidity position to withdraw and never had been.",
+      "category": "security-audit",
+      "outcome": "shipped",
+      "verdict": "The pool existed as a contract producing chart-shaped data without holding reserves, so the aggregator rendered a market that had nothing behind it.",
+      "what_would_settle_it": null,
+      "confidence": "high",
+      "started": "2026-06",
+      "ended": "2026-06",
+      "effort": "hours",
+      "cost_usd": 0,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base"
+      ],
+      "tags": [
+        "onchain-data",
+        "smart-contracts",
+        "trading",
+        "verification-gap",
+        "worked-as-designed",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "onchain-data",
+          "smart-contracts",
+          "trading"
+        ],
+        "mechanic": [
+          "verification-gap",
+          "worked-as-designed"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "A price chart on an aggregator proves that something emitted events in the shape of trades, not that a pool holds reserves you could trade against.",
+        "Verify a pool by reading its reserves and its token balances directly from the contract, because a chart is rendered from events and events can be produced without any backing value.",
+        "Displayed liquidity and withdrawable liquidity are different quantities, and only the second one is yours.",
+        "Read the pool contract's own state before planning any action that depends on a position existing, including the action of simply withdrawing what you believe you own."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "indexer-pings-are-not-demand",
+        "self-reported-rewards-vs-balance",
+        "key-is-not-ownership"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/security-audit/synthetic-pool-chart-spoof/",
+      "url": "https://ideas.broke2builtai.com/ideas/security-audit/synthetic-pool-chart-spoof/",
+      "repo_path": "ideas/security-audit/synthetic-pool-chart-spoof",
+      "updated": "2026-06-01T00:00:00Z",
+      "related_all": [
+        "indexer-pings-are-not-demand",
+        "key-is-not-ownership",
+        "self-reported-rewards-vs-balance"
       ]
     },
     {
@@ -1030,10 +1445,76 @@
       "path": "/ideas/tooling-infra/concurrent-nonce-collision/",
       "url": "https://ideas.broke2builtai.com/ideas/tooling-infra/concurrent-nonce-collision/",
       "repo_path": "ideas/tooling-infra/concurrent-nonce-collision",
-      "updated": "2026-09-12T15:36:28-04:00",
+      "updated": "2026-05-01T00:00:00Z",
       "related_all": [
         "key-is-not-ownership",
         "multicall-batch-reads"
+      ]
+    },
+    {
+      "id": "hardcoded-event-topic-hash",
+      "title": "A single mistyped event hash made every scanner return zero results for months",
+      "description": "Every token scanner we wrote reported nothing found. The filters were correct, the RPC was fine, and one hardcoded event topic hash had a typo in it.",
+      "category": "tooling-infra",
+      "outcome": "shipped",
+      "verdict": "A copied-and-mistyped event topic hash matched nothing, so every log query returned an empty set and reported it as a clean result rather than as an error.",
+      "what_would_settle_it": null,
+      "confidence": "high",
+      "started": "2026-02",
+      "ended": "2026-02",
+      "effort": "weeks",
+      "cost_usd": 0,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base"
+      ],
+      "tags": [
+        "onchain-data",
+        "cli-tooling",
+        "silent-failure",
+        "verification-gap",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "onchain-data",
+          "cli-tooling"
+        ],
+        "mechanic": [
+          "silent-failure",
+          "verification-gap"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Derive an event topic hash in code with a helper such as ethers.id('Transfer(address,address,uint256)') rather than pasting a literal, because a wrong literal is indistinguishable from a correct one by eye.",
+        "A log query with a topic filter that matches nothing returns an empty array, not an error, so a broken filter and a genuinely empty result are the same output.",
+        "Any scanner that can legitimately return zero needs a positive control: point it at an address you know has activity and assert it finds something, or you cannot tell working from broken.",
+        "Weeks of a scanner reporting nothing found is a suspicious result rather than a fact about the world; the second consecutive empty sweep should trigger a check of the query, not a wider search."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "autotrader-journal-hid-losses",
+        "deploy-time-metadata-window",
+        "key-is-not-ownership"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/tooling-infra/hardcoded-event-topic-hash/",
+      "url": "https://ideas.broke2builtai.com/ideas/tooling-infra/hardcoded-event-topic-hash/",
+      "repo_path": "ideas/tooling-infra/hardcoded-event-topic-hash",
+      "updated": "2026-02-01T00:00:00Z",
+      "related_all": [
+        "autotrader-journal-hid-losses",
+        "deploy-time-metadata-window",
+        "key-is-not-ownership",
+        "self-reported-rewards-vs-balance"
       ]
     },
     {
@@ -1093,10 +1574,79 @@
       "path": "/ideas/tooling-infra/multicall-batch-reads/",
       "url": "https://ideas.broke2builtai.com/ideas/tooling-infra/multicall-batch-reads/",
       "repo_path": "ideas/tooling-infra/multicall-batch-reads",
-      "updated": "2026-09-12T14:53:42-04:00",
+      "updated": "2026-04-01T00:00:00Z",
       "related_all": [
         "concurrent-nonce-collision",
+        "indexer-pings-are-not-demand",
         "sdk-launch-discovery-gap"
+      ]
+    },
+    {
+      "id": "forty-three-services-no-customers",
+      "title": "We built forty-three paid micro-services and never found a single customer",
+      "description": "Thirty-five working paid endpoints, eight broken, zero external buyers. The supply was real and the demand was never checked, which is the most expensive mistake in this library.",
+      "category": "web-saas",
+      "outcome": "failed",
+      "verdict": "Every unit of effort went into supply and none into demand, so we ended with a catalogue of working services that nobody had ever asked for and no channel through which anyone could.",
+      "what_would_settle_it": null,
+      "confidence": "high",
+      "started": "2026-03",
+      "ended": "2026-04",
+      "effort": "months",
+      "cost_usd": null,
+      "revenue_usd": 30.33,
+      "stack": [
+        "node",
+        "cloudflare-workers",
+        "x402",
+        "base"
+      ],
+      "tags": [
+        "payments",
+        "api-integration",
+        "marketplace",
+        "distribution-gap",
+        "oversaturated",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "payments",
+          "api-integration",
+          "marketplace"
+        ],
+        "mechanic": [
+          "distribution-gap",
+          "oversaturated"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Counting shipped services measures effort, not progress; forty-three endpoints and zero customers is the same business as zero endpoints and zero customers, minus the months.",
+        "Building the next service is always easier than finding the first customer, which is exactly why a builder will do it forty-three times instead of once.",
+        "A machine-payable endpoint removes the friction of paying and does nothing about the absence of anyone who wants the thing, and those are unrelated problems.",
+        "Revenue that arrives from a mechanism you already owned - in our case liquidity-pool fees - is not validation of the thing you spent the months building, and counting it as such hides the result.",
+        "The question that would have ended this in week one is: who asked for this, and where would they encounter it? Neither had an answer at any point."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "fee-claim-needs-trading-first",
+        "five-hundred-tokens-zero-volume"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/web-saas/forty-three-services-no-customers/",
+      "url": "https://ideas.broke2builtai.com/ideas/web-saas/forty-three-services-no-customers/",
+      "repo_path": "ideas/web-saas/forty-three-services-no-customers",
+      "updated": "2026-04-01T00:00:00Z",
+      "related_all": [
+        "fee-claim-needs-trading-first",
+        "five-hundred-tokens-zero-volume",
+        "scan-for-money-loop"
       ]
     }
   ]

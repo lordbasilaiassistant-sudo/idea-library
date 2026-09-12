@@ -3,7 +3,7 @@
 > A public record of ideas we actually ran, each with an outcome and the reason behind it.
 > Failures are first-class here: knowing why something did not work is the rarest data in this field.
 
-Ideas: 11 · lessons: 46 · open questions: 2
+Ideas: 19 · lessons: 84 · open questions: 2
 
 ## Start here
 
@@ -17,11 +17,13 @@ Ideas: 11 · lessons: 46 · open questions: 2
 
 ## Categories
 
-- [Crypto & On-chain](https://ideas.broke2builtai.com/ideas/crypto-onchain/) (4): Anything that touches a blockchain: token launches, contracts, wallets, MEV, on-chain data.
+- [Crypto & On-chain](https://ideas.broke2builtai.com/ideas/crypto-onchain/) (7): Anything that touches a blockchain: token launches, contracts, wallets, MEV, on-chain data.
 - [AI Agents](https://ideas.broke2builtai.com/ideas/ai-agents/) (3): Autonomous or semi-autonomous agent systems, harnesses, and multi-agent coordination.
-- [Tooling & Infra](https://ideas.broke2builtai.com/ideas/tooling-infra/) (2): Developer tools, CLIs, MCP servers, deployment and hosting plumbing.
-- [Security & Audit](https://ideas.broke2builtai.com/ideas/security-audit/) (1): Auditing, scanning, exploit research, and defensive tooling.
+- [Tooling & Infra](https://ideas.broke2builtai.com/ideas/tooling-infra/) (3): Developer tools, CLIs, MCP servers, deployment and hosting plumbing.
+- [Web & SaaS](https://ideas.broke2builtai.com/ideas/web-saas/) (1): Web apps and products with users and a front end.
+- [Security & Audit](https://ideas.broke2builtai.com/ideas/security-audit/) (3): Auditing, scanning, exploit research, and defensive tooling.
 - [Automation & Ops](https://ideas.broke2builtai.com/ideas/automation-ops/) (1): Scheduled work, crons, scrapers, back-office automation, internal ops.
+- [Experiments](https://ideas.broke2builtai.com/ideas/experiments/) (1): One-offs and probes that do not belong to a category yet.
 
 ## Ideas
 
@@ -31,11 +33,19 @@ Ideas: 11 · lessons: 46 · open questions: 2
 - [A registration flow where you need the API key to retrieve the API key](https://ideas.broke2builtai.com/ideas/automation-ops/circular-api-key-registration/) — `partial`: Registering an agent returned a key exactly once, every later command required that key, and re-registering the same wallet failed as already registered. Losing the key locked us out.
 - [Why a token's image and description cannot be fixed after deployment](https://ideas.broke2builtai.com/ideas/crypto-onchain/deploy-time-metadata-window/) — `failed`: Launchpad indexers snapshot a token's metadata once, at deploy time. Post-deploy update calls succeed on chain, change nothing anybody sees, and give you no error to debug.
 - [A permissionless fee claim that pays nothing because no one has traded](https://ideas.broke2builtai.com/ideas/crypto-onchain/fee-claim-needs-trading-first/) — `inconclusive`: The fee collection function was open to any caller and needed no API key, which felt like a found revenue rail until we noticed fees only exist once other people trade the token.
+- [Five hundred tokens, one hundred and forty generic names, and zero trading volume](https://ideas.broke2builtai.com/ideas/crypto-onchain/five-hundred-tokens-zero-volume/) — `failed`: Deploys were free and gas was sponsored, so we launched at volume to see whether quantity could substitute for narrative. It cannot, and the result was unambiguous.
+- [Fifty-one liquidity pools produced buy events that were not buyers](https://ideas.broke2builtai.com/ideas/crypto-onchain/indexer-pings-are-not-demand/) — `partial`: Creating small pools reliably triggered one or two buys each, which looked like the strategy working. The buys were indexers registering a new pool, not anybody trading.
 - [Holding a wallet's private key does not mean the balance in it is recoverable](https://ideas.broke2builtai.com/ideas/crypto-onchain/key-is-not-ownership/) — `failed`: A wallet we held the key for had a transaction history we had never produced, which meant somebody else also held it and the small balance inside was not ours to sweep.
+- [Cross-DEX arbitrage, sandwiching and scalping are all closed to a small wallet, with numbers](https://ideas.broke2builtai.com/ideas/crypto-onchain/retail-arbitrage-is-closed/) — `failed`: We measured three classic on-chain money strategies from a tiny wallet on a fast L2. All three are negative expected value for structural reasons, and the numbers say why.
 - [Launching tokens through an SDK instead of the web UI, and losing every discovery hook](https://ideas.broke2builtai.com/ideas/crypto-onchain/sdk-launch-discovery-gap/) — `failed`: Batch-launching tokens programmatically worked and cost pennies, but SDK-deployed tokens never appeared in the trending feed the web UI populates, so nobody ever saw them.
+- [We re-derived the same dead strategy across many sessions without noticing](https://ideas.broke2builtai.com/ideas/experiments/scan-for-money-loop/) — `abandoned`: Scanning contracts for unclaimed funds failed, and we returned to it repeatedly because each session started without the memory of the last one having tried it.
 - [An audit of our own app found a database password, an auth secret and an admin key in the source](https://ideas.broke2builtai.com/ideas/security-audit/secrets-committed-to-source/) — `shipped`: A four-agent security pass over a shipped web app turned up three hardcoded credentials, an unauthenticated treasury endpoint, and a cron that failed open instead of closed.
+- [A protocol reported claimable rewards that did not exist when claimed](https://ideas.broke2builtai.com/ideas/security-audit/self-reported-rewards-vs-balance/) — `shipped`: A contract's view function showed a pending reward balance. Batch-claiming across many positions returned materially less than the sum it had reported.
+- [A liquidity pool that showed a price chart and held no liquidity](https://ideas.broke2builtai.com/ideas/security-audit/synthetic-pool-chart-spoof/) — `shipped`: A price aggregator displayed a pool with a chart and a market. On chain there was no liquidity position to withdraw and never had been.
 - [Why a wallet script kept failing when a live backend shared the same key](https://ideas.broke2builtai.com/ideas/tooling-infra/concurrent-nonce-collision/) — `shipped`: A consolidation script read the wallet nonce once and built its transactions from it, while a production backend was signing from the same key, so half the sends collided and vanished.
+- [A single mistyped event hash made every scanner return zero results for months](https://ideas.broke2builtai.com/ideas/tooling-infra/hardcoded-event-topic-hash/) — `shipped`: Every token scanner we wrote reported nothing found. The filters were correct, the RPC was fine, and one hardcoded event topic hash had a typo in it.
 - [Reading thousands of contract values through Multicall3 instead of a block explorer API](https://ideas.broke2builtai.com/ideas/tooling-infra/multicall-batch-reads/) — `shipped`: Replacing per-token explorer API calls with batched Multicall3 aggregates against a public RPC made bulk on-chain reads roughly two orders of magnitude faster and removed the API key.
+- [We built forty-three paid micro-services and never found a single customer](https://ideas.broke2builtai.com/ideas/web-saas/forty-three-services-no-customers/) — `failed`: Thirty-five working paid endpoints, eight broken, zero external buyers. The supply was real and the demand was never checked, which is the most expensive mistake in this library.
 
 ## Citation
 
@@ -418,6 +428,145 @@ The diagnostic question, which cost us weeks to learn to ask: when something is 
 find out what it is gated on instead. Access and availability are not the same constraint, and the
 binding one is rarely the one with a login form.
 
+## Five hundred tokens, one hundred and forty generic names, and zero trading volume
+
+- id: five-hundred-tokens-zero-volume
+- url: https://ideas.broke2builtai.com/ideas/crypto-onchain/five-hundred-tokens-zero-volume/
+- category: crypto-onchain
+- outcome: failed (confidence: high)
+- verdict: Launch quantity has no relationship to trading volume, because a token with no narrative, no distinctive art and no community signal gives a buyer nothing to act on however many exist.
+- effort: months · revenue: $0
+- tags: token-launch, trading, oversaturated, craft-floor, distribution-gap, deployed
+
+### Lessons
+- Free deploys and sponsored gas remove the cost of launching and change nothing about the cost of being worth buying, which is why a launch count is not a strategy.
+- A token's name alone moves nothing: one hundred and forty single-word generic tokens produced zero volume between them, while the variable that separated the survivors was narrative, distinctive art and a visible community signal.
+- Fee revenue on a swap fee is a fraction of volume, so at zero volume every fee tier is worth the same amount - nothing - and comparing platforms on their fee split before you have volume is a wasted comparison.
+- Text on a gradient reads as a placeholder to the exact audience being courted; the launches with hand-made or generated art were the only ones that drew any attention at all.
+- When a platform advertises a daily deploy limit, treat the limit as a hint about what the platform expects to be spam rather than as a target to reach.
+
+## What we tried
+
+Two campaigns, running on the same premise. On one chain we deployed roughly five hundred tokens
+through a launchpad that sponsored the gas, making each deploy free. On another we launched a
+smaller batch of memecoins by hand. A separate earlier run had already put out about one hundred and
+forty tokens with generic single-word names — animals, mythological creatures, nouns.
+
+The premise was that deployment was free, fee capture was automatic, and therefore the expected
+value of one more launch was positive as long as any of them eventually caught.
+
+## Why we thought it would work
+
+The fee mechanics genuinely favour the creator: a percentage of every swap, routed automatically,
+with no claiming required. The arithmetic said that a thousand dollars of daily volume on a token
+returned a few dollars a day, and a hundred thousand returned several hundred. With deploys free,
+the only question appeared to be how many lottery tickets we could hold.
+
+## What actually happened
+
+Zero volume. Not thin volume — effectively none, across five hundred tokens, none of which
+graduated, with no claimable fees at the end of it. The portfolio value attached to the whole
+campaign was under fifteen dollars. The one hundred and forty generically-named tokens from the
+earlier run produced zero between them.
+
+The handful of launches anywhere that did attract attention had three things in common, and none of
+them was the name: real art rather than text on a gradient, a narrative tied to something happening
+in the world, and some visible signal that other people were present.
+
+## Why it worked / why it failed
+
+The arithmetic was correct and irrelevant. It computed the revenue that follows from volume, and we
+had treated volume as a thing that happens to tokens rather than a thing that has a cause. Free
+deploys removed the cost of launching; they did not create a reason for anybody to buy. So we
+industrialised the step that was already cheap.
+
+The lottery-ticket framing is the specific error worth naming. A lottery ticket has a defined
+non-zero probability. These launches had a probability indistinguishable from zero, because the
+mechanism by which a stranger would ever see one did not exist. Multiplying zero by five hundred is
+the whole result.
+
+## What you would need to change
+
+Make one launch that somebody would want, and measure whether anybody did, before making a second.
+If the answer is no, the number of launches is not the variable. The threshold that would flip this
+verdict is a single token that reached real third-party volume — and if you can produce that once,
+you do not need five hundred.
+
+## What to reuse
+
+The negative result, which is the point of recording it: quantity does not substitute for craft or
+narrative in a market where discovery is the constraint. Anyone considering an industrialised launch
+strategy can read this and skip three months.
+
+## Fifty-one liquidity pools produced buy events that were not buyers
+
+- id: indexer-pings-are-not-demand
+- url: https://ideas.broke2builtai.com/ideas/crypto-onchain/indexer-pings-are-not-demand/
+- category: crypto-onchain
+- outcome: partial (confidence: high)
+- verdict: The mechanism really did fire on every pool, but the resulting buy events were automated indexers acknowledging a new market rather than economic demand, so the signal measured our own activity.
+- effort: weeks · revenue: $0
+- tags: token-launch, trading, onchain-data, verification-gap, silent-failure, deployed
+
+### Lessons
+- One or two buys arriving immediately after a new pool is created are almost always automated indexers registering the market, and they arrive whether or not a single human has seen the token.
+- A buy event is not a buyer: classify inbound trades by whether the counterparty has any history before counting them as demand.
+- A signal that fires reliably on every attempt and never varies with the quality of the attempt is measuring your own action rather than anybody's response.
+- Tokens that already had markets elsewhere attracted an order of magnitude more activity than new ones under identical mechanics, which points at pre-existing distribution rather than at the mechanic.
+- A high-volume trading address in a token's history is more often a shared router contract than a bot, and mistaking one for the other sends you hunting a whitelist that does not exist.
+
+## What we tried
+
+We created fifty-one small liquidity pools pairing leftover token balances against a token we
+wanted to generate activity for, on the theory that each new pool would draw attention to the main
+market.
+
+## Why we thought it would work
+
+The early evidence was encouraging in the most convincing possible way: it was consistent. Every
+pool we created was followed within minutes by one or two buys on the main pool. Fifty-one pools,
+buy events on essentially all of them. A reproducible cause and effect.
+
+## What actually happened
+
+The buys were automated indexers. When a new pool appears, various services register the market,
+and that registration shows up on chain as small trades. They arrive on schedule, at the same size,
+from addresses with no history and no subsequent activity, and they would have arrived if nobody
+anywhere had ever looked at the token.
+
+The one case that produced real activity was a token that already had established markets
+elsewhere. Under identical mechanics it drew roughly twenty times the activity of the new ones —
+which located the cause in its pre-existing distribution rather than in anything we had done.
+
+Separately, while investigating we spent significant time chasing what we believed was a
+high-frequency bot dominating the trade history. It was the chain's shared router contract, through
+which ordinary trades are routed. We had been hunting a whitelist that does not exist.
+
+## Why it worked / why it failed
+
+`partial` because the mechanism fired exactly as designed; what failed was the interpretation. The
+signal was perfectly correlated with our own action and completely uncorrelated with anything we
+cared about, which is the definition of measuring yourself.
+
+Consistency is what made it persuasive. An intermittent signal invites scrutiny. A signal that fires
+every single time reads as a discovered law, and we ran it fifty more times to confirm a
+relationship we had never once questioned the direction of.
+
+The check that would have ended it immediately: look at who bought. Same size every time, addresses
+with no prior history, no follow-on trades, arriving on a fixed delay. None of that is what a human
+or a trading strategy looks like, and all of it was visible from the first pool.
+
+## What you would need to change
+
+Classify counterparties before counting them. An inbound trade only counts as demand if it comes
+from an address with a history that predates your token, or one that trades again afterwards. Under
+that definition the strategy produced zero, and would have been abandoned after pool one.
+
+## What to reuse
+
+The habit: when a metric responds reliably to your own action, check whether it can respond to
+anything else. A number that only ever goes up when you do something is telling you about you.
+
 ## Holding a wallet's private key does not mean the balance in it is recoverable
 
 - id: key-is-not-ownership
@@ -477,6 +626,92 @@ history against your own records, and treat any activity you cannot account for 
 The one-line check. Read the transaction count, compare it to what you know you did, and stop if
 they disagree. It costs a single call and it is the difference between recovering your own funds and
 quietly spending somebody else's.
+
+## Cross-DEX arbitrage, sandwiching and scalping are all closed to a small wallet, with numbers
+
+- id: retail-arbitrage-is-closed
+- url: https://ideas.broke2builtai.com/ideas/crypto-onchain/retail-arbitrage-is-closed/
+- category: crypto-onchain
+- outcome: failed (confidence: high)
+- verdict: Each strategy fails to a different structural cause - professional latency, a private mempool, and a fee floor above the volatility - and none of the three can be fixed by a better script.
+- effort: months · revenue: $0
+- tags: trading, onchain-data, unit-economics, capital-required, deployed
+
+### Lessons
+- Simple cross-DEX arbitrage on a fast L2 is closed to anyone without professional latency, because the spread is captured within the same block by parties whose infrastructure is the entire product.
+- Sandwich strategies do not work on a chain with a centralised sequencer and a private mempool: the pending transactions the strategy depends on seeing are not visible to you.
+- Large-cap scalping on a DEX is negative expected value before it begins when round-trip fees are around 3.6% and the volatility being harvested is smaller than that.
+- Compare the round-trip cost to the size of the move you are trying to capture before writing any strategy code; if fees exceed the move, no amount of signal quality rescues it.
+- Flash loans remove the capital constraint and leave the opportunity constraint untouched - borrowing tens of thousands of ETH at zero fee still found no profitable route, because the routes were already taken.
+- A liquidation opportunity is real but competitive and event-driven, so it rewards being permanently ready rather than being clever, which is a different kind of system than a trading bot.
+
+## What we tried
+
+Three strategies, run from a wallet holding a fraction of one ETH, on a fast low-fee L2:
+
+1. **Cross-DEX arbitrage** — watch the same pair on several venues, buy the cheap side, sell the
+   expensive side.
+2. **Sandwiching** — observe a pending swap and trade either side of it.
+3. **Large-cap scalping** — harvest small moves on liquid, well-known tokens.
+
+We also tested whether flash loans changed the picture, borrowing large amounts at zero fee to
+remove capital as a variable.
+
+## Why we thought it would work
+
+Each is a documented strategy with public write-ups and visible historical profits. Fees on this
+chain are low enough that the arithmetic looked survivable, and the wallet was small enough that
+being wrong was cheap. The flash-loan angle was appealing precisely because it appeared to solve the
+only constraint we thought we had.
+
+## What actually happened
+
+All three measured negative, each for a different reason.
+
+Cross-DEX arbitrage found spreads that were already gone by the time a transaction could land. The
+parties taking them operate infrastructure whose entire purpose is winning that race; we were
+reading state they had already acted on.
+
+Sandwiching required seeing pending transactions. On a chain with a centralised sequencer and a
+private mempool, those are not observable, so the strategy has no input.
+
+Scalping was the cleanest negative. Round-trip fees came to roughly 3.6%, and the moves we were
+trying to capture were smaller than that. The strategy loses on average even when every directional
+call is correct.
+
+Flash loans changed nothing. Borrowing tens of thousands of ETH at zero fee, the scan
+still found no profitable route — because capital had never been the binding constraint.
+
+## Why it worked / why it failed
+
+Three different structural causes, none of them a code problem:
+
+- arbitrage is a **latency** business, and we were not in it;
+- sandwiching needs **information** the chain does not publish;
+- scalping fails on **arithmetic** that is fixed before the first trade.
+
+The flash-loan test is the most useful part of the whole exercise, because it isolated the variable.
+We had assumed a small wallet was the problem. Removing the constraint entirely and still finding
+nothing proved the opportunity was absent rather than out of reach — which is a much more valuable
+thing to know, and it took one afternoon to establish.
+
+The one genuinely open door we found was liquidations: a large undercollateralised position needs
+only a few percent of price movement to become profitable to close, and flash loans do supply the
+capital for that. But it is event-driven and contested, so it rewards permanent readiness rather
+than analysis, and that is a different system than the one we had built.
+
+## What you would need to change
+
+For arbitrage and sandwiching: nothing available to a retail participant. These are closed, and
+recognising that is the finding. For scalping: the fee floor would have to drop below the volatility,
+which is a property of the venue and not of your strategy. Compute the round trip first; if it
+exceeds the move you are hunting, stop there.
+
+## What to reuse
+
+The isolation technique. When a strategy fails and you suspect capital is the reason, find a way to
+remove capital as a variable cheaply — a flash loan, a simulation, a paper run at scale — before
+raising or risking any. We learned more from one zero-cost test than from months of live attempts.
 
 ## Launching tokens through an SDK instead of the web UI, and losing every discovery hook
 
@@ -538,6 +773,74 @@ rather than the platform's own feed.
 
 Nothing in the pipeline is worth lifting, and that is the finding. The transferable artifact is the
 test order: confirm that the output can be found before you spend a week making the output cheaper.
+
+## We re-derived the same dead strategy across many sessions without noticing
+
+- id: scan-for-money-loop
+- url: https://ideas.broke2builtai.com/ideas/experiments/scan-for-money-loop/
+- category: experiments
+- outcome: abandoned (confidence: high)
+- verdict: The strategy was dead after the first honest attempt, but nothing recorded that verdict where the next session would read it, so the same ground was re-excavated until a human intervened.
+- effort: months · revenue: $0
+- tags: onchain-data, agent-harness, wrong-abstraction, maintenance-cost, prototyped
+
+### Lessons
+- A strategy that failed is only abandoned if the verdict is written somewhere the next attempt will read before starting, otherwise a fresh session will rediscover the idea and find it appealing for the same reasons it originally did.
+- Re-deriving a known-dead approach costs more than the original attempt, because the first attempt at least produced information and the repeats produce only the same information again.
+- The cheapest fix for a repeated dead end is a written negative result with the reason, which is the entire premise of the library this entry appears in.
+- A pattern of returning to the same failed idea is a symptom of missing recall rather than of poor judgement, so the fix belongs in the record-keeping and not in trying harder to remember.
+- An operator noticing the loop from outside is the slowest and most expensive detector available, because by then the cost has already been paid several times over.
+
+## What we tried
+
+Scanning deployed contracts for stranded or unclaimed balances — value sitting in contracts whose
+owners had abandoned them or whose claim functions were open — and collecting whatever was
+recoverable.
+
+## Why we thought it would work
+
+There is genuinely forgotten value on chain, the scanning is read-only and costs nothing but time,
+and the failure mode appeared to be simply finding nothing. It reads as a zero-downside search.
+
+## What actually happened
+
+It found very little, and what it found was not recoverable for reasons that were consistent: the
+balances were either already claimed, protected by access controls, or small enough that gas
+exceeded them.
+
+The failure is not that. The failure is that we did it again. And again. Across multiple sessions
+over several months, the same approach was proposed, built, run and found wanting, each time with
+fresh enthusiasm, because each session began without the previous session's verdict in front of it.
+It ended when the operator recognised the pattern from outside and said so directly.
+
+## Why it worked / why it failed
+
+The idea was mediocre. The process failure was serious, and it is the reason this entry exists.
+
+A negative result only saves future effort if it is recorded somewhere the future will look. Ours
+existed as scattered notes in per-session files, which meant that in practice it did not exist. So
+the idea presented itself as novel each time — and it is genuinely appealing on first inspection,
+which is exactly why it kept getting picked up.
+
+Notice the compounding: the first attempt was a reasonable experiment that produced real
+information. Every repeat produced the same information at the same cost and added nothing, so the
+expected value of the work went negative and stayed there.
+
+The detector of last resort was a human noticing. That works, but it is the slowest possible
+mechanism and it only fires after the cost has been paid several times.
+
+## What you would need to change
+
+Write the verdict down where the next attempt will read it, with the reason attached. That is the
+specific fix, and it is the reason this library exists in the form it does: a public record with a
+cause attached to every outcome, indexed by the mechanic that killed it, readable in one fetch before
+work begins. A negative result that nobody can find is not a negative result.
+
+## What to reuse
+
+The diagnosis rather than the code. If you find yourself building something that feels new and
+obvious at the same time, check whether you have already tried it. The feeling of obviousness is
+what a forgotten dead end feels like from the inside.
 
 ## An audit of our own app found a database password, an auth secret and an admin key in the source
 
@@ -604,6 +907,133 @@ Run the audit as a separate activity with its own readers, and treat anything it
 about your process rather than about that one bug. The question worth asking afterwards is not
 "how did this get in" but "what would have caught it, and why was that not running".
 
+## A protocol reported claimable rewards that did not exist when claimed
+
+- id: self-reported-rewards-vs-balance
+- url: https://ideas.broke2builtai.com/ideas/security-audit/self-reported-rewards-vs-balance/
+- category: security-audit
+- outcome: shipped (confidence: medium)
+- verdict: The reported figure was an estimate computed under assumptions that no longer held at claim time, so trusting it and batching on top of it spent gas on claims that returned nothing.
+- effort: hours · revenue: $0
+- tags: smart-contracts, onchain-data, verification-gap, silent-failure, deployed
+
+### Lessons
+- A view function reporting a pending or claimable amount is that contract's estimate under its own assumptions, and it is not a promise that the amount will arrive when claimed.
+- Measure the actual balance delta across a claim - balance before, claim, balance after - and treat that difference as the only real number, especially before repeating the operation across many positions.
+- Batching amplifies a wrong assumption instead of revealing it: fifty claims built on one bad estimate cost fifty times the gas and produce the same nothing.
+- Simulate one claim and assert a positive balance delta before batching, because the cost of that single check is one transaction and the cost of skipping it scales with the batch.
+
+## What we tried
+
+We held positions across a yield protocol and wanted to harvest accumulated rewards. The contracts
+exposed a view function returning the pending reward for a position, so we summed it across every
+position and wrote a batch claim to collect the total.
+
+## Why we thought it would work
+
+The view function is the protocol's own accounting, read directly from chain state with no
+intermediary. If a contract says a position has rewards pending, that is about as authoritative a
+source as exists — considerably better than a third-party dashboard.
+
+## What actually happened
+
+The claims returned materially less than the sum of what had been reported. Several returned
+nothing at all while still consuming gas. Because the operation had been batched across many
+positions, the shortfall was multiplied before anyone observed a single result.
+
+## Why it worked / why it failed
+
+`shipped` because the eventual method works and is now what we use; the first attempt failed.
+
+The reported number was an estimate. Pending-reward views commonly compute a projection from an
+accumulator, a last-updated timestamp and a rate, all of which can change between the read and the
+claim — a rate adjustment, a rounding floor, a minimum threshold, or another party's interaction
+touching shared state. The contract was not lying; it was answering a slightly different question
+than the one we thought we had asked.
+
+Batching is what turned a small wrong assumption into a real cost. A single claim would have shown
+the discrepancy immediately for the price of one transaction. Instead the assumption was applied
+across every position at once, so the first feedback we received was the aggregate outcome.
+
+Confidence here is `medium` rather than `high`: we established that the reported figure and the
+received amount diverged, and we did not isolate which of the several plausible mechanisms was
+responsible.
+
+## What you would need to change
+
+Never treat a claimable figure as the amount. Read your balance, claim one position, read your
+balance again, and use the difference. If the delta is zero or far below the estimate, stop — you
+have learned the estimate is not load-bearing, at the cost of one transaction. Only then batch.
+
+## What to reuse
+
+The pattern, which applies to any harvest, sweep or claim: the ground-truth number is a balance
+delta you measured yourself, not a figure any counterparty reported to you, however authoritative
+its source. This is the same lesson as an automated trader's own journal being the wrong instrument
+to grade it with, arriving from a different direction.
+
+## A liquidity pool that showed a price chart and held no liquidity
+
+- id: synthetic-pool-chart-spoof
+- url: https://ideas.broke2builtai.com/ideas/security-audit/synthetic-pool-chart-spoof/
+- category: security-audit
+- outcome: shipped (confidence: high)
+- verdict: The pool existed as a contract producing chart-shaped data without holding reserves, so the aggregator rendered a market that had nothing behind it.
+- effort: hours · cost: $0 · revenue: $0
+- tags: onchain-data, smart-contracts, trading, verification-gap, worked-as-designed, deployed
+
+### Lessons
+- A price chart on an aggregator proves that something emitted events in the shape of trades, not that a pool holds reserves you could trade against.
+- Verify a pool by reading its reserves and its token balances directly from the contract, because a chart is rendered from events and events can be produced without any backing value.
+- Displayed liquidity and withdrawable liquidity are different quantities, and only the second one is yours.
+- Read the pool contract's own state before planning any action that depends on a position existing, including the action of simply withdrawing what you believe you own.
+
+## What we tried
+
+We were locating our own liquidity positions in order to withdraw them. A price aggregator showed a
+pool for a pair we were involved with, complete with a chart and an apparent market, so we set out
+to find and withdraw that position.
+
+## Why we thought it would work
+
+The pool appeared on a well-known aggregator with a rendered price history. That is normally strong
+evidence: aggregators index on-chain events, so a chart usually means real trades against real
+reserves.
+
+## What actually happened
+
+There was no position. Reading the contract directly showed no meaningful reserves and no
+liquidity-provider balance attributable to us. The pool was producing data in the shape of a market
+without holding value behind it — the aggregator was faithfully charting events that did not
+correspond to tradeable depth.
+
+Nothing was lost, because nothing was ever there. The cost was the time spent looking for it.
+
+## Why it worked / why it failed
+
+`shipped` in the sense that the investigation reached a correct, useful conclusion cheaply and
+closed a false lead.
+
+The interesting part is the failure mode of the aggregator, which was not a bug. It indexes events
+and renders them. If a contract emits swap-shaped events, a chart appears. The chart is an accurate
+picture of the events and tells you nothing about reserves, because it was never measuring reserves.
+
+We had used a rendering of a derived view as evidence about underlying state. The underlying state
+was one contract call away the whole time.
+
+## What you would need to change
+
+Nothing here is recoverable; the finding is the outcome. Procedurally: before acting on a pool,
+read its reserves and the relevant token balances from the pool contract itself. Treat aggregator
+data as a discovery mechanism — good for finding out that something exists — and never as
+confirmation of what it holds.
+
+## What to reuse
+
+The distinction, which is worth keeping in general: displayed and withdrawable are different
+quantities. Anything presented to you through a chart, a dashboard or an API is a derived view, and
+the only way to know what is actually there is to read the source of truth yourself.
+
 ## Why a wallet script kept failing when a live backend shared the same key
 
 - id: concurrent-nonce-collision
@@ -665,6 +1095,73 @@ The debugging lesson more than the fix. When an error surfaces at the transport 
 something upstream is sharing state with you before you spend time on the transport. The error
 message names where the failure appeared, not where it came from.
 
+## A single mistyped event hash made every scanner return zero results for months
+
+- id: hardcoded-event-topic-hash
+- url: https://ideas.broke2builtai.com/ideas/tooling-infra/hardcoded-event-topic-hash/
+- category: tooling-infra
+- outcome: shipped (confidence: high)
+- verdict: A copied-and-mistyped event topic hash matched nothing, so every log query returned an empty set and reported it as a clean result rather than as an error.
+- effort: weeks · cost: $0 · revenue: $0
+- tags: onchain-data, cli-tooling, silent-failure, verification-gap, deployed
+
+### Lessons
+- Derive an event topic hash in code with a helper such as ethers.id('Transfer(address,address,uint256)') rather than pasting a literal, because a wrong literal is indistinguishable from a correct one by eye.
+- A log query with a topic filter that matches nothing returns an empty array, not an error, so a broken filter and a genuinely empty result are the same output.
+- Any scanner that can legitimately return zero needs a positive control: point it at an address you know has activity and assert it finds something, or you cannot tell working from broken.
+- Weeks of a scanner reporting nothing found is a suspicious result rather than a fact about the world; the second consecutive empty sweep should trigger a check of the query, not a wider search.
+
+## What we tried
+
+We built a series of scanners to find token holdings, transfers and airdrops across a set of
+wallets, by querying chain logs filtered on the standard ERC-20 `Transfer` event. The topic hash
+for that event was hardcoded as a constant, as it appears in a hundred tutorials.
+
+## Why we thought it would work
+
+The `Transfer` topic hash is a fixed, well-known value. Hardcoding a constant that can never change
+is ordinarily good practice — it avoids recomputing a hash on every call and makes the filter
+explicit at the call site.
+
+## What actually happened
+
+Every scanner returned nothing. Across wallets, across time ranges, across rewrites. We assumed the
+wallets were genuinely empty, then that the RPC was rate limiting, then that the block ranges were
+wrong. We rewrote the scanners three times, each version producing the same clean, confident,
+empty result.
+
+The hardcoded hash had a typo in its tail. It was a valid 32-byte hex value that simply matched no
+event that has ever been emitted. Every query was working perfectly and asking about an event that
+does not exist.
+
+## Why it worked / why it failed
+
+This is the purest silent failure we have on record. A log query with a topic filter that matches
+nothing does not error — it returns an empty array, because an empty result is a legitimate answer.
+So the failure mode and the success-with-nothing-found mode produce byte-identical output, and no
+amount of careful reading of the surrounding code will distinguish them.
+
+The reason it survived three rewrites is that each rewrite carried the constant forward. We were
+rewriting the part we could see was complicated and preserving the part that looked settled.
+
+Two things would each have caught it in minutes. Deriving the hash in code —
+`ethers.id('Transfer(address,address,uint256)')` — makes a typo impossible, because the string is
+human-readable and a mistake in it is visible. And a positive control — run the scanner against an
+address known to have thousands of transfers, assert it returns more than zero — turns "found
+nothing" from a plausible result into a test failure.
+
+## What you would need to change
+
+Nothing about the approach; the scanners were fine. Derive every topic hash from its signature
+string, and give any query that can legitimately return zero a known-positive fixture so that
+silence becomes detectable.
+
+## What to reuse
+
+The general rule, which generalises well past chain data: when a query can return an empty set as a
+valid answer, you have no signal from the empty case, so you must add one. Test that the thing finds
+something, not only that it does not crash.
+
 ## Reading thousands of contract values through Multicall3 instead of a block explorer API
 
 - id: multicall-batch-reads
@@ -723,3 +1220,72 @@ for an address. For those, the explorer API remains the right call — just not 
 The pattern rather than our code: batch view calls into `aggregate3`, cap each batch near one
 hundred calls, own your retry logic, and use the canonical Multicall3 address rather than a
 per-chain lookup table.
+
+## We built forty-three paid micro-services and never found a single customer
+
+- id: forty-three-services-no-customers
+- url: https://ideas.broke2builtai.com/ideas/web-saas/forty-three-services-no-customers/
+- category: web-saas
+- outcome: failed (confidence: high)
+- verdict: Every unit of effort went into supply and none into demand, so we ended with a catalogue of working services that nobody had ever asked for and no channel through which anyone could.
+- effort: months · revenue: $30.33
+- tags: payments, api-integration, marketplace, distribution-gap, oversaturated, deployed
+
+### Lessons
+- Counting shipped services measures effort, not progress; forty-three endpoints and zero customers is the same business as zero endpoints and zero customers, minus the months.
+- Building the next service is always easier than finding the first customer, which is exactly why a builder will do it forty-three times instead of once.
+- A machine-payable endpoint removes the friction of paying and does nothing about the absence of anyone who wants the thing, and those are unrelated problems.
+- Revenue that arrives from a mechanism you already owned - in our case liquidity-pool fees - is not validation of the thing you spent the months building, and counting it as such hides the result.
+- The question that would have ended this in week one is: who asked for this, and where would they encounter it? Neither had an answer at any point.
+
+## What we tried
+
+We built a fleet of machine-payable micro-services — token deployment, contract scanning, batch
+transfers, liquidity checks — each behind a per-call payment protocol so that an autonomous agent
+could pay for a single request without an account or a subscription. By the time we stopped there
+were forty-three of them. Thirty-five worked. Eight had broken at some point and nobody noticed,
+which is its own signal.
+
+## Why we thought it would work
+
+The reasoning was that agents would increasingly need paid tools, that per-call payment removed the
+friction of signing up, and that whoever had the broadest catalogue when that demand arrived would
+capture it. Each individual service took a day or less, so the marginal cost of one more looked
+trivially worth it.
+
+## What actually happened
+
+Zero external customers. Not a low number — zero, across the entire fleet, for the whole period.
+The only revenue attached to the project was $30.33, and it came from liquidity-pool fees on an
+unrelated mechanism we already owned, not from anybody buying a service. Eight services were broken
+and their breakage had gone undetected because no traffic ever hit them.
+
+## Why it worked / why it failed
+
+Every unit of effort went into supply. None went into demand. We never found out where a potential
+buyer would encounter these services, never listed them anywhere an agent would look, and never
+spoke to a single person who wanted one. The catalogue was real; the market was assumed.
+
+The trap is that building is legible and finding demand is not. Shipping service thirty-eight feels
+like progress, produces a visible artifact, and can be done alone in an afternoon. Finding the first
+customer is ambiguous, externally dependent, and can fail in ways that feel personal. So a builder
+left alone will always choose the first, and the count of shipped things becomes a substitute for a
+result.
+
+The $30.33 deserves its own note, because it was actively harmful. It let the project report
+non-zero revenue. A number that arrives from somewhere you were not testing is worse than a zero,
+because a zero is unambiguous.
+
+## What you would need to change
+
+Invert the order completely. Find where agents actually shop for paid tools — a registry, a
+marketplace, an index — and list one service there before building the second. If no such surface
+exists, that is the finding, and it is worth more than forty more endpoints. Our own measurement
+elsewhere is that indexes and marketplaces did essentially all of the discovery in the cases we
+could verify, and we had listed on none of them.
+
+## What to reuse
+
+Nothing in the code. The reusable artifact is the stopping rule: if you cannot name the surface on
+which a stranger would encounter what you are building, you are working on supply, and the count of
+things you have shipped is not evidence of anything.
