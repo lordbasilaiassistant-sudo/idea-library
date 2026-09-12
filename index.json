@@ -303,6 +303,10 @@
           "definition": "Built the wrong shape and had to restart."
         },
         {
+          "id": "self-hosting-loop",
+          "definition": "The thing maintains itself, so nobody has to remember to."
+        },
+        {
           "id": "scope-creep",
           "definition": "Grew until it could not ship."
         },

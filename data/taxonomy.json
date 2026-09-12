@@ -89,6 +89,7 @@
       { "id": "upstream-change",          "definition": "A dependency changed and broke it." },
       { "id": "verification-gap",         "definition": "We could not tell whether it was actually working." },
       { "id": "wrong-abstraction",        "definition": "Built the wrong shape and had to restart." },
+      { "id": "self-hosting-loop",        "definition": "The thing maintains itself, so nobody has to remember to." },
       { "id": "scope-creep",              "definition": "Grew until it could not ship." },
       { "id": "worked-as-designed",       "definition": "The thing did what it said. Rare enough to tag." },
       { "id": "found-by-index",           "definition": "An existing index or marketplace did the distribution for us." },
