@@ -17,7 +17,7 @@
   "ideas": [
     {
       "id": "hardcoded-event-topic-hash",
-      "title": "A single mistyped event hash made every scanner return zero results for months",
+      "title": "A single mistyped event hash made every scanner return zero results for weeks",
       "category": "tooling-infra",
       "outcome": "shipped",
       "total": 69,

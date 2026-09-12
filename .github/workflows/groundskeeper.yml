@@ -97,4 +97,7 @@ jobs:
           Eligible for automerge under the bot protocol: mechanical and reversible." \
             --label "bot:groundskeeper" || true
 
-          gh pr merge --auto --squash "$BRANCH" || true
+          # Rebase, not squash: GitHub authors a squash commit as the account's primary
+          # email, which put a personal address into public history. Rebase keeps the
+          # bot's own author identity. Squash merges are disabled on this repo.
+          gh pr merge --auto --rebase "$BRANCH" || true

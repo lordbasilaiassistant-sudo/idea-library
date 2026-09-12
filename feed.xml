@@ -102,7 +102,7 @@
     <description>Thirty-five working paid endpoints, eight broken, zero external buyers. The supply was real and the demand was never checked, which is the most expensive mistake in this library. (failed)</description>
   </item>
   <item>
-    <title>A single mistyped event hash made every scanner return zero results for months</title>
+    <title>A single mistyped event hash made every scanner return zero results for weeks</title>
     <link>https://ideas.broke2builtai.com/ideas/tooling-infra/hardcoded-event-topic-hash/</link>
     <guid>https://ideas.broke2builtai.com/ideas/tooling-infra/hardcoded-event-topic-hash/</guid>
     <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>

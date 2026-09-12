@@ -418,7 +418,7 @@
       "description": "The fleet's own journal was the only record of its performance, and an audit found it was accounting for about a third of the actual loss.",
       "category": "ai-agents",
       "outcome": "failed",
-      "verdict": "The fleet lost money and its self-reported journal showed roughly a third of that loss, because the journal recorded the events the code knew how to write down rather than the money that moved.",
+      "verdict": "The fleet lost money and, by our own reconciliation, its self-reported journal captured only a fraction of that loss, because it recorded the events the code knew how to write down rather than the money that moved.",
       "what_would_settle_it": null,
       "confidence": "medium",
       "started": "2026-05",
@@ -1245,7 +1245,7 @@
     },
     {
       "id": "hardcoded-event-topic-hash",
-      "title": "A single mistyped event hash made every scanner return zero results for months",
+      "title": "A single mistyped event hash made every scanner return zero results for weeks",
       "description": "Every token scanner we wrote reported nothing found. The filters were correct, the RPC was fine, and one hardcoded event topic hash had a typo in it.",
       "category": "tooling-infra",
       "outcome": "shipped",

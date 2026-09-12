@@ -46,9 +46,10 @@ thing actually costing us time — should collapse with it.
 
 ## What actually happened
 
-The batched version completed jobs that had previously taken tens of minutes in well under a minute,
-a difference we measured at somewhere between sixty and a hundred and thirty times faster depending
-on the job shape. It also stopped failing on rate limits, and it dropped the explorer API key from
+The batched version completed jobs that had previously taken tens of minutes in well under a minute —
+roughly one to two orders of magnitude faster, depending on the job shape, by our own before-and-after
+timings. We have not published those timings, so treat the size of the gap as our report rather than
+a benchmark. It also stopped failing on rate limits, and it dropped the explorer API key from
 the dependency list entirely. Confidence here is `medium` rather than `high` because the comparison
 was made against our own earlier implementation on live network conditions, not as a controlled
 benchmark, and the spread across job shapes is wide.

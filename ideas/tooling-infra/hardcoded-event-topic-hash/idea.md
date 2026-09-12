@@ -1,6 +1,6 @@
 ---
 id: hardcoded-event-topic-hash
-title: A single mistyped event hash made every scanner return zero results for months
+title: A single mistyped event hash made every scanner return zero results for weeks
 description: >-
   Every token scanner we wrote reported nothing found. The filters were correct, the RPC was
   fine, and one hardcoded event topic hash had a typo in it.
