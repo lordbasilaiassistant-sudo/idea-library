@@ -356,7 +356,9 @@
       "id": "project-registry",
       "label": "Project registry",
       "detail": "Projects already catalogued in a structured form, so the cheapest pass to run first.",
-      "status": "pending",
+      "status": "in-progress",
+      "dug": "2026-09-12",
+      "note": "Two batches taken. The registry holds roughly a hundred entries and many are thin or duplicate; the pass is complete when every entry with a real outcome has either an idea here or a recorded reason it does not qualify.",
       "yield": 16
     },
     {
