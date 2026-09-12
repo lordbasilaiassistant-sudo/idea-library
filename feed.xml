@@ -112,7 +112,6 @@
     <title>An audit of our own app found hardcoded credentials that every prior read had missed</title>
     <link>https://ideas.broke2builtai.com/ideas/security-audit/secrets-committed-to-source/</link>
     <guid>https://ideas.broke2builtai.com/ideas/security-audit/secrets-committed-to-source/</guid>
-    <pubDate>Sat, 12 Sep 2026 20:30:16 GMT</pubDate>
     <description>A multi-agent security pass over one of our shipped web apps found hardcoded credentials, an unauthenticated privileged endpoint, and a scheduled job that failed open. (shipped)</description>
   </item>
 </channel></rss>
