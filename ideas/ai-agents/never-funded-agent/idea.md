@@ -51,9 +51,13 @@ result is unusually clean. If it does not, that is also informative and cheap to
 
 ## What actually happened
 
-The agent found and executed routes, and its balance grew from zero. Checking chain history rather
-than our own notes, every inbound transfer to its address was a proceed of its own activity and none
-originated outside its own operations. It has never been funded. We deliberately do not publish a
+The agent found and executed routes, and its balance grew from zero. When we checked its chain history
+rather than our own notes, every inbound transfer to its address was a proceed of its own activity and
+none originated outside its own operations. It has never been funded.
+
+This entry deliberately withholds the address, so no reader can re-run that check — the no-funding
+claim here is ours to stand behind rather than yours to verify, which is part of why the verdict is
+`inconclusive`. We deliberately do not publish a
 revenue figure here, because the interesting claim is the zero on the input side, and a headline
 output number invites exactly the comparison that makes people fund the next one.
 

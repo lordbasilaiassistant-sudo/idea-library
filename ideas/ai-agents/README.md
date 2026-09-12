@@ -8,7 +8,7 @@ Autonomous or semi-autonomous agent systems, harnesses, and multi-agent coordina
 
 | Idea | Outcome | Effort | Cost | Why |
 |---|---|---|---|---|
-| [An automated trading fleet that reported itself as roughly break-even while losing money](/ideas/ai-agents/autotrader-journal-hid-losses/) | `failed` | weeks | — | The fleet lost money and its self-reported journal showed roughly a third of that loss, because the journal recorded the events the code knew how to write down rather than the money that moved. |
+| [An automated trading fleet that reported itself as roughly break-even while losing money](/ideas/ai-agents/autotrader-journal-hid-losses/) | `failed` | weeks | — | The fleet lost money and, by our own reconciliation, its self-reported journal captured only a fraction of that loss, because it recorded the events the code knew how to write down rather than the money that moved. |
 | [Can an agent that is never given any starting capital find its own first income?](/ideas/ai-agents/never-funded-agent/) | `inconclusive` | months | $0 | The agent did accumulate value with a starting balance of zero and no transfer from us, but a single agent on a single chain over one period cannot distinguish a repeatable method from a favourable window. |
 
 [← all categories](https://github.com/lordbasilaiassistant-sudo/idea-library#categories)

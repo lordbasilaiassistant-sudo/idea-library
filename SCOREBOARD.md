@@ -10,7 +10,7 @@ capped at 15 points so popularity can never outweigh an outcome.
 
 | # | Idea | Outcome | Total | Reality | Evidence | Transfer | Votes | Penalties |
 |---|---|---|---|---|---|---|---|---|
-| 1 | [A single mistyped event hash made every scanner return zero results for months](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra/hardcoded-event-topic-hash) | `shipped` | **69** | 28 | 13 | 28 | 0 | 0 |
+| 1 | [A single mistyped event hash made every scanner return zero results for weeks](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra/hardcoded-event-topic-hash) | `shipped` | **69** | 28 | 13 | 28 | 0 | 0 |
 | 2 | [An audit of our own app found hardcoded credentials that every prior read had missed](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/security-audit/secrets-committed-to-source) | `shipped` | **68** | 28 | 10 | 30 | 0 | 0 |
 | 3 | [Reading thousands of contract values through Multicall3 instead of a block explorer API](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra/multicall-batch-reads) | `shipped` | **67** | 28 | 13 | 26 | 0 | 0 |
 | 4 | [A liquidity pool that showed a price chart and held no liquidity](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/security-audit/synthetic-pool-chart-spoof) | `shipped` | **67** | 28 | 13 | 26 | 0 | 0 |

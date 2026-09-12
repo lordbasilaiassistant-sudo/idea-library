@@ -7,8 +7,9 @@ description: >-
 category: ai-agents
 outcome: failed
 verdict: >-
-  The fleet lost money and its self-reported journal showed roughly a third of that loss, because
-  the journal recorded the events the code knew how to write down rather than the money that moved.
+  The fleet lost money and, by our own reconciliation, its self-reported journal captured only a
+  fraction of that loss, because it recorded the events the code knew how to write down rather than
+  the money that moved.
 confidence: medium
 started: 2026-05
 ended: 2026-06
@@ -45,7 +46,9 @@ by the same careful process as the trading logic.
 ## What actually happened
 
 An audit that reconciled the journal against actual wallet balances found the fleet had lost
-meaningfully more than it reported. The journal captured roughly a third of the real loss.
+meaningfully more than it reported — by our reconciliation, the journal captured only around a third of
+the real loss. The reconciliation itself is not published here, so the proportion is our finding
+rather than something a reader can recompute; the mechanism below is the part that transfers.
 
 Nothing in it was falsified. It recorded, accurately, every event for which somebody had written a
 recording path. What it missed were the costs with no writer: reverted transactions that consumed

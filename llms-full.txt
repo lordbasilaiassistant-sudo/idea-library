@@ -40,7 +40,7 @@ Ideas: 16 · lessons: 69 · open questions: 2
 - [A protocol reported claimable rewards that did not exist when claimed](https://ideas.broke2builtai.com/ideas/security-audit/self-reported-rewards-vs-balance/) — `shipped`: A contract's view function showed a pending reward balance. Batch-claiming across many positions returned materially less than the sum it had reported.
 - [A liquidity pool that showed a price chart and held no liquidity](https://ideas.broke2builtai.com/ideas/security-audit/synthetic-pool-chart-spoof/) — `shipped`: A price aggregator displayed a pool with a chart and a market. On chain there was no liquidity position to withdraw and never had been.
 - [Why a wallet script kept failing when a live backend shared the same key](https://ideas.broke2builtai.com/ideas/tooling-infra/concurrent-nonce-collision/) — `shipped`: A consolidation script read the wallet nonce once and built its transactions from it, while a production backend was signing from the same key, so half the sends collided and vanished.
-- [A single mistyped event hash made every scanner return zero results for months](https://ideas.broke2builtai.com/ideas/tooling-infra/hardcoded-event-topic-hash/) — `shipped`: Every token scanner we wrote reported nothing found. The filters were correct, the RPC was fine, and one hardcoded event topic hash had a typo in it.
+- [A single mistyped event hash made every scanner return zero results for weeks](https://ideas.broke2builtai.com/ideas/tooling-infra/hardcoded-event-topic-hash/) — `shipped`: Every token scanner we wrote reported nothing found. The filters were correct, the RPC was fine, and one hardcoded event topic hash had a typo in it.
 - [Reading thousands of contract values through Multicall3 instead of a block explorer API](https://ideas.broke2builtai.com/ideas/tooling-infra/multicall-batch-reads/) — `shipped`: Replacing per-token explorer API calls with batched Multicall3 aggregates against a public RPC made bulk on-chain reads roughly two orders of magnitude faster and removed the API key.
 - [We built forty-three paid micro-services and never found a single customer](https://ideas.broke2builtai.com/ideas/web-saas/forty-three-services-no-customers/) — `failed`: Thirty-five working paid endpoints, eight broken, zero external buyers. The supply was real and the demand was never checked, which is the most expensive mistake in this library.
 
@@ -59,7 +59,7 @@ Prose CC-BY-4.0, code MIT. Cite as: Broke to Built - idea-library, <idea title>,
 - url: https://ideas.broke2builtai.com/ideas/ai-agents/autotrader-journal-hid-losses/
 - category: ai-agents
 - outcome: failed (confidence: medium)
-- verdict: The fleet lost money and its self-reported journal showed roughly a third of that loss, because the journal recorded the events the code knew how to write down rather than the money that moved.
+- verdict: The fleet lost money and, by our own reconciliation, its self-reported journal captured only a fraction of that loss, because it recorded the events the code knew how to write down rather than the money that moved.
 - effort: weeks · revenue: $0
 - tags: agent-harness, trading, verification-gap, silent-failure, deployed
 
@@ -84,7 +84,9 @@ by the same careful process as the trading logic.
 ## What actually happened
 
 An audit that reconciled the journal against actual wallet balances found the fleet had lost
-meaningfully more than it reported. The journal captured roughly a third of the real loss.
+meaningfully more than it reported — by our reconciliation, the journal captured only around a third of
+the real loss. The reconciliation itself is not published here, so the proportion is our finding
+rather than something a reader can recompute; the mechanism below is the part that transfers.
 
 Nothing in it was falsified. It recorded, accurately, every event for which somebody had written a
 recording path. What it missed were the costs with no writer: reverted transactions that consumed
@@ -151,9 +153,13 @@ result is unusually clean. If it does not, that is also informative and cheap to
 
 ## What actually happened
 
-The agent found and executed routes, and its balance grew from zero. Checking chain history rather
-than our own notes, every inbound transfer to its address was a proceed of its own activity and none
-originated outside its own operations. It has never been funded. We deliberately do not publish a
+The agent found and executed routes, and its balance grew from zero. When we checked its chain history
+rather than our own notes, every inbound transfer to its address was a proceed of its own activity and
+none originated outside its own operations. It has never been funded.
+
+This entry deliberately withholds the address, so no reader can re-run that check — the no-funding
+claim here is ours to stand behind rather than yours to verify, which is part of why the verdict is
+`inconclusive`. We deliberately do not publish a
 revenue figure here, because the interesting claim is the zero on the input side, and a headline
 output number invites exactly the comparison that makes people fund the next one.
 
@@ -885,7 +891,7 @@ The debugging lesson more than the fix. When an error surfaces at the transport 
 something upstream is sharing state with you before you spend time on the transport. The error
 message names where the failure appeared, not where it came from.
 
-## A single mistyped event hash made every scanner return zero results for months
+## A single mistyped event hash made every scanner return zero results for weeks
 
 - id: hardcoded-event-topic-hash
 - url: https://ideas.broke2builtai.com/ideas/tooling-infra/hardcoded-event-topic-hash/
@@ -985,9 +991,10 @@ thing actually costing us time — should collapse with it.
 
 ## What actually happened
 
-The batched version completed jobs that had previously taken tens of minutes in well under a minute,
-a difference we measured at somewhere between sixty and a hundred and thirty times faster depending
-on the job shape. It also stopped failing on rate limits, and it dropped the explorer API key from
+The batched version completed jobs that had previously taken tens of minutes in well under a minute —
+roughly one to two orders of magnitude faster, depending on the job shape, by our own before-and-after
+timings. We have not published those timings, so treat the size of the gap as our report rather than
+a benchmark. It also stopped failing on rate limits, and it dropped the explorer API key from
 the dependency list entirely. Confidence here is `medium` rather than `high` because the comparison
 was made against our own earlier implementation on live network conditions, not as a controlled
 benchmark, and the spread across job shapes is wide.
