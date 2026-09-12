@@ -7,3 +7,4 @@ scripts/denylist.local.json
 .DS_Store
 Thumbs.db
 desktop.ini
+site/dist/

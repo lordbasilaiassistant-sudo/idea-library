@@ -11,9 +11,13 @@
     "So: `site` stays null until a site is actually deployed and returns 200. While it is",
     "null, every generated URL points at the GitHub repo, which genuinely resolves, and the",
     "crawler files that only make sense for a website (sitemap.xml, robots.txt) are not",
-    "generated at all. Set `site` when there is something to set it to, not before."
+    "generated at all. Set `site` when there is something to set it to, not before.",
+    "",
+    "Set 2026-09-12, after deploying to Cloudflare Pages and confirming the domain returns",
+    "200 on /, /index.json and /llms.txt. The link checker now covers these URLs, so if the",
+    "site ever stops resolving, CI says so rather than the repo quietly lying again."
   ],
-  "site": null,
+  "site": "https://ideas.broke2builtai.com",
   "repo": "https://github.com/lordbasilaiassistant-sudo/idea-library",
   "attribution": "Broke to Built - idea-library"
 }
