@@ -11,22 +11,32 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
 
+# Pages MERGES matching rules, so a path matched by both `/*` above and a specific rule
+# below would send two contradictory Cache-Control values in one header. Each specific
+# rule therefore detaches the inherited value with `! Cache-Control` before setting its own.
+
 /index.json
+  ! Cache-Control
   Cache-Control: public, max-age=0, s-maxage=120, must-revalidate
   Access-Control-Allow-Origin: *
 
 /scoreboard.json
+  ! Cache-Control
   Cache-Control: public, max-age=0, s-maxage=120, must-revalidate
   Access-Control-Allow-Origin: *
 
 /llms.txt
+  ! Cache-Control
   Cache-Control: public, max-age=0, s-maxage=120, must-revalidate
 
 /llms-full.txt
+  ! Cache-Control
   Cache-Control: public, max-age=0, s-maxage=120, must-revalidate
 
 /style.css
+  ! Cache-Control
   Cache-Control: public, max-age=3600, s-maxage=3600
 
 /idea.css
+  ! Cache-Control
   Cache-Control: public, max-age=3600, s-maxage=3600
