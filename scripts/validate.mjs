@@ -185,7 +185,7 @@ for (const idea of ideas) {
       }
       if (/^(it|this|they|that|we did|there)\b/i.test(s.trim())) {
         err(where, `lesson ${i + 1} opens with a pronoun: "${s.slice(0, 40)}…"`,
-          'Answer engines lift lessons out of context. Name the subject: "Bankr\'s deploy endpoint…", not "It…".');
+          'Answer engines lift lessons out of context. Name the subject: "The deploy endpoint returns 403 when the key header is capitalised…", not "It…".');
       }
       if (!/[.!?]$/.test(s.trim())) {
         warn(where, `lesson ${i + 1} does not end in punctuation`, 'Write lessons as full sentences.');

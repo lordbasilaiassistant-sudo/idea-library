@@ -65,7 +65,7 @@ const DROP_LINE = [
 // Category guesses. Deliberately coarse — a wrong guess is cheap to fix, and the
 // draft is reviewed anyway.
 const CATEGORY_HINTS = [
-  ['crypto-onchain', /\b(token|clanker|bankr|erc-?20|on-?chain|base mainnet|contract|wallet|defi|liquidity|mev|chain)\b/i],
+  ['crypto-onchain', /\b(token|erc-?20|on-?chain|mainnet|contract|wallet|defi|liquidity|mev|chain|launchpad)\b/i],
   ['ai-agents', /\b(agent|autonomous|multi-agent|harness|persona)\b/i],
   ['ml-research', /\b(llm|model|training|fine-?tun|benchmark|eval|embedding|transformer)\b/i],
   ['security-audit', /\b(audit|exploit|vulnerab|scanner|spoof|security)\b/i],

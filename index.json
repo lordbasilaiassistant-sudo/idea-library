@@ -34,12 +34,12 @@
     },
     "by_source": {
       "seed": 3,
-      "projects-md": 0,
-      "desktop-folders": 0,
-      "github-repos": 0,
-      "archive-tree": 0,
-      "transcripts": 0,
-      "marketplace-listings": 0,
+      "project-registry": 0,
+      "working-directories": 0,
+      "public-repos": 0,
+      "older-work": 0,
+      "discussed-only": 0,
+      "listings": 0,
       "onchain": 0,
       "community": 0
     },
@@ -349,52 +349,50 @@
       "yield": 3
     },
     {
-      "id": "projects-md",
-      "label": "Private project registry snapshot",
-      "detail": "A consolidated registry of ~98 projects assembled from session memories. Structured, so the cheapest dig to run first.",
+      "id": "project-registry",
+      "label": "Project registry",
+      "detail": "Projects already catalogued in a structured form, so the cheapest pass to run first.",
       "status": "pending",
-      "estimated": 98,
       "yield": 0
     },
     {
-      "id": "desktop-folders",
-      "label": "Local project folders",
-      "detail": "~90 working directories that never made it into the registry. Many are the same idea under a different name; dedupe against existing ids.",
+      "id": "working-directories",
+      "label": "Working directories",
+      "detail": "Project folders that never made it into the registry. Expect the same idea under several names; dedupe against existing ids.",
       "status": "pending",
-      "estimated": 90,
       "yield": 0
     },
     {
-      "id": "github-repos",
+      "id": "public-repos",
       "label": "Published repositories",
-      "detail": "Everything already public. Lowest scrub risk, highest link value — each one gets links.repo.",
+      "detail": "Work that is already public. Lowest risk and highest link value, since each entry can cite its own repo.",
       "status": "pending",
       "yield": 0
     },
     {
-      "id": "archive-tree",
-      "label": "Archive directory",
-      "detail": "Older work already set aside. Expect dead ideas, which are the most valuable kind here.",
+      "id": "older-work",
+      "label": "Older work",
+      "detail": "Things set aside long enough to have an outcome. Expect dead ideas, which are the most valuable kind here.",
       "status": "pending",
       "yield": 0
     },
     {
-      "id": "transcripts",
-      "label": "Session transcripts",
-      "detail": "Ideas that were discussed, decided against, or tried in-session and never got a folder. The only source for `idea-only` entries. Highest scrub risk by far — transcripts contain everything.",
+      "id": "discussed-only",
+      "label": "Discussed but never built",
+      "detail": "Ideas that were considered, decided against, or tried once and never got a folder. The only source for `idea-only` entries.",
       "status": "pending",
       "yield": 0
     },
     {
-      "id": "marketplace-listings",
-      "label": "Published listings and actors",
+      "id": "listings",
+      "label": "Published listings",
       "detail": "Things listed on somebody else's storefront, with real usage numbers attached.",
       "status": "pending",
       "yield": 0
     },
     {
       "id": "onchain",
-      "label": "On-chain deployment history",
+      "label": "On-chain history",
       "detail": "Contracts and tokens deployed. Chain state is measurable evidence, so these entries can carry high-confidence verdicts.",
       "status": "pending",
       "yield": 0
@@ -463,7 +461,7 @@
       "path": "/ideas/ai-agents/never-funded-agent/",
       "url": "https://ideas.broke2builtai.com/ideas/ai-agents/never-funded-agent/",
       "repo_path": "ideas/ai-agents/never-funded-agent",
-      "updated": null,
+      "updated": "2026-09-12T14:53:42-04:00",
       "related_all": []
     },
     {
@@ -523,7 +521,7 @@
       "path": "/ideas/crypto-onchain/sdk-launch-discovery-gap/",
       "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/sdk-launch-discovery-gap/",
       "repo_path": "ideas/crypto-onchain/sdk-launch-discovery-gap",
-      "updated": null,
+      "updated": "2026-09-12T14:53:42-04:00",
       "related_all": [
         "multicall-batch-reads"
       ]
@@ -585,7 +583,7 @@
       "path": "/ideas/tooling-infra/multicall-batch-reads/",
       "url": "https://ideas.broke2builtai.com/ideas/tooling-infra/multicall-batch-reads/",
       "repo_path": "ideas/tooling-infra/multicall-batch-reads",
-      "updated": null,
+      "updated": "2026-09-12T14:53:42-04:00",
       "related_all": [
         "sdk-launch-discovery-gap"
       ]

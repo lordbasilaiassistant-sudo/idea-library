@@ -134,7 +134,7 @@ Conventional commits, enforced:
 ```
 idea: add sdk-launch-discovery-gap
 idea: update multicall-batch-reads outcome shipped -> partial
-lesson: add rate-limit finding to bankr-launcher
+lesson: add rate-limit finding to jobboard-api-scrape
 taxonomy: add mechanic tag `moderation-gap`
 evidence: add tx log to never-funded-agent
 fix|docs|chore: ...

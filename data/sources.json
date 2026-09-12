@@ -1,11 +1,16 @@
 {
   "$comment": [
-    "The digs ledger. This library is built by repeated excavation of our own history,",
-    "and the first dig is the easiest one — it is nowhere near all of it.",
+    "The digs ledger. This library is built by repeated passes over our own history,",
+    "and the first pass is nowhere near all of it.",
     "",
-    "Every idea carries `source: <dig id>`. That makes 'what did this dig actually yield?'",
-    "a query instead of an archaeology project, and it keeps the library honest about",
-    "being incomplete: STATUS.md renders this as a board with the pending rows visible.",
+    "Every idea carries `source: <dig id>`. That makes 'what did this pass actually yield?'",
+    "a query instead of an archaeology project, and it keeps the library honest about being",
+    "incomplete: STATUS.md renders this as a board with the outstanding rows visible.",
+    "",
+    "Note on what belongs in `detail`: describe the KIND of material, never where it lives,",
+    "how much of it there is, or how sensitive it is. An earlier version of this file named",
+    "volumes and flagged which source was riskiest, which amounted to publishing a map of",
+    "our own unscrubbed material. The board's purpose survives without any of that.",
     "",
     "`yield` is written by scripts/build.mjs from the actual idea count — never by hand."
   ],
@@ -18,46 +23,44 @@
       "dug": "2026-09-12"
     },
     {
-      "id": "projects-md",
-      "label": "Private project registry snapshot",
-      "detail": "A consolidated registry of ~98 projects assembled from session memories. Structured, so the cheapest dig to run first.",
-      "status": "pending",
-      "estimated": 98
+      "id": "project-registry",
+      "label": "Project registry",
+      "detail": "Projects already catalogued in a structured form, so the cheapest pass to run first.",
+      "status": "pending"
     },
     {
-      "id": "desktop-folders",
-      "label": "Local project folders",
-      "detail": "~90 working directories that never made it into the registry. Many are the same idea under a different name; dedupe against existing ids.",
-      "status": "pending",
-      "estimated": 90
+      "id": "working-directories",
+      "label": "Working directories",
+      "detail": "Project folders that never made it into the registry. Expect the same idea under several names; dedupe against existing ids.",
+      "status": "pending"
     },
     {
-      "id": "github-repos",
+      "id": "public-repos",
       "label": "Published repositories",
-      "detail": "Everything already public. Lowest scrub risk, highest link value — each one gets links.repo.",
+      "detail": "Work that is already public. Lowest risk and highest link value, since each entry can cite its own repo.",
       "status": "pending"
     },
     {
-      "id": "archive-tree",
-      "label": "Archive directory",
-      "detail": "Older work already set aside. Expect dead ideas, which are the most valuable kind here.",
+      "id": "older-work",
+      "label": "Older work",
+      "detail": "Things set aside long enough to have an outcome. Expect dead ideas, which are the most valuable kind here.",
       "status": "pending"
     },
     {
-      "id": "transcripts",
-      "label": "Session transcripts",
-      "detail": "Ideas that were discussed, decided against, or tried in-session and never got a folder. The only source for `idea-only` entries. Highest scrub risk by far — transcripts contain everything.",
+      "id": "discussed-only",
+      "label": "Discussed but never built",
+      "detail": "Ideas that were considered, decided against, or tried once and never got a folder. The only source for `idea-only` entries.",
       "status": "pending"
     },
     {
-      "id": "marketplace-listings",
-      "label": "Published listings and actors",
+      "id": "listings",
+      "label": "Published listings",
       "detail": "Things listed on somebody else's storefront, with real usage numbers attached.",
       "status": "pending"
     },
     {
       "id": "onchain",
-      "label": "On-chain deployment history",
+      "label": "On-chain history",
       "detail": "Contracts and tokens deployed. Chain state is measurable evidence, so these entries can carry high-confidence verdicts.",
       "status": "pending"
     },

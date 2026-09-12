@@ -11,13 +11,13 @@ visible instead of being quietly forgotten.
 | Dig | Status | Yielded | Estimated | Notes |
 |---|---|---|---|---|
 | Hand-written exemplars | ✅ complete | 3 | — | The first ideas, written by hand to set the quality bar for everything after. |
-| Private project registry snapshot | ⏳ pending | 0 | ~98 | A consolidated registry of ~98 projects assembled from session memories. Structured, so the cheapest dig to run first. |
-| Local project folders | ⏳ pending | 0 | ~90 | ~90 working directories that never made it into the registry. Many are the same idea under a different name; dedupe against existing ids. |
-| Published repositories | ⏳ pending | 0 | — | Everything already public. Lowest scrub risk, highest link value — each one gets links.repo. |
-| Archive directory | ⏳ pending | 0 | — | Older work already set aside. Expect dead ideas, which are the most valuable kind here. |
-| Session transcripts | ⏳ pending | 0 | — | Ideas that were discussed, decided against, or tried in-session and never got a folder. The only source for `idea-only` entries. Highest scrub risk by far — transcripts contain everything. |
-| Published listings and actors | ⏳ pending | 0 | — | Things listed on somebody else's storefront, with real usage numbers attached. |
-| On-chain deployment history | ⏳ pending | 0 | — | Contracts and tokens deployed. Chain state is measurable evidence, so these entries can carry high-confidence verdicts. |
+| Project registry | ⏳ pending | 0 | — | Projects already catalogued in a structured form, so the cheapest pass to run first. |
+| Working directories | ⏳ pending | 0 | — | Project folders that never made it into the registry. Expect the same idea under several names; dedupe against existing ids. |
+| Published repositories | ⏳ pending | 0 | — | Work that is already public. Lowest risk and highest link value, since each entry can cite its own repo. |
+| Older work | ⏳ pending | 0 | — | Things set aside long enough to have an outcome. Expect dead ideas, which are the most valuable kind here. |
+| Discussed but never built | ⏳ pending | 0 | — | Ideas that were considered, decided against, or tried once and never got a folder. The only source for `idea-only` entries. |
+| Published listings | ⏳ pending | 0 | — | Things listed on somebody else's storefront, with real usage numbers attached. |
+| On-chain history | ⏳ pending | 0 | — | Contracts and tokens deployed. Chain state is measurable evidence, so these entries can carry high-confidence verdicts. |
 | Outside contributions | ♾ open | 0 | — | Ideas and corrections contributed by people who are not us. Open-ended, permanently. |
 
 ## By outcome

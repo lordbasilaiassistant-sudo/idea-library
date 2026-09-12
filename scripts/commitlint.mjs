@@ -50,7 +50,7 @@ Expected:  <type>: <what changed>
 
   idea: add jobboard-api-scrape
   idea: update multicall-batch-reads outcome shipped -> partial
-  lesson: add rate-limit finding to bankr-launcher
+  lesson: add rate-limit finding to jobboard-api-scrape
   taxonomy: add mechanic tag \`moderation-gap\`
 
 Put the EVIDENCE in the body — what you measured, when, and where. The diff already
