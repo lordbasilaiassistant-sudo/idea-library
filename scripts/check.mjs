@@ -15,6 +15,7 @@ const steps = [
   ['scrub',     'scripts/scrub.mjs',    'secrets, personal data, un-allowlisted addresses'],
   ['validate',  'scripts/validate.mjs', 'schema, vocabulary, quotability, measured numbers'],
   ['build',     'scripts/build.mjs',    'regenerate every navigable surface'],
+  ['scoreboard','scripts/scoreboard.mjs','rank every idea, explainably and reproducibly'],
 ];
 
 let failed = null;
@@ -35,7 +36,7 @@ if (!failed) {
   process.stdout.write('\n── build-idempotent — generated files match their sources\n');
   let dirty = '';
   try {
-    dirty = execSync('git status --porcelain -- index.json llms.txt llms-full.txt LESSONS.md FAILURES.md WORKED.md OPEN-QUESTIONS.md STATUS.md sitemap.xml robots.txt feed.xml README.md ideas',
+    dirty = execSync('git status --porcelain -- index.json llms.txt llms-full.txt LESSONS.md FAILURES.md WORKED.md OPEN-QUESTIONS.md STATUS.md SCOREBOARD.md data/scoreboard.json sitemap.xml robots.txt feed.xml README.md ideas',
       { cwd: ROOT, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim();
   } catch { /* not a git repo yet */ }
 

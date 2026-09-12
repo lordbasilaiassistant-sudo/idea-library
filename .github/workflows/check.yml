@@ -79,6 +79,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: '20' }
       - run: node scripts/build.mjs
+      - run: node scripts/scoreboard.mjs
       - name: Assert no drift
         run: |
           if ! git diff --quiet; then

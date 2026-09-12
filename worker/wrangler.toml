@@ -1,0 +1,14 @@
+name = "idea-library-votes"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+
+# KV holds the append-only vote log plus short-lived rate-limit counters.
+# The log is the source of truth for the scoreboard: scores are recomputed from
+# it rather than stored, which is what makes a discovered attack reversible.
+[[kv_namespaces]]
+binding = "VOTES"
+id = "REPLACE_WITH_KV_ID"
+
+[vars]
+# IP_SALT and CHALLENGE_SECRET are set with `wrangler secret put`, never here.
+# TURNSTILE_SECRET likewise.
