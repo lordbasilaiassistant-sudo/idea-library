@@ -467,7 +467,7 @@
       "path": "/ideas/ai-agents/autotrader-journal-hid-losses/",
       "url": "https://ideas.broke2builtai.com/ideas/ai-agents/autotrader-journal-hid-losses/",
       "repo_path": "ideas/ai-agents/autotrader-journal-hid-losses",
-      "updated": "2026-09-12T15:36:28-04:00",
+      "updated": "2026-06-01T00:00:00Z",
       "related_all": [
         "hardcoded-event-topic-hash",
         "indexer-pings-are-not-demand",
@@ -533,7 +533,7 @@
       "path": "/ideas/ai-agents/never-funded-agent/",
       "url": "https://ideas.broke2builtai.com/ideas/ai-agents/never-funded-agent/",
       "repo_path": "ideas/ai-agents/never-funded-agent",
-      "updated": "2026-09-12T14:53:42-04:00",
+      "updated": "2026-06-01T00:00:00Z",
       "related_all": [
         "autotrader-journal-hid-losses",
         "key-is-not-ownership"
@@ -594,7 +594,7 @@
       "path": "/ideas/ai-agents/safety-refusal-blocked-own-qa/",
       "url": "https://ideas.broke2builtai.com/ideas/ai-agents/safety-refusal-blocked-own-qa/",
       "repo_path": "ideas/ai-agents/safety-refusal-blocked-own-qa",
-      "updated": "2026-09-12T15:36:28-04:00",
+      "updated": "2026-06-01T00:00:00Z",
       "related_all": [
         "autotrader-journal-hid-losses"
       ]
@@ -656,7 +656,7 @@
       "path": "/ideas/automation-ops/circular-api-key-registration/",
       "url": "https://ideas.broke2builtai.com/ideas/automation-ops/circular-api-key-registration/",
       "repo_path": "ideas/automation-ops/circular-api-key-registration",
-      "updated": "2026-09-12T15:36:28-04:00",
+      "updated": "2026-04-01T00:00:00Z",
       "related_all": [
         "deploy-time-metadata-window"
       ]
@@ -719,7 +719,7 @@
       "path": "/ideas/crypto-onchain/deploy-time-metadata-window/",
       "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/deploy-time-metadata-window/",
       "repo_path": "ideas/crypto-onchain/deploy-time-metadata-window",
-      "updated": "2026-09-12T15:36:28-04:00",
+      "updated": "2026-05-01T00:00:00Z",
       "related_all": [
         "circular-api-key-registration",
         "fee-claim-needs-trading-first",
@@ -785,7 +785,7 @@
       "path": "/ideas/crypto-onchain/fee-claim-needs-trading-first/",
       "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/fee-claim-needs-trading-first/",
       "repo_path": "ideas/crypto-onchain/fee-claim-needs-trading-first",
-      "updated": "2026-09-12T15:36:28-04:00",
+      "updated": "2026-04-01T00:00:00Z",
       "related_all": [
         "deploy-time-metadata-window",
         "forty-three-services-no-customers",
@@ -855,7 +855,7 @@
       "path": "/ideas/crypto-onchain/five-hundred-tokens-zero-volume/",
       "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/five-hundred-tokens-zero-volume/",
       "repo_path": "ideas/crypto-onchain/five-hundred-tokens-zero-volume",
-      "updated": null,
+      "updated": "2026-05-01T00:00:00Z",
       "related_all": [
         "deploy-time-metadata-window",
         "forty-three-services-no-customers",
@@ -925,7 +925,7 @@
       "path": "/ideas/crypto-onchain/indexer-pings-are-not-demand/",
       "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/indexer-pings-are-not-demand/",
       "repo_path": "ideas/crypto-onchain/indexer-pings-are-not-demand",
-      "updated": null,
+      "updated": "2026-04-01T00:00:00Z",
       "related_all": [
         "autotrader-journal-hid-losses",
         "five-hundred-tokens-zero-volume",
@@ -989,7 +989,7 @@
       "path": "/ideas/crypto-onchain/key-is-not-ownership/",
       "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/key-is-not-ownership/",
       "repo_path": "ideas/crypto-onchain/key-is-not-ownership",
-      "updated": "2026-09-12T15:36:28-04:00",
+      "updated": "2026-05-01T00:00:00Z",
       "related_all": [
         "concurrent-nonce-collision",
         "hardcoded-event-topic-hash",
@@ -1057,7 +1057,7 @@
       "path": "/ideas/crypto-onchain/retail-arbitrage-is-closed/",
       "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/retail-arbitrage-is-closed/",
       "repo_path": "ideas/crypto-onchain/retail-arbitrage-is-closed",
-      "updated": null,
+      "updated": "2026-06-01T00:00:00Z",
       "related_all": [
         "autotrader-journal-hid-losses",
         "key-is-not-ownership",
@@ -1121,7 +1121,7 @@
       "path": "/ideas/crypto-onchain/sdk-launch-discovery-gap/",
       "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/sdk-launch-discovery-gap/",
       "repo_path": "ideas/crypto-onchain/sdk-launch-discovery-gap",
-      "updated": "2026-09-12T14:53:42-04:00",
+      "updated": "2026-05-01T00:00:00Z",
       "related_all": [
         "deploy-time-metadata-window",
         "fee-claim-needs-trading-first",
@@ -1187,7 +1187,7 @@
       "path": "/ideas/experiments/scan-for-money-loop/",
       "url": "https://ideas.broke2builtai.com/ideas/experiments/scan-for-money-loop/",
       "repo_path": "ideas/experiments/scan-for-money-loop",
-      "updated": null,
+      "updated": "2026-07-01T00:00:00Z",
       "related_all": [
         "forty-three-services-no-customers",
         "retail-arbitrage-is-closed"
@@ -1251,7 +1251,7 @@
       "path": "/ideas/security-audit/secrets-committed-to-source/",
       "url": "https://ideas.broke2builtai.com/ideas/security-audit/secrets-committed-to-source/",
       "repo_path": "ideas/security-audit/secrets-committed-to-source",
-      "updated": "2026-09-12T15:36:28-04:00",
+      "updated": "2026-02-01T00:00:00Z",
       "related_all": [
         "autotrader-journal-hid-losses"
       ]
@@ -1314,7 +1314,7 @@
       "path": "/ideas/security-audit/self-reported-rewards-vs-balance/",
       "url": "https://ideas.broke2builtai.com/ideas/security-audit/self-reported-rewards-vs-balance/",
       "repo_path": "ideas/security-audit/self-reported-rewards-vs-balance",
-      "updated": null,
+      "updated": "2026-05-01T00:00:00Z",
       "related_all": [
         "autotrader-journal-hid-losses",
         "fee-claim-needs-trading-first",
@@ -1382,7 +1382,7 @@
       "path": "/ideas/security-audit/synthetic-pool-chart-spoof/",
       "url": "https://ideas.broke2builtai.com/ideas/security-audit/synthetic-pool-chart-spoof/",
       "repo_path": "ideas/security-audit/synthetic-pool-chart-spoof",
-      "updated": null,
+      "updated": "2026-06-01T00:00:00Z",
       "related_all": [
         "indexer-pings-are-not-demand",
         "key-is-not-ownership",
@@ -1445,7 +1445,7 @@
       "path": "/ideas/tooling-infra/concurrent-nonce-collision/",
       "url": "https://ideas.broke2builtai.com/ideas/tooling-infra/concurrent-nonce-collision/",
       "repo_path": "ideas/tooling-infra/concurrent-nonce-collision",
-      "updated": "2026-09-12T15:36:28-04:00",
+      "updated": "2026-05-01T00:00:00Z",
       "related_all": [
         "key-is-not-ownership",
         "multicall-batch-reads"
@@ -1509,7 +1509,7 @@
       "path": "/ideas/tooling-infra/hardcoded-event-topic-hash/",
       "url": "https://ideas.broke2builtai.com/ideas/tooling-infra/hardcoded-event-topic-hash/",
       "repo_path": "ideas/tooling-infra/hardcoded-event-topic-hash",
-      "updated": null,
+      "updated": "2026-02-01T00:00:00Z",
       "related_all": [
         "autotrader-journal-hid-losses",
         "deploy-time-metadata-window",
@@ -1574,7 +1574,7 @@
       "path": "/ideas/tooling-infra/multicall-batch-reads/",
       "url": "https://ideas.broke2builtai.com/ideas/tooling-infra/multicall-batch-reads/",
       "repo_path": "ideas/tooling-infra/multicall-batch-reads",
-      "updated": "2026-09-12T14:53:42-04:00",
+      "updated": "2026-04-01T00:00:00Z",
       "related_all": [
         "concurrent-nonce-collision",
         "indexer-pings-are-not-demand",
@@ -1642,7 +1642,7 @@
       "path": "/ideas/web-saas/forty-three-services-no-customers/",
       "url": "https://ideas.broke2builtai.com/ideas/web-saas/forty-three-services-no-customers/",
       "repo_path": "ideas/web-saas/forty-three-services-no-customers",
-      "updated": null,
+      "updated": "2026-04-01T00:00:00Z",
       "related_all": [
         "fee-claim-needs-trading-first",
         "five-hundred-tokens-zero-volume",

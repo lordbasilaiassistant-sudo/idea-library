@@ -8,7 +8,6 @@
 
 import { writeFileSync, mkdirSync, existsSync, readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
-import { execSync } from 'node:child_process';
 import { ROOT, loadIdeas, loadTaxonomy, loadSources, ideaPath, readJSON as readJSONFile, GENERATED_BANNER } from './lib/ideas.mjs';
 
 // Where things actually live. `site` is null until a site is really deployed — see
@@ -38,12 +37,18 @@ const write = (rel, content) => {
   return rel;
 };
 
-const gitDate = (file) => {
-  try {
-    const d = execSync(`git log -1 --format=%cI -- "${file}"`, { cwd: ROOT, stdio: ['ignore', 'pipe', 'ignore'] })
-      .toString().trim();
-    return d || null;
-  } catch { return null; }
+// Deliberately NOT git-derived. An earlier version read each idea's last commit
+// date, which made build-idempotent structurally unsatisfiable: the commit date of
+// a file you are about to commit is unknowable, so the first build after adding an
+// idea always differed from the build CI produced afterwards. Every generated field
+// is now a pure function of repository CONTENT, which is what recomputable has to
+// mean to be worth anything.
+const ideaDate = (i) => {
+  const d = i.ended || i.started || null;
+  if (!d) return null;
+  const parts = String(d).split('-');
+  const [y, m, day] = [parts[0], parts[1] || '01', parts[2] || '01'];
+  return `${y}-${m}-${day}T00:00:00Z`;
 };
 
 const OUTCOME_ICON = {
@@ -88,7 +93,7 @@ const catalog = ideas.map((i) => ({
   path: ideaPath(i),
   url: ideaUrl(i),
   repo_path: i.dir,
-  updated: gitDate(i.file),
+  updated: ideaDate(i),
 }));
 
 // back-links: `related` is symmetric in the generated data even when written one way
