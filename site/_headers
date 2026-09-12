@@ -1,0 +1,32 @@
+# Cloudflare Pages response headers.
+#
+# Pages' default edge cache for HTML was s-maxage=604800 (seven days). When entries
+# were withdrawn after an audit, the removed pages kept serving from the edge long
+# after a clean build deployed — a withdrawal that takes a week to take effect is not
+# a withdrawal. Everything that can change when the library changes gets a short edge
+# lifetime and must revalidate. Fonts and styling can stay cached.
+
+/*
+  Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/index.json
+  Cache-Control: public, max-age=0, s-maxage=120, must-revalidate
+  Access-Control-Allow-Origin: *
+
+/scoreboard.json
+  Cache-Control: public, max-age=0, s-maxage=120, must-revalidate
+  Access-Control-Allow-Origin: *
+
+/llms.txt
+  Cache-Control: public, max-age=0, s-maxage=120, must-revalidate
+
+/llms-full.txt
+  Cache-Control: public, max-age=0, s-maxage=120, must-revalidate
+
+/style.css
+  Cache-Control: public, max-age=3600, s-maxage=3600
+
+/idea.css
+  Cache-Control: public, max-age=3600, s-maxage=3600
