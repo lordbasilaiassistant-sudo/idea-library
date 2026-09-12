@@ -4,11 +4,12 @@
 
 Developer tools, CLIs, MCP servers, deployment and hosting plumbing.
 
-2 idea(s).
+3 idea(s).
 
 | Idea | Outcome | Effort | Cost | Why |
 |---|---|---|---|---|
 | [Why a wallet script kept failing when a live backend shared the same key](/ideas/tooling-infra/concurrent-nonce-collision/) | `shipped` | hours | — | Caching the nonce at startup is correct only for a key nobody else is using, and the fix was to refetch the pending nonce immediately before every single send. |
+| [A single mistyped event hash made every scanner return zero results for months](/ideas/tooling-infra/hardcoded-event-topic-hash/) | `shipped` | weeks | $0 | A copied-and-mistyped event topic hash matched nothing, so every log query returned an empty set and reported it as a clean result rather than as an error. |
 | [Reading thousands of contract values through Multicall3 instead of a block explorer API](/ideas/tooling-infra/multicall-batch-reads/) | `shipped` | days | $0 | Batching reads into Multicall3 aggregates against a public RPC removed both the rate limit and the API key that made per-token explorer loops slow and fragile. |
 
 [← all categories](https://github.com/lordbasilaiassistant-sudo/idea-library#categories)
