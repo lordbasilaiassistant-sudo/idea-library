@@ -1,0 +1,11 @@
+# The gate, the vocabulary, and the contract do not change without human review.
+# Everything else can come in through normal review, including from automated maintainers.
+
+/scripts/scrub.mjs            @lordbasilaiassistant-sudo
+/scripts/denylist.example.json @lordbasilaiassistant-sudo
+/data/public-addresses.allow.json @lordbasilaiassistant-sudo
+/data/taxonomy.json           @lordbasilaiassistant-sudo
+/AGENTS.md                    @lordbasilaiassistant-sudo
+/CONTRIBUTING.md              @lordbasilaiassistant-sudo
+/.github/                     @lordbasilaiassistant-sudo
+/LICENSE                      @lordbasilaiassistant-sudo

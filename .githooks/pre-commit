@@ -1,0 +1,11 @@
+#!/bin/sh
+# The gate runs here too. A gate with one chokepoint is a gate with one bypass.
+# Install:  git config core.hooksPath .githooks
+echo "pre-commit: scrubbing…"
+node scripts/scrub.mjs || {
+  echo ""
+  echo "pre-commit: BLOCKED. Nothing moves while the scrub is red."
+  echo "Redact the finding and re-scan — never delete the key and keep the file unscanned."
+  exit 1
+}
+node scripts/validate.mjs || exit 1

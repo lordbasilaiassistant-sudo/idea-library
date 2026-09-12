@@ -1,0 +1,26 @@
+name: Settle an open question
+description: You ran the measurement that decides one of our inconclusive entries.
+labels: [settles-question]
+body:
+  - type: input
+    id: idea
+    attributes:
+      label: Which idea? (its `id`)
+    validations: { required: true }
+  - type: textarea
+    id: method
+    attributes:
+      label: What did you run?
+      description: Enough detail that someone else could repeat it.
+    validations: { required: true }
+  - type: textarea
+    id: result
+    attributes:
+      label: What did you measure?
+    validations: { required: true }
+  - type: dropdown
+    id: verdict
+    attributes:
+      label: What should the outcome become?
+      options: [revenue, shipped, partial, failed, abandoned, still inconclusive]
+    validations: { required: true }

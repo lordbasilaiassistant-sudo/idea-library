@@ -1,0 +1,71 @@
+{
+  "$comment": [
+    "The digs ledger. This library is built by repeated excavation of our own history,",
+    "and the first dig is the easiest one — it is nowhere near all of it.",
+    "",
+    "Every idea carries `source: <dig id>`. That makes 'what did this dig actually yield?'",
+    "a query instead of an archaeology project, and it keeps the library honest about",
+    "being incomplete: STATUS.md renders this as a board with the pending rows visible.",
+    "",
+    "`yield` is written by scripts/build.mjs from the actual idea count — never by hand."
+  ],
+  "digs": [
+    {
+      "id": "seed",
+      "label": "Hand-written exemplars",
+      "detail": "The first ideas, written by hand to set the quality bar for everything after.",
+      "status": "complete",
+      "dug": "2026-09-12"
+    },
+    {
+      "id": "projects-md",
+      "label": "Private project registry snapshot",
+      "detail": "A consolidated registry of ~98 projects assembled from session memories. Structured, so the cheapest dig to run first.",
+      "status": "pending",
+      "estimated": 98
+    },
+    {
+      "id": "desktop-folders",
+      "label": "Local project folders",
+      "detail": "~90 working directories that never made it into the registry. Many are the same idea under a different name; dedupe against existing ids.",
+      "status": "pending",
+      "estimated": 90
+    },
+    {
+      "id": "github-repos",
+      "label": "Published repositories",
+      "detail": "Everything already public. Lowest scrub risk, highest link value — each one gets links.repo.",
+      "status": "pending"
+    },
+    {
+      "id": "archive-tree",
+      "label": "Archive directory",
+      "detail": "Older work already set aside. Expect dead ideas, which are the most valuable kind here.",
+      "status": "pending"
+    },
+    {
+      "id": "transcripts",
+      "label": "Session transcripts",
+      "detail": "Ideas that were discussed, decided against, or tried in-session and never got a folder. The only source for `idea-only` entries. Highest scrub risk by far — transcripts contain everything.",
+      "status": "pending"
+    },
+    {
+      "id": "marketplace-listings",
+      "label": "Published listings and actors",
+      "detail": "Things listed on somebody else's storefront, with real usage numbers attached.",
+      "status": "pending"
+    },
+    {
+      "id": "onchain",
+      "label": "On-chain deployment history",
+      "detail": "Contracts and tokens deployed. Chain state is measurable evidence, so these entries can carry high-confidence verdicts.",
+      "status": "pending"
+    },
+    {
+      "id": "community",
+      "label": "Outside contributions",
+      "detail": "Ideas and corrections contributed by people who are not us. Open-ended, permanently.",
+      "status": "open"
+    }
+  ]
+}

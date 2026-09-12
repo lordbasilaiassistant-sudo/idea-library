@@ -1,0 +1,9 @@
+node_modules/
+_inbox/
+scripts/denylist.local.json
+*.env
+.env*
+!.env.example
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,21 @@
+{
+  "$comment": [
+    "Copy this to denylist.local.json and fill in YOUR OWN literals.",
+    "denylist.local.json is gitignored and MUST NEVER be committed — it is a list of",
+    "exactly the strings you are trying to keep out of the public repo, so publishing it",
+    "would defeat the entire gate.",
+    "In CI, provide it via the SCRUB_DENYLIST env var pointing at a file written from a",
+    "repo secret. scrub.mjs FAILS in CI if no denylist is loaded — Class B silently off",
+    "is the exact way this gate would rot.",
+    "Matching is literal (regex-escaped) and case-insensitive unless caseSensitive:true."
+  ],
+  "terms": [
+    { "value": "123 Example Street", "why": "home address", "severity": "critical" },
+    { "value": "Example City, ST 00000", "why": "home address", "severity": "critical" },
+    { "value": "your.personal@example.com", "why": "personal email", "severity": "critical" },
+    { "value": "FamilyLastName", "why": "family surname", "severity": "critical" },
+    { "value": "0x0000000000000000000000000000000000000000", "why": "treasury/deployer wallet", "severity": "critical" },
+    { "value": "TREASURY_PRIVATE_KEY", "why": "name of the treasury key env var", "severity": "critical" },
+    { "value": "localusername", "why": "local machine username", "severity": "high" }
+  ]
+}

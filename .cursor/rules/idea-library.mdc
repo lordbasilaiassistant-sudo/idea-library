@@ -1,0 +1,12 @@
+---
+description: Contributing to idea-library
+alwaysApply: true
+---
+
+Read AGENTS.md at the repo root. It is the single contract for every agent contributing here,
+regardless of vendor. Nothing in this rule overrides it.
+
+- index.json is the full catalog in one fetch — read it before writing anything.
+- `npm run check` is exactly what CI runs. Zero dependencies.
+- Never hand-edit a GENERATED file.
+- Never commit secrets, .env files, local paths, personal data, or an un-allowlisted wallet address.

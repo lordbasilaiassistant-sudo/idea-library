@@ -1,0 +1,10 @@
+# Every crawler and every answer engine is welcome here. That is the point.
+User-agent: *
+Allow: /
+
+Sitemap: https://ideas.broke2builtai.com/sitemap.xml
+
+# Machine-readable entry points:
+#   https://ideas.broke2builtai.com/index.json      full catalog, one fetch
+#   https://ideas.broke2builtai.com/llms.txt        map
+#   https://ideas.broke2builtai.com/llms-full.txt   entire corpus inline

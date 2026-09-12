@@ -1,0 +1,22 @@
+{
+  "name": "idea-library",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A public record of ideas we ran, each with an outcome and the reason behind it.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "scrub": "node scripts/scrub.mjs",
+    "scrub:inbox": "node scripts/scrub.mjs --inbox",
+    "validate": "node scripts/validate.mjs",
+    "build": "node scripts/scrub.mjs && node scripts/validate.mjs && node scripts/build.mjs",
+    "new-idea": "node scripts/new-idea.mjs",
+    "check": "node scripts/check.mjs",
+    "canary": "node scripts/canary.mjs",
+    "links": "node scripts/check-links.mjs",
+    "commitlint": "node scripts/commitlint.mjs"
+  }
+}

@@ -1,0 +1,39 @@
+name: Suggest an idea
+description: Something you tried, or something worth trying. Failures especially welcome.
+labels: [idea]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        You do not need to have succeeded. An idea that failed, with the reason it failed,
+        is the most useful thing you can give this library.
+  - type: input
+    id: title
+    attributes:
+      label: What was the idea?
+      placeholder: Pulling a job board's listings from its undocumented JSON endpoint
+    validations: { required: true }
+  - type: dropdown
+    id: outcome
+    attributes:
+      label: How did it end?
+      options:
+        - I built it and it made money
+        - I built it and shipped it, no revenue
+        - It half-worked, something specific capped it
+        - I built it and it failed
+        - I stopped before finding out
+        - I genuinely do not know yet
+        - Never built it
+    validations: { required: true }
+  - type: textarea
+    id: why
+    attributes:
+      label: Why did it end that way?
+      description: The mechanism, not the symptom. "Nobody found it" is a symptom.
+    validations: { required: true }
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Numbers, dates, error strings, links. If you did not measure it, say so — that is fine.

@@ -1,0 +1,219 @@
+# idea-library
+
+> A public record of ideas we actually ran, each with an outcome and the reason behind it.
+> Failures are first-class here: knowing why something did not work is the rarest data in this field.
+
+Ideas: 3 · lessons: 12 · open questions: 1
+
+## Start here
+
+- [index.json](https://ideas.broke2builtai.com/index.json): the entire catalog in one fetch. Read this first; do not crawl the tree.
+- [llms-full.txt](https://ideas.broke2builtai.com/llms-full.txt): every idea inlined, for single-shot ingestion.
+- [AGENTS.md](https://github.com/lordbasilaiassistant-sudo/idea-library/blob/main/AGENTS.md): how to contribute. Applies to every agent, any vendor.
+- [LESSONS.md](https://github.com/lordbasilaiassistant-sudo/idea-library/blob/main/LESSONS.md): every lesson in the library, grouped by failure mechanic.
+- [FAILURES.md](https://github.com/lordbasilaiassistant-sudo/idea-library/blob/main/FAILURES.md): what did not work, and why.
+- [OPEN-QUESTIONS.md](https://github.com/lordbasilaiassistant-sudo/idea-library/blob/main/OPEN-QUESTIONS.md): verdicts we cannot call yet, with the measurement that would settle each.
+- [STATUS.md](https://github.com/lordbasilaiassistant-sudo/idea-library/blob/main/STATUS.md): which parts of our history have been excavated, and which have not.
+
+## Categories
+
+- [Crypto & On-chain](https://ideas.broke2builtai.com/ideas/crypto-onchain/) (1): Anything that touches a blockchain: token launches, contracts, wallets, MEV, on-chain data.
+- [AI Agents](https://ideas.broke2builtai.com/ideas/ai-agents/) (1): Autonomous or semi-autonomous agent systems, harnesses, and multi-agent coordination.
+- [Tooling & Infra](https://ideas.broke2builtai.com/ideas/tooling-infra/) (1): Developer tools, CLIs, MCP servers, deployment and hosting plumbing.
+
+## Ideas
+
+- [Can an agent that is never given any starting capital find its own first income?](https://ideas.broke2builtai.com/ideas/ai-agents/never-funded-agent/) — `inconclusive`: An on-chain agent created its own wallet, received no funding from us at any point, and accumulated value entirely from routes it found itself. Whether that generalises is unsettled.
+- [Launching tokens through an SDK instead of the web UI, and losing every discovery hook](https://ideas.broke2builtai.com/ideas/crypto-onchain/sdk-launch-discovery-gap/) — `failed`: Batch-launching tokens programmatically worked and cost pennies, but SDK-deployed tokens never appeared in the trending feed the web UI populates, so nobody ever saw them.
+- [Reading thousands of contract values through Multicall3 instead of a block explorer API](https://ideas.broke2builtai.com/ideas/tooling-infra/multicall-batch-reads/) — `shipped`: Replacing per-token explorer API calls with batched Multicall3 aggregates against a public RPC made bulk on-chain reads roughly two orders of magnitude faster and removed the API key.
+
+## Citation
+
+Prose CC-BY-4.0, code MIT. Cite as: Broke to Built — idea-library, <idea title>, https://ideas.broke2builtai.com
+
+
+---
+
+# Full corpus
+
+## Can an agent that is never given any starting capital find its own first income?
+
+- id: never-funded-agent
+- url: https://ideas.broke2builtai.com/ideas/ai-agents/never-funded-agent/
+- category: ai-agents
+- outcome: inconclusive (confidence: medium)
+- verdict: The agent did accumulate value with a starting balance of zero and no transfer from us, but a single agent on a single chain over one period cannot distinguish a repeatable method from a favourable window.
+- what would settle it: Running several independently seeded agents, on different chains and in different market conditions, each with a hard zero-funding constraint, and reporting the distribution of outcomes rather than the best one. A method should survive a bad month.
+- effort: months · cost: $0
+- tags: agent-harness, onchain-data, capital-required, zero-marginal-cost, deployed
+
+### Lessons
+- An agent with a starting balance of zero has a denominator that no later funding can restore, so a single transfer in permanently destroys the result the experiment exists to produce.
+- Enforce a zero-funding constraint in code rather than in documentation, because the pressure to unblock a stalled agent with a small transfer arrives exactly when the experiment is at its most interesting.
+- Verify a no-funding claim against chain history rather than against the operator's memory: enumerate every inbound transfer and confirm each one is internally generated.
+- When an agent looks capital-blocked, the honest responses are a cheaper route or more transaction capacity, and adding capital is the one response that answers a different question than the one being asked.
+
+## What we tried
+
+We gave an autonomous agent a harness, a scheduled tick, and read access to a chain, and we
+deliberately gave it no money. It generated its own wallet. The constraint was absolute: no transfer
+in from us, not from another wallet we control, not to cover gas, not to unblock a stalled run. Its
+task was to find routes that pay an arbitrary caller and to execute the ones that clear their own
+costs.
+
+## Why we thought it would work
+
+Most claims about autonomous agents earning money quietly include a funded starting position, which
+makes the result hard to read — you cannot tell the method from the stake. Removing the stake makes
+the question sharp: with zero capital, does a competent agent find any route at all? If it does, the
+result is unusually clean. If it does not, that is also informative and cheap to learn.
+
+## What actually happened
+
+The agent found and executed routes, and its balance grew from zero. Checking chain history rather
+than our own notes, every inbound transfer to its address was a proceed of its own activity and none
+originated outside its own operations. It has never been funded. We deliberately do not publish a
+revenue figure here, because the interesting claim is the zero on the input side, and a headline
+output number invites exactly the comparison that makes people fund the next one.
+
+## Why it worked / why it failed
+
+Neither, yet — hence `inconclusive`. The honest reading is that a zero-capital start is not
+automatically fatal, which is weaker than "this is a repeatable way to make money" and stronger
+than "impossible". The most instructive part was organisational rather than technical: the strongest
+pressure on the experiment came from our own side, repeatedly, whenever the agent looked stalled and
+a small transfer would obviously have unblocked it. That transfer would have deleted the only
+property the experiment had.
+
+## What you would need to change
+
+Run it as a population rather than an anecdote. Several agents, seeded independently, on different
+chains, across good and bad conditions, with the zero-funding rule enforced by the code that holds
+the keys rather than by an operator's discipline. Report the whole distribution, including the ones
+that found nothing. A method that only works in one window is a window, not a method.
+
+## What to reuse
+
+The constraint mechanism rather than the agent. Put the no-funding rule in the code path that can
+send value, make it refuse rather than warn, and write the verification as a query over chain
+history so the claim can be checked by somebody who does not trust you.
+
+## Launching tokens through an SDK instead of the web UI, and losing every discovery hook
+
+- id: sdk-launch-discovery-gap
+- url: https://ideas.broke2builtai.com/ideas/crypto-onchain/sdk-launch-discovery-gap/
+- category: crypto-onchain
+- outcome: failed (confidence: high)
+- verdict: The SDK deploy produced identical on-chain state to a web-UI deploy but skipped the platform's server-side discovery hooks, so the launches were invisible and the cheap batch pipeline had nothing to feed.
+- effort: weeks · cost: $0.48 · revenue: $0
+- tags: token-launch, smart-contracts, distribution-gap, api-undocumented-behavior, deployed
+
+### Lessons
+- A launchpad SDK and its web UI can produce identical on-chain state while the UI additionally fires server-side discovery hooks that the SDK cannot reach.
+- Setting an `interface` or `referrer` field in SDK calldata to impersonate the web client does not reproduce the web client's discovery behaviour, because those hooks run on the platform's servers and never read calldata.
+- Cheap batch deployment is worth nothing when the binding constraint is discovery; measure whether anyone can find the output before optimising the cost of producing it.
+- A high-volume address in a token's trade history is more often a shared router contract than a bot, and mistaking one for the other sends you hunting a whitelist that does not exist.
+
+## What we tried
+
+We built a batch launch pipeline against a Base launchpad's TypeScript SDK: generate art from a
+keyless image endpoint, host it on a public repo, deploy through the SDK, repeat. Six launches ran
+end to end for $0.48 total in gas and zero API spend. Mechanically the pipeline did exactly what it
+was designed to do.
+
+## Why we thought it would work
+
+The launchpad's own web UI clearly produced tokens that got attention. The SDK was published by the
+same team, deployed the same contracts, and emitted the same events. Our reasoning was that the UI
+was a convenience wrapper over the SDK, so anything the UI could do, the SDK could do more cheaply
+and forty times faster.
+
+## What actually happened
+
+Every SDK-deployed token landed on chain correctly and none of them appeared in the platform's
+trending feed, social cast, or partner price-tracker ping. Tokens launched by hand through the web
+UI in the same week did appear. We first suspected a bot whitelist, because one address dominated
+the trade history of the tokens that did get traction — that address turned out to be the chain's
+shared Universal Router, not a bot, and the whitelist we were hunting did not exist.
+
+## Why it worked / why it failed
+
+The on-chain deployment is only half of a launch. The other half is a set of server-side hooks the
+platform fires when a launch originates from its own front end: feed insertion, a social post, and
+a ping to an external price tracker. Those hooks are triggered by the platform's backend, not by the
+transaction, so no amount of calldata shaping reaches them. We optimised the half we could see and
+the invisible half was the one that mattered. This is the distribution gap in its purest form — the
+mechanic worked perfectly and produced nothing, because volume at t=0 was never the constraint.
+
+## What you would need to change
+
+Either launch through the surface that owns the discovery hooks and accept the slower manual path,
+or bring your own distribution so the platform's feed stops being load-bearing. Before either, run
+the cheap test we skipped: deploy one token each way, then measure impressions rather than gas. The
+threshold that would flip this verdict is any SDK-reachable path that inserts into the index — a
+documented webhook, a partner endpoint, or a third-party indexer that watches the contract directly
+rather than the platform's own feed.
+
+## What to reuse
+
+Nothing in the pipeline is worth lifting, and that is the finding. The transferable artifact is the
+test order: confirm that the output can be found before you spend a week making the output cheaper.
+
+## Reading thousands of contract values through Multicall3 instead of a block explorer API
+
+- id: multicall-batch-reads
+- url: https://ideas.broke2builtai.com/ideas/tooling-infra/multicall-batch-reads/
+- category: tooling-infra
+- outcome: shipped (confidence: medium)
+- verdict: Batching reads into Multicall3 aggregates against a public RPC removed both the rate limit and the API key that made per-token explorer loops slow and fragile.
+- effort: days · cost: $0 · revenue: $0
+- tags: onchain-data, api-integration, zero-marginal-cost, rate-limits, deployed
+
+### Lessons
+- Multicall3 is deployed at the same address on every major EVM chain, so one batching implementation ports across chains without a per-chain address table.
+- Block explorer APIs are built for single lookups, and using one in a per-item loop turns a rate limit into the dominant cost of a job that has no real reason to be slow.
+- Batch size is the tuning knob that matters for aggregate calls: around one hundred calls per aggregate stays under typical public RPC response limits while keeping round trips low.
+- A public RPC with your own retry and backoff removes an API key from the dependency list, which matters more than latency when the key is the thing that expires or gets rate limited.
+
+## What we tried
+
+We needed to read balances, metadata, and pool configuration for a few thousand tokens on Base. The
+first implementation looped over a block explorer's API, one HTTP request per token per field. We
+replaced it with `aggregate3` calls to Multicall3 at
+`0xcA11bde05977b3631167028862bE2a173976CA11` against a public Base RPC, batching roughly a hundred
+calls per request, with our own retry and backoff around the transport.
+
+## Why we thought it would work
+
+The explorer API and the RPC ultimately read the same chain state. The explorer adds indexing,
+authentication, and a rate limit we did not need for a read we could perform ourselves. Multicall3
+exists specifically to collapse many view calls into one `eth_call`, so the round-trip count — the
+thing actually costing us time — should collapse with it.
+
+## What actually happened
+
+The batched version completed jobs that had previously taken tens of minutes in well under a minute,
+a difference we measured at somewhere between sixty and a hundred and thirty times faster depending
+on the job shape. It also stopped failing on rate limits, and it dropped the explorer API key from
+the dependency list entirely. Confidence here is `medium` rather than `high` because the comparison
+was made against our own earlier implementation on live network conditions, not as a controlled
+benchmark, and the spread across job shapes is wide.
+
+## Why it worked / why it failed
+
+The original cost was never computation, it was round trips and a rate limit. Multicall3 attacks
+exactly that: one network round trip returns a hundred results, so the per-item cost approaches
+zero and the rate limit stops being the binding constraint. This is the rare case where the obvious
+tool is the correct tool and the only real work is batch sizing.
+
+## What you would need to change
+
+Very little for reads. This approach does not extend to writes, to historical state beyond what the
+node retains, or to anything requiring the explorer's own indexes such as full transaction history
+for an address. For those, the explorer API remains the right call — just not inside a loop.
+
+## What to reuse
+
+The pattern rather than our code: batch view calls into `aggregate3`, cap each batch near one
+hundred calls, own your retry logic, and use the canonical Multicall3 address rather than a
+per-chain lookup table.

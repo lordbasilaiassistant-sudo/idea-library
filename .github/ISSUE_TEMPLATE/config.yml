@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Something private is in this repo
+    url: https://github.com/lordbasilaiassistant-sudo/idea-library/issues/new?title=Private+data+found&body=Path+only,+no+details+please.
+    about: Open an issue with ONLY the file path. Do not paste the content.

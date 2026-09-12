@@ -1,0 +1,25 @@
+name: Correct an outcome
+description: You think one of our verdicts is wrong. This is the most valuable issue you can open.
+labels: [correction]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We are wrong about some of our own outcomes and we would rather find out.
+        Being corrected in public is the reason this library is public.
+  - type: input
+    id: idea
+    attributes:
+      label: Which idea? (its `id`)
+    validations: { required: true }
+  - type: textarea
+    id: claim
+    attributes:
+      label: What is wrong with our verdict?
+    validations: { required: true }
+  - type: textarea
+    id: evidence
+    attributes:
+      label: What is your evidence?
+      description: A changed API, a working counter-example, your own measurement. Dates and links.
+    validations: { required: true }

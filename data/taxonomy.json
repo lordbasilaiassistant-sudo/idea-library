@@ -1,0 +1,128 @@
+{
+  "$comment": [
+    "The controlled vocabulary. Free-text tags rot into ai-agent / ai-agents / agents",
+    "within a month and destroy every filter, so this list is closed and validated.",
+    "To add a term: open a PR against this file with a one-line definition. That is a",
+    "normal, welcome contribution — see CONTRIBUTING.md."
+  ],
+
+  "outcomes": [
+    { "id": "revenue",      "label": "Revenue",      "definition": "Made money from a non-founder payer, verified at the source." },
+    { "id": "shipped",      "label": "Shipped",      "definition": "Built, deployed, and used by someone — but no verified revenue." },
+    { "id": "partial",      "label": "Partial",      "definition": "The core mechanic worked; something specific capped it short of the goal." },
+    { "id": "failed",       "label": "Failed",       "definition": "Ran it, and it did not work. We know why." },
+    { "id": "abandoned",    "label": "Abandoned",    "definition": "Stopped before a verdict, by choice. We know why we stopped." },
+    { "id": "inconclusive", "label": "Inconclusive", "definition": "Genuinely undetermined. We state what measurement would settle it." },
+    { "id": "active",       "label": "Active",       "definition": "Running right now. No verdict yet, by definition." },
+    { "id": "parked",       "label": "Parked",       "definition": "Blocked on a named external unblocker, waiting for it." }
+  ],
+
+  "effort": [
+    { "id": "hours",  "label": "Hours" },
+    { "id": "days",   "label": "Days" },
+    { "id": "weeks",  "label": "Weeks" },
+    { "id": "months", "label": "Months" }
+  ],
+
+  "confidence": [
+    { "id": "high",   "label": "High",   "definition": "We measured it. There is evidence in the folder." },
+    { "id": "medium", "label": "Medium", "definition": "Strong signal, one measurement, not replicated." },
+    { "id": "low",    "label": "Low",    "definition": "Our read of what happened. Argue with us." }
+  ],
+
+  "categories": [
+    { "id": "crypto-onchain",  "label": "Crypto & On-chain",   "definition": "Anything that touches a blockchain: token launches, contracts, wallets, MEV, on-chain data." },
+    { "id": "ai-agents",       "label": "AI Agents",           "definition": "Autonomous or semi-autonomous agent systems, harnesses, and multi-agent coordination." },
+    { "id": "ml-research",     "label": "ML Research",         "definition": "Model behaviour, architecture experiments, benchmarks, and training-side work." },
+    { "id": "tooling-infra",   "label": "Tooling & Infra",     "definition": "Developer tools, CLIs, MCP servers, deployment and hosting plumbing." },
+    { "id": "web-saas",        "label": "Web & SaaS",          "definition": "Web apps and products with users and a front end." },
+    { "id": "games",           "label": "Games",               "definition": "Games, game plugins, bots, and simulations." },
+    { "id": "security-audit",  "label": "Security & Audit",    "definition": "Auditing, scanning, exploit research, and defensive tooling." },
+    { "id": "content-media",   "label": "Content & Media",     "definition": "Video, writing, publishing pipelines, and distribution surfaces." },
+    { "id": "automation-ops",  "label": "Automation & Ops",    "definition": "Scheduled work, crons, scrapers, back-office automation, internal ops." },
+    { "id": "experiments",     "label": "Experiments",         "definition": "One-offs and probes that do not belong to a category yet." }
+  ],
+
+  "tags": {
+    "$comment": "Three orthogonal axes. An idea normally carries at least one domain tag, at least one mechanic tag, and exactly one stage tag.",
+
+    "domain": [
+      { "id": "token-launch",        "definition": "Deploying or launching tokens." },
+      { "id": "smart-contracts",     "definition": "Writing, deploying, or reading contracts." },
+      { "id": "trading",             "definition": "Buying, selling, arbitrage, market making." },
+      { "id": "onchain-data",        "definition": "Reading and indexing chain state." },
+      { "id": "scraping",            "definition": "Extracting data from sites and APIs." },
+      { "id": "browser-automation",  "definition": "Driving a real browser programmatically." },
+      { "id": "rag",                 "definition": "Retrieval-augmented generation and vector search." },
+      { "id": "agent-harness",       "definition": "The scaffolding an agent runs inside." },
+      { "id": "multi-agent",         "definition": "More than one agent coordinating." },
+      { "id": "prompt-engineering",  "definition": "Getting a model to do the thing reliably." },
+      { "id": "model-eval",          "definition": "Benchmarking and comparing models." },
+      { "id": "fine-tuning",         "definition": "Training or adapting a model." },
+      { "id": "api-integration",     "definition": "Building on somebody else's API." },
+      { "id": "mcp",                 "definition": "Model Context Protocol servers and clients." },
+      { "id": "cli-tooling",         "definition": "Command-line tools." },
+      { "id": "serverless",          "definition": "Workers, edge functions, and their limits." },
+      { "id": "static-site",         "definition": "Static hosting and site generation." },
+      { "id": "payments",            "definition": "Taking money: processors, invoices, payouts." },
+      { "id": "marketplace",         "definition": "Listing on somebody else's storefront or index." },
+      { "id": "content-pipeline",    "definition": "Producing media at volume." },
+      { "id": "seo-geo",             "definition": "Being found by search engines and answer engines." },
+      { "id": "game-bot",            "definition": "Automating a game client." },
+      { "id": "desktop-automation",  "definition": "Driving a desktop OS programmatically." }
+    ],
+
+    "mechanic": [
+      { "id": "rate-limits",              "definition": "A throughput cap was the binding constraint." },
+      { "id": "distribution-gap",         "definition": "It worked and nobody found it. The classic killer." },
+      { "id": "cold-start",               "definition": "Needed users/liquidity/data it could not bootstrap." },
+      { "id": "unit-economics",           "definition": "Each unit cost more than it earned." },
+      { "id": "api-undocumented-behavior","definition": "The API did something the docs did not say." },
+      { "id": "silent-failure",           "definition": "It reported success while doing nothing." },
+      { "id": "platform-ban",             "definition": "An account, wallet, or app was banned or blocked." },
+      { "id": "tos-boundary",             "definition": "Ran into what the terms of service allow." },
+      { "id": "free-tier-ceiling",        "definition": "The free plan ran out before the idea proved out." },
+      { "id": "capital-required",         "definition": "Needed money up front that we would not risk." },
+      { "id": "oversaturated",            "definition": "The market already had a hundred of these." },
+      { "id": "craft-floor",              "definition": "Output quality was below what anyone would pay for." },
+      { "id": "maintenance-cost",         "definition": "Kept working but cost too much attention to keep alive." },
+      { "id": "upstream-change",          "definition": "A dependency changed and broke it." },
+      { "id": "verification-gap",         "definition": "We could not tell whether it was actually working." },
+      { "id": "wrong-abstraction",        "definition": "Built the wrong shape and had to restart." },
+      { "id": "scope-creep",              "definition": "Grew until it could not ship." },
+      { "id": "worked-as-designed",       "definition": "The thing did what it said. Rare enough to tag." },
+      { "id": "found-by-index",           "definition": "An existing index or marketplace did the distribution for us." },
+      { "id": "zero-marginal-cost",       "definition": "Scaled without the cost scaling." }
+    ],
+
+    "stage": [
+      { "id": "idea-only",  "definition": "Written down, never built." },
+      { "id": "prototyped", "definition": "Built enough to run locally." },
+      { "id": "deployed",   "definition": "Live somewhere a stranger could reach." },
+      { "id": "monetized",  "definition": "Took money from someone." }
+    ]
+  },
+
+  "aliases": {
+    "agents": "multi-agent",
+    "ai-agent": "agent-harness",
+    "agent": "agent-harness",
+    "crypto": "smart-contracts",
+    "web3": "smart-contracts",
+    "defi": "trading",
+    "llm": "prompt-engineering",
+    "prompting": "prompt-engineering",
+    "evals": "model-eval",
+    "benchmark": "model-eval",
+    "seo": "seo-geo",
+    "geo": "seo-geo",
+    "cron": "serverless",
+    "workers": "serverless",
+    "no-users": "distribution-gap",
+    "nobody-came": "distribution-gap",
+    "too-expensive": "unit-economics",
+    "banned": "platform-ban",
+    "ratelimit": "rate-limits",
+    "rate-limited": "rate-limits"
+  }
+}

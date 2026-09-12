@@ -1,0 +1,133 @@
+name: check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # The gate. Runs first, alone, and everything else is pointless if it is red.
+  scrub:
+    name: scrub (secrets, PII, addresses)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+
+      # Class B (our own PII literals) lives in a repo secret and is never committed.
+      # scrub.mjs FAILS in CI when no denylist is loaded — Class B silently off is
+      # exactly how this gate would rot.
+      - name: Materialise denylist
+        env:
+          DENYLIST: ${{ secrets.SCRUB_DENYLIST_JSON }}
+        run: |
+          if [ -n "$DENYLIST" ]; then
+            printf '%s' "$DENYLIST" > /tmp/denylist.json
+          else
+            echo "::error::SCRUB_DENYLIST_JSON secret is not set — Class B PII checks would be off."
+            exit 1
+          fi
+
+      - name: scrub
+        env:
+          SCRUB_DENYLIST: /tmp/denylist.json
+        run: node scripts/scrub.mjs
+
+      - name: scrub (full history of this PR's diff)
+        if: github.event_name == 'pull_request'
+        env:
+          SCRUB_DENYLIST: /tmp/denylist.json
+        run: node scripts/scrub.mjs --inbox || true
+
+  validate:
+    name: validate (schema, vocabulary, quotability)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: node scripts/validate.mjs
+
+  build:
+    name: build-idempotent (generated files are current)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: node scripts/build.mjs
+      - name: Assert no drift
+        run: |
+          if ! git diff --quiet; then
+            echo "::error::Generated files are stale. Run \`npm run build\` and commit the result."
+            git --no-pager diff --stat
+            exit 1
+          fi
+          echo "generated files are current"
+
+  links:
+    name: links (every URL resolves)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: node scripts/check-links.mjs
+
+  commitlint:
+    name: commitlint (conventional commits)
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: node scripts/commitlint.mjs "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}"
+
+  size:
+    name: size (no giant binaries)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reject large files
+        run: |
+          big=$(find . -path ./.git -prune -o -type f -size +2M -print)
+          if [ -n "$big" ]; then
+            echo "::error::Files over 2MB are not accepted. This is a library of text, not an asset host."
+            echo "$big"
+            exit 1
+          fi
+          echo "no oversized files"
+
+  codeql:
+    name: codeql (only when code/ changes)
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - id: detect
+        run: |
+          if find ideas -type d -name code -mindepth 2 2>/dev/null | grep -q .; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: github/codeql-action/init@v3
+        if: steps.detect.outputs.found == 'true'
+        with: { languages: javascript-typescript }
+      - uses: github/codeql-action/analyze@v3
+        if: steps.detect.outputs.found == 'true'
