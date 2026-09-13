@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://ideas.broke2builtai.com/</loc></url>
+  <url><loc>https://ideas.broke2builtai.com/voting/</loc></url>
+  <url><loc>https://ideas.broke2builtai.com/about/</loc></url>
   <url><loc>https://ideas.broke2builtai.com/browse/</loc></url>
   <url><loc>https://ideas.broke2builtai.com/ideas/crypto-onchain/</loc></url>
   <url><loc>https://ideas.broke2builtai.com/ideas/ai-agents/</loc></url>
@@ -10,7 +12,7 @@
   <url><loc>https://ideas.broke2builtai.com/ideas/automation-ops/</loc></url>
   <url><loc>https://ideas.broke2builtai.com/ideas/experiments/</loc></url>
   <url><loc>https://ideas.broke2builtai.com/ideas/ai-agents/autotrader-journal-hid-losses/</loc></url>
-  <url><loc>https://ideas.broke2builtai.com/ideas/ai-agents/never-funded-agent/</loc></url>
+  <url><loc>https://ideas.broke2builtai.com/ideas/ai-agents/never-funded-agent/</loc><lastmod>2026-09-13T00:00:00Z</lastmod></url>
   <url><loc>https://ideas.broke2builtai.com/ideas/automation-ops/circular-api-key-registration/</loc></url>
   <url><loc>https://ideas.broke2builtai.com/ideas/crypto-onchain/deploy-time-metadata-window/</loc></url>
   <url><loc>https://ideas.broke2builtai.com/ideas/crypto-onchain/fee-claim-needs-trading-first/</loc></url>

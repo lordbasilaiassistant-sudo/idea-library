@@ -24,12 +24,12 @@ quietly forgotten.
 
 | Outcome | Count |
 |---|---|
-| `revenue` | 0 |
+| `revenue` | 1 |
 | `shipped` | 6 |
 | `partial` | 1 |
 | `failed` | 6 |
 | `abandoned` | 1 |
-| `inconclusive` | 2 |
+| `inconclusive` | 1 |
 | `active` | 0 |
 | `parked` | 0 |
 

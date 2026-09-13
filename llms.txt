@@ -3,7 +3,7 @@
 > A public record of ideas we actually ran, each with an outcome and the reason behind it.
 > Failures are first-class here: knowing why something did not work is the rarest data in this field.
 
-Ideas: 16 · lessons: 69 · open questions: 2
+Ideas: 16 · lessons: 70 · open questions: 1
 
 ## Start here
 

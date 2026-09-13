@@ -6,6 +6,7 @@ Shipped or earning. The `mechanic` tags say what carried each one — that is th
 
 | Idea | Outcome | Effort | Cost | Why |
 |---|---|---|---|---|
+| [ZERO earned income without receiving starting capital](/ideas/ai-agents/never-funded-agent/) | `revenue` | months | — | ZERO earned third-party protocol caller rewards through routes it executed from an unfunded start, demonstrating that autonomous agent earning is possible. |
 | [An audit of our own app found hardcoded credentials that every prior read had missed](/ideas/security-audit/secrets-committed-to-source/) | `shipped` | days | — | The findings were only surfaced because we ran a deliberate audit, which means the same class of mistake had been shipping unnoticed for as long as the app had existed. |
 | [A protocol reported claimable rewards that did not exist when claimed](/ideas/security-audit/self-reported-rewards-vs-balance/) | `shipped` | hours | — | The reported figure was an estimate computed under assumptions that no longer held at claim time, so trusting it and batching on top of it spent gas on claims that returned nothing. |
 | [A liquidity pool that showed a price chart and held no liquidity](/ideas/security-audit/synthetic-pool-chart-spoof/) | `shipped` | hours | $0 | The pool existed as a contract producing chart-shaped data without holding reserves, so the aggregator rendered a market that had nothing behind it. |

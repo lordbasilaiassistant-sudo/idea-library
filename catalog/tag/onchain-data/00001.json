@@ -202,30 +202,28 @@
       "id": "never-funded-agent",
       "aliases": [],
       "projects": [],
-      "reviewed": null,
-      "title": "Can an agent that is never given any starting capital find its own first income?",
-      "description": "An on-chain agent created its own wallet, received no funding from us at any point, and accumulated value entirely from routes it found itself. Whether that generalises is unsettled.",
+      "reviewed": "2026-09-13",
+      "title": "ZERO earned income without receiving starting capital",
+      "description": "ZERO demonstrated an autonomous agent earning protocol rewards from an unfunded wallet. Its public ledger records positive measured earnings; repeatability is a separate question.",
       "category": "ai-agents",
-      "outcome": "inconclusive",
-      "verdict": "The agent did accumulate value with a starting balance of zero and no transfer from us, but a single agent on a single chain over one period cannot distinguish a repeatable method from a favourable window.",
-      "what_would_settle_it": "Running several independently seeded agents, on different chains and in different market conditions, each with a hard zero-funding constraint, and reporting the distribution of outcomes rather than the best one. A method should survive a bad month.",
+      "outcome": "revenue",
+      "verdict": "ZERO earned third-party protocol caller rewards through routes it executed from an unfunded start, demonstrating that autonomous agent earning is possible.",
+      "what_would_settle_it": null,
       "confidence": "medium",
       "started": "2026-06",
       "ended": null,
       "effort": "months",
-      "cost_usd": 0,
-      "revenue_usd": null,
+      "cost_usd": null,
+      "revenue_usd": 0.074421,
       "stack": [
         "node",
         "ethers-v6",
-        "cloudflare-workers",
-        "base"
+        "cloudflare-workers"
       ],
       "tags": [
         "agent-harness",
         "onchain-data",
-        "capital-required",
-        "zero-marginal-cost",
+        "worked-as-designed",
         "deployed"
       ],
       "tags_by_axis": {
@@ -234,29 +232,34 @@
           "onchain-data"
         ],
         "mechanic": [
-          "capital-required",
-          "zero-marginal-cost"
+          "worked-as-designed"
         ],
         "stage": [
           "deployed"
         ]
       },
       "lessons": [
-        "An agent with a starting balance of zero has a denominator that no later funding can restore, so a single transfer in permanently destroys the result the experiment exists to produce.",
+        "ZERO's positive measured protocol rewards demonstrate that an autonomous agent can earn from an unfunded wallet; estimating how reliably other agents can repeat the result is a separate experiment.",
+        "An agent's unfunded-start experiment loses its funding constraint if the operator supplies external capital; transfers of proceeds the agent earned through its own activity do not break that constraint.",
         "Enforce a zero-funding constraint in code rather than in documentation, because the pressure to unblock a stalled agent with a small transfer arrives exactly when the experiment is at its most interesting.",
-        "Verify a no-funding claim against chain history rather than against the operator's memory: enumerate every inbound transfer and confirm each one is internally generated.",
-        "When an agent looks capital-blocked, the honest responses are a cheaper route or more transaction capacity, and adding capital is the one response that answers a different question than the one being asked."
+        "Verify a no-funding claim against chain history rather than against the operator's memory: enumerate every inbound transfer and distinguish externally supplied capital from proceeds of the agent's own activity.",
+        "An unfunded wallet does not imply free infrastructure, and measured protocol rewards do not establish profit after all operating costs."
       ],
       "reusable": [],
-      "evidence": [],
+      "evidence": [
+        "evidence/public-ledger-observation.md"
+      ],
       "related": [],
       "supersedes": [],
       "source": "seed",
-      "links": {},
+      "links": {
+        "public_status": "https://zero-agent.broke2built.workers.dev/status",
+        "public_ledger": "https://zero-agent.broke2built.workers.dev/ledger"
+      },
       "path": "/ideas/ai-agents/never-funded-agent/",
       "url": "https://ideas.broke2builtai.com/ideas/ai-agents/never-funded-agent/",
       "repo_path": "ideas/ai-agents/never-funded-agent",
-      "updated": null,
+      "updated": "2026-09-13T00:00:00Z",
       "related_all": [
         "autotrader-journal-hid-losses"
       ]

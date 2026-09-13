@@ -24,11 +24,11 @@ visible instead of being quietly forgotten.
 
 | Outcome | Count | Meaning |
 |---|---|---|
-| 💰 `revenue` | 0 | Made money from a non-founder payer, verified at the source. |
+| 💰 `revenue` | 1 | Made money from a non-founder payer, verified at the source. |
 | 🚢 `shipped` | 6 | Built, deployed, and used by someone — but no verified revenue. |
 | ◐ `partial` | 1 | The core mechanic worked; something specific capped it short of the goal. |
 | ✖ `failed` | 6 | Ran it, and it did not work. We know why. |
 | ⏹ `abandoned` | 1 | Stopped before a verdict, by choice. We know why we stopped. |
-| ? `inconclusive` | 2 | Genuinely undetermined. We state what measurement would settle it. |
+| ? `inconclusive` | 1 | Genuinely undetermined. We state what measurement would settle it. |
 | ▶ `active` | 0 | Running right now. No verdict yet, by definition. |
 | ⏸ `parked` | 0 | Blocked on a named external unblocker, waiting for it. |

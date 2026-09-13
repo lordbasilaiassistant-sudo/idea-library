@@ -2,7 +2,7 @@
 
 # Lessons
 
-Every lesson in the library — 69 of them — grouped by the mechanic that produced it.
+Every lesson in the library — 70 of them — grouped by the mechanic that produced it.
 Each line is written to survive being quoted on its own, and each has a stable anchor so a
 citation lands on the exact claim.
 
@@ -101,10 +101,6 @@ citation lands on the exact claim.
 
 *Needed money up front that we would not risk.*
 
-- <a id="never-funded-agent-1"></a>An agent with a starting balance of zero has a denominator that no later funding can restore, so a single transfer in permanently destroys the result the experiment exists to produce. — [Can an agent that is never given any starting capital find its own first income?](/ideas/ai-agents/never-funded-agent/) `inconclusive`
-- <a id="never-funded-agent-2"></a>Enforce a zero-funding constraint in code rather than in documentation, because the pressure to unblock a stalled agent with a small transfer arrives exactly when the experiment is at its most interesting. — [Can an agent that is never given any starting capital find its own first income?](/ideas/ai-agents/never-funded-agent/) `inconclusive`
-- <a id="never-funded-agent-3"></a>Verify a no-funding claim against chain history rather than against the operator's memory: enumerate every inbound transfer and confirm each one is internally generated. — [Can an agent that is never given any starting capital find its own first income?](/ideas/ai-agents/never-funded-agent/) `inconclusive`
-- <a id="never-funded-agent-4"></a>When an agent looks capital-blocked, the honest responses are a cheaper route or more transaction capacity, and adding capital is the one response that answers a different question than the one being asked. — [Can an agent that is never given any starting capital find its own first income?](/ideas/ai-agents/never-funded-agent/) `inconclusive`
 - <a id="retail-arbitrage-is-closed-1"></a>Simple cross-DEX arbitrage on a fast L2 is closed to anyone without professional latency, because the spread is captured within the same block by parties whose infrastructure is the entire product. — [Cross-DEX arbitrage and DEX scalping are both closed to a small wallet](/ideas/crypto-onchain/retail-arbitrage-is-closed/) `failed`
 - <a id="retail-arbitrage-is-closed-2"></a>DEX scalping on liquid tokens is negative expected value before it begins whenever the round-trip fee is larger than the moves being harvested, which in our runs it was. — [Cross-DEX arbitrage and DEX scalping are both closed to a small wallet](/ideas/crypto-onchain/retail-arbitrage-is-closed/) `failed`
 - <a id="retail-arbitrage-is-closed-3"></a>Compare the round-trip cost to the size of the move you are trying to capture before writing any strategy code; if fees exceed the move, no amount of signal quality rescues it. — [Cross-DEX arbitrage and DEX scalping are both closed to a small wallet](/ideas/crypto-onchain/retail-arbitrage-is-closed/) `failed`
@@ -190,6 +186,11 @@ citation lands on the exact claim.
 
 *The thing did what it said. Rare enough to tag.*
 
+- <a id="never-funded-agent-1"></a>ZERO's positive measured protocol rewards demonstrate that an autonomous agent can earn from an unfunded wallet; estimating how reliably other agents can repeat the result is a separate experiment. — [ZERO earned income without receiving starting capital](/ideas/ai-agents/never-funded-agent/) `revenue`
+- <a id="never-funded-agent-2"></a>An agent's unfunded-start experiment loses its funding constraint if the operator supplies external capital; transfers of proceeds the agent earned through its own activity do not break that constraint. — [ZERO earned income without receiving starting capital](/ideas/ai-agents/never-funded-agent/) `revenue`
+- <a id="never-funded-agent-3"></a>Enforce a zero-funding constraint in code rather than in documentation, because the pressure to unblock a stalled agent with a small transfer arrives exactly when the experiment is at its most interesting. — [ZERO earned income without receiving starting capital](/ideas/ai-agents/never-funded-agent/) `revenue`
+- <a id="never-funded-agent-4"></a>Verify a no-funding claim against chain history rather than against the operator's memory: enumerate every inbound transfer and distinguish externally supplied capital from proceeds of the agent's own activity. — [ZERO earned income without receiving starting capital](/ideas/ai-agents/never-funded-agent/) `revenue`
+- <a id="never-funded-agent-5"></a>An unfunded wallet does not imply free infrastructure, and measured protocol rewards do not establish profit after all operating costs. — [ZERO earned income without receiving starting capital](/ideas/ai-agents/never-funded-agent/) `revenue`
 - <a id="secrets-committed-to-source-1"></a>Hardcoded credentials survive in a codebase because nothing routine ever looks for them; every commit hook, test and code review we had passed them without comment. — [An audit of our own app found hardcoded credentials that every prior read had missed](/ideas/security-audit/secrets-committed-to-source/) `shipped`
 - <a id="secrets-committed-to-source-2"></a>A scheduled job that fails open turns an outage in one dependency into an authorisation bypass, so cron and webhook handlers should deny by default when a check cannot complete. — [An audit of our own app found hardcoded credentials that every prior read had missed](/ideas/security-audit/secrets-committed-to-source/) `shipped`
 - <a id="secrets-committed-to-source-3"></a>An endpoint that triggers a privileged action needs authentication even when it is undocumented, because obscurity of a route is not a control over it. — [An audit of our own app found hardcoded credentials that every prior read had missed](/ideas/security-audit/secrets-committed-to-source/) `shipped`
@@ -205,10 +206,6 @@ citation lands on the exact claim.
 
 *Scaled without the cost scaling.*
 
-- <a id="never-funded-agent-1"></a>An agent with a starting balance of zero has a denominator that no later funding can restore, so a single transfer in permanently destroys the result the experiment exists to produce. — [Can an agent that is never given any starting capital find its own first income?](/ideas/ai-agents/never-funded-agent/) `inconclusive`
-- <a id="never-funded-agent-2"></a>Enforce a zero-funding constraint in code rather than in documentation, because the pressure to unblock a stalled agent with a small transfer arrives exactly when the experiment is at its most interesting. — [Can an agent that is never given any starting capital find its own first income?](/ideas/ai-agents/never-funded-agent/) `inconclusive`
-- <a id="never-funded-agent-3"></a>Verify a no-funding claim against chain history rather than against the operator's memory: enumerate every inbound transfer and confirm each one is internally generated. — [Can an agent that is never given any starting capital find its own first income?](/ideas/ai-agents/never-funded-agent/) `inconclusive`
-- <a id="never-funded-agent-4"></a>When an agent looks capital-blocked, the honest responses are a cheaper route or more transaction capacity, and adding capital is the one response that answers a different question than the one being asked. — [Can an agent that is never given any starting capital find its own first income?](/ideas/ai-agents/never-funded-agent/) `inconclusive`
 - <a id="multicall-batch-reads-1"></a>Multicall3 is deployed at the same address on every major EVM chain, so one batching implementation ports across chains without a per-chain address table. — [Reading thousands of contract values through Multicall3 instead of a block explorer API](/ideas/tooling-infra/multicall-batch-reads/) `shipped`
 - <a id="multicall-batch-reads-2"></a>Block explorer APIs are built for single lookups, and using one in a per-item loop turns a rate limit into the dominant cost of a job that has no real reason to be slow. — [Reading thousands of contract values through Multicall3 instead of a block explorer API](/ideas/tooling-infra/multicall-batch-reads/) `shipped`
 - <a id="multicall-batch-reads-3"></a>Batch size is the tuning knob that matters for aggregate calls: around one hundred calls per aggregate stays under typical public RPC response limits while keeping round trips low. — [Reading thousands of contract values through Multicall3 instead of a block explorer API](/ideas/tooling-infra/multicall-batch-reads/) `shipped`

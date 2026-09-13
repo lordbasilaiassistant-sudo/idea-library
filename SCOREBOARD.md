@@ -5,20 +5,20 @@
 Every idea, ranked. **Every score is explainable** — each row shows its component breakdown,
 so you can disagree with a specific part rather than with a number.
 
-**Reality outranks opinion.** What actually happened dominates; votes are log-scaled and
-capped at 15 points so popularity can never outweigh an outcome.
+These are calculated library scores, not independent ratings. Community votes are kept
+separate and never change this score. See [voting rules](docs/VOTING.md).
 
 | # | Idea | Outcome | Total | Reality | Evidence | Transfer | Votes | Penalties |
 |---|---|---|---|---|---|---|---|---|
-| 1 | [A single mistyped event hash made every scanner return zero results for weeks](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra/hardcoded-event-topic-hash) | `shipped` | **69** | 28 | 13 | 28 | 0 | 0 |
-| 2 | [An audit of our own app found hardcoded credentials that every prior read had missed](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/security-audit/secrets-committed-to-source) | `shipped` | **68** | 28 | 10 | 30 | 0 | 0 |
-| 3 | [Reading thousands of contract values through Multicall3 instead of a block explorer API](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra/multicall-batch-reads) | `shipped` | **67** | 28 | 13 | 26 | 0 | 0 |
-| 4 | [A liquidity pool that showed a price chart and held no liquidity](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/security-audit/synthetic-pool-chart-spoof) | `shipped` | **67** | 28 | 13 | 26 | 0 | 0 |
-| 5 | [A protocol reported claimable rewards that did not exist when claimed](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/security-audit/self-reported-rewards-vs-balance) | `shipped` | **66** | 28 | 10 | 28 | 0 | 0 |
-| 6 | [Why a wallet script kept failing when a live backend shared the same key](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra/concurrent-nonce-collision) | `shipped` | **64** | 28 | 10 | 26 | 0 | 0 |
-| 7 | [A registration flow where you need the API key to retrieve the API key](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/automation-ops/circular-api-key-registration) | `partial` | **57** | 18 | 13 | 26 | 0 | 0 |
-| 8 | [A permissionless fee claim that pays nothing because no one has traded](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/fee-claim-needs-trading-first) | `inconclusive` | **50** | 10 | 10 | 30 | 0 | 0 |
-| 9 | [Can an agent that is never given any starting capital find its own first income?](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/never-funded-agent) | `inconclusive` | **50** | 10 | 10 | 30 | 0 | 0 |
+| 1 | [ZERO earned income without receiving starting capital](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/never-funded-agent) | `revenue` | **81** | 40 | 17 | 24 | 0 | 0 |
+| 2 | [A single mistyped event hash made every scanner return zero results for weeks](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra/hardcoded-event-topic-hash) | `shipped` | **69** | 28 | 13 | 28 | 0 | 0 |
+| 3 | [An audit of our own app found hardcoded credentials that every prior read had missed](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/security-audit/secrets-committed-to-source) | `shipped` | **68** | 28 | 10 | 30 | 0 | 0 |
+| 4 | [Reading thousands of contract values through Multicall3 instead of a block explorer API](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra/multicall-batch-reads) | `shipped` | **67** | 28 | 13 | 26 | 0 | 0 |
+| 5 | [A liquidity pool that showed a price chart and held no liquidity](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/security-audit/synthetic-pool-chart-spoof) | `shipped` | **67** | 28 | 13 | 26 | 0 | 0 |
+| 6 | [A protocol reported claimable rewards that did not exist when claimed](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/security-audit/self-reported-rewards-vs-balance) | `shipped` | **66** | 28 | 10 | 28 | 0 | 0 |
+| 7 | [Why a wallet script kept failing when a live backend shared the same key](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra/concurrent-nonce-collision) | `shipped` | **64** | 28 | 10 | 26 | 0 | 0 |
+| 8 | [A registration flow where you need the API key to retrieve the API key](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/automation-ops/circular-api-key-registration) | `partial` | **57** | 18 | 13 | 26 | 0 | 0 |
+| 9 | [A permissionless fee claim that pays nothing because no one has traded](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/fee-claim-needs-trading-first) | `inconclusive` | **50** | 10 | 10 | 30 | 0 | 0 |
 | 10 | [Five hundred tokens, one hundred and forty generic names, and zero trading volume](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/five-hundred-tokens-zero-volume) | `failed` | **48** | 6 | 10 | 32 | 0 | 0 |
 | 11 | [We built forty-three paid micro-services and never found a single customer](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/web-saas/forty-three-services-no-customers) | `failed` | **45** | 6 | 7 | 32 | 0 | 0 |
 | 12 | [We re-derived the same dead strategy across many sessions without noticing](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/experiments/scan-for-money-loop) | `abandoned` | **45** | 3 | 10 | 32 | 0 | 0 |
@@ -43,4 +43,4 @@ Not by writing more. By making an entry more checkable and more useful to somebo
 
 Rows read: 0 · counted: 0 · discarded: 0
 
-_No votes yet — the vote endpoint is not live. Scores are currently reality, evidence and transfer only._
+_Community voting uses reviewed GitHub ballots and signed receipts. It is displayed separately from this score._

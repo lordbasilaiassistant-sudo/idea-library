@@ -90,7 +90,6 @@ _No idea carries this tag yet._
 
 *Needed money up front that we would not risk.*
 
-- [Can an agent that is never given any starting capital find its own first income?](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/never-funded-agent) — `inconclusive`
 - [Cross-DEX arbitrage and DEX scalping are both closed to a small wallet](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/crypto-onchain/retail-arbitrage-is-closed) — `failed`
 
 ## `oversaturated`
@@ -151,6 +150,7 @@ _No idea carries this tag yet._
 
 *The thing did what it said. Rare enough to tag.*
 
+- [ZERO earned income without receiving starting capital](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/never-funded-agent) — `revenue`
 - [An audit of our own app found hardcoded credentials that every prior read had missed](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/security-audit/secrets-committed-to-source) — `shipped`
 - [A liquidity pool that showed a price chart and held no liquidity](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/security-audit/synthetic-pool-chart-spoof) — `shipped`
 
@@ -164,6 +164,5 @@ _No idea carries this tag yet._
 
 *Scaled without the cost scaling.*
 
-- [Can an agent that is never given any starting capital find its own first income?](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/never-funded-agent) — `inconclusive`
 - [Reading thousands of contract values through Multicall3 instead of a block explorer API](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/tooling-infra/multicall-batch-reads) — `shipped`
 

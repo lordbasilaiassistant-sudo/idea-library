@@ -7,8 +7,8 @@
     {
       "path": "catalog/pages/00001.json",
       "count": 16,
-      "bytes": 45044,
-      "sha256": "198ed6ba28c3c096844c3c80347d6fd4b9208c5ac5733999c119ad3e7e2afe07"
+      "bytes": 45087,
+      "sha256": "0f441cbea5009549c47406380def5f547e2ff7421727682a7013daad3202c1be"
     }
   ],
   "facets": {
@@ -19,8 +19,8 @@
           {
             "path": "catalog/category/ai-agents/00001.json",
             "count": 2,
-            "bytes": 5774,
-            "sha256": "e0b42d2cf1a5cf0b75ee005ad0be9ed57abf99d71e9c2605712361734acd6936"
+            "bytes": 5817,
+            "sha256": "4cdc8c6c5a1427b1e25105f3d2e40d414057ba06c749d44db8684fc59c6e54d5"
           }
         ]
       },
@@ -115,13 +115,13 @@
         ]
       },
       "inconclusive": {
-        "count": 2,
+        "count": 1,
         "pages": [
           {
             "path": "catalog/outcome/inconclusive/00001.json",
-            "count": 2,
-            "bytes": 5704,
-            "sha256": "7b2c1ee4c3cf94a262c93b5430084018ef2487491425a5668cf52da216ff894c"
+            "count": 1,
+            "bytes": 2781,
+            "sha256": "1fb87db183179aa1093e28eb141a7325b85d48904c94bf81263c17b9fa7f60fd"
           }
         ]
       },
@@ -133,6 +133,17 @@
             "count": 1,
             "bytes": 2926,
             "sha256": "807dbeeda117da42e73ef2df397156ed5ff61fa1e1fe2d6737b0333ee6a70a23"
+          }
+        ]
+      },
+      "revenue": {
+        "count": 1,
+        "pages": [
+          {
+            "path": "catalog/outcome/revenue/00001.json",
+            "count": 1,
+            "bytes": 3009,
+            "sha256": "cc8ee46176c5f4434949144cc0173ea9490a2f151ccdb46e7c942088c0558009"
           }
         ]
       },
@@ -155,8 +166,8 @@
           {
             "path": "catalog/tag/agent-harness/00001.json",
             "count": 3,
-            "bytes": 8699,
-            "sha256": "2a60bfe80cb6f251a5bab7c22ae12265a49d808113ce6982f11bc5fb085bb475"
+            "bytes": 8742,
+            "sha256": "d0743edf9943f7adb48ca2d03648b2ebb470de6214216f1dd6113d42d4734667"
           }
         ]
       },
@@ -183,13 +194,13 @@
         ]
       },
       "capital-required": {
-        "count": 2,
+        "count": 1,
         "pages": [
           {
             "path": "catalog/tag/capital-required/00001.json",
-            "count": 2,
-            "bytes": 5635,
-            "sha256": "45e5b5434f0c75049f9e3d4af8bd9545fbd08d6b97faea275a833071e64dba30"
+            "count": 1,
+            "bytes": 2712,
+            "sha256": "3d2f8a7ff0c19930eb1d806070489b92a0a4627e02d9e13e9cd0132f85be84bd"
           }
         ]
       },
@@ -232,8 +243,8 @@
           {
             "path": "catalog/tag/deployed/00001.json",
             "count": 15,
-            "bytes": 42119,
-            "sha256": "9c0091eb4780eaed2ab58a35a18dbb93e1fd1f331e20fc0ebcde4ed61f882e27"
+            "bytes": 42162,
+            "sha256": "1fab452efb636bd051e09d77d0cfd0a5d660340e063b35c55574957f96861540"
           }
         ]
       },
@@ -276,8 +287,8 @@
           {
             "path": "catalog/tag/onchain-data/00001.json",
             "count": 8,
-            "bytes": 21934,
-            "sha256": "43d6da94290212bfe8a8beb6e1825e4609e5f616563fa143048bb68b8b812090"
+            "bytes": 21977,
+            "sha256": "69361a066d34d2516eb0764608825da3e89b801030978c918e214c483d0fb32c"
           }
         ]
       },
@@ -392,13 +403,13 @@
         ]
       },
       "worked-as-designed": {
-        "count": 2,
+        "count": 3,
         "pages": [
           {
             "path": "catalog/tag/worked-as-designed/00001.json",
-            "count": 2,
-            "bytes": 5510,
-            "sha256": "8b363b407fe41af4fb6f2f484379745a4c2d346f8b44da02f51686522bb759e8"
+            "count": 3,
+            "bytes": 8476,
+            "sha256": "77ecde3ea8ee1234f44d03a36c0c0c3377ee427d82c9ff0a242a79d3b9d147ab"
           }
         ]
       },
@@ -414,13 +425,13 @@
         ]
       },
       "zero-marginal-cost": {
-        "count": 2,
+        "count": 1,
         "pages": [
           {
             "path": "catalog/tag/zero-marginal-cost/00001.json",
-            "count": 2,
-            "bytes": 5606,
-            "sha256": "eb6d09b41645d616e94da15e6aa3368cb6f5399ed245cae797b1fd8d836f73cb"
+            "count": 1,
+            "bytes": 2683,
+            "sha256": "116d18d1c6c245cdae7d939d71d3ec7d694c130f2ac53ee4b2934464573efcfe"
           }
         ]
       }

@@ -1,161 +1,262 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>idea-library — what we ran, and what actually happened</title>
-<meta name="description" content="A public record of ideas we actually ran, each with an outcome and the reason behind it. Failures are first-class: knowing why something did not work is the rarest data in this field.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b0d10'/%3E%3Crect x='5' y='6' width='22' height='3' fill='%23e8c547'/%3E%3Crect x='5' y='12' width='22' height='3' fill='%236b7280'/%3E%3Crect x='5' y='18' width='22' height='3' fill='%23d9544d'/%3E%3Crect x='5' y='24' width='22' height='3' fill='%234a9d7f'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-<div class="grain" aria-hidden="true"></div>
-
-<header class="topbar">
-  <a class="brand" href="#top">
-    <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-    <span class="brand-text">idea<span>·</span>library</span>
-  </a>
-  <nav>
-    <a href="#strata">Core sample</a>
-    <a href="#mechanics">Mechanics</a>
-    <a href="#catalog">Catalog</a>
-    <a href="/browse/">Browse all</a>
-    <a href="#open">Open questions</a>
-    <a class="ghost" href="https://github.com/lordbasilaiassistant-sudo/idea-library">Repository ↗</a>
-  </nav>
-</header>
-
-<main id="top">
-
-  <!-- ============================================================= HERO -->
-  <section class="hero">
-    <canvas id="core" aria-hidden="true"></canvas>
-    <div class="hero-copy">
-      <p class="eyebrow">A public record</p>
-      <h1>Everything we tried.<br><em>Including what didn't work.</em></h1>
-      <p class="lede">
-        Most collections keep the ideas that succeeded. This keeps all of them, because the useful
-        question is not <em>what could you build</em> — it's what happens when you do. A failure with
-        a known cause is a finished experiment, and almost nobody publishes those.
-      </p>
-      <div class="counts" id="counts"></div>
-      <div class="cta">
-        <a class="btn primary" href="#strata">Read the core sample</a>
-        <a class="btn" href="#open">Settle an open question</a>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Idea Library — experiments worth learning from</title>
+    <meta
+      name="description"
+      content="Explore AI-built projects and experiments: what worked, what failed, and the evidence behind each outcome. An open library for curious people and agents."
+    />
+    <link rel="canonical" href="{{BASE}}/" />
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#catalog">Skip to experiments</a>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Idea Library home"
+        ><span class="brand-mark" aria-hidden="true">i<span>l</span></span
+        ><span
+          >Idea Library<small>An open record by Broke to Built</small></span
+        ></a
+      >
+      <nav aria-label="Main navigation">
+        <a href="#catalog">Explore</a><a href="#open">Unanswered</a
+        ><a href="{{REPO}}/wiki">Wiki ↗</a
+        ><a class="nav-contribute" href="{{REPO}}/blob/main/CONTRIBUTING.md"
+          >Contribute ↗</a
+        >
+      </nav>
+    </header>
+    <main>
+      <section class="intro" aria-labelledby="intro-title">
+        <div>
+          <p class="eyebrow">+ The experiment is only the beginning.</p>
+          <h1 id="intro-title">
+            Every attempt.<br /><span>Something learned.</span>
+          </h1>
+          <p class="lede">
+            A public library of AI-built projects, dead ends, and discoveries.
+            Find out what happened. Take what helps. Try something next.
+          </p>
+          <p class="intro-stats">
+            <strong>{{COUNT}}</strong> experiments <span>/</span>
+            <strong>{{LESSONS}}</strong> lessons <span>/</span> always open
+          </p>
+        </div>
+        <figure class="archive-object">
+          <img
+            src="/archive.webp"
+            width="1000"
+            height="750"
+            alt="A physical archive of experiment cards with a red index divider"
+            fetchpriority="high"
+          />
+          <figcaption>
+            <span>IDEAS / IN THE OPEN</span><span>Est. 2026</span>
+          </figcaption>
+        </figure>
+      </section>
+      <section
+        class="featured-banner"
+        aria-label="Featured experiments"
+        aria-roledescription="carousel"
+      >
+        <div class="feature-label">
+          <p class="eyebrow" id="feature-mode">Library score picks</p>
+          <a href="/docs/VOTING.md">How voting works ↗</a>
+        </div>
+        <div id="feature-content" aria-live="polite">
+          <h2>{{FEATURED}}</h2>
+          <p id="feature-score">
+            {{FEATURED_SCORE}} · Community votes are separate.
+          </p>
+        </div>
+        <div class="feature-controls" hidden>
+          <button id="feature-prev" aria-label="Previous featured experiment">
+            ←</button
+          ><span id="feature-position">1 / 5</span
+          ><button id="feature-next" aria-label="Next featured experiment">
+            →
+          </button>
+        </div>
+      </section>
+      <section id="catalog" class="catalog" aria-labelledby="catalog-title">
+        <div class="catalog-top">
+          <div>
+            <p class="eyebrow">01 / The collection</p>
+            <h2 id="catalog-title">Follow your curiosity.</h2>
+          </div>
+          <button id="surprise" class="text-button" hidden>
+            Find me an experiment ↗
+          </button>
+        </div>
+        <form id="search-form" class="search-form" role="search">
+          <label class="sr-only" for="q">Search experiments</label
+          ><span class="search-icon" aria-hidden="true">⌕</span
+          ><input
+            id="q"
+            name="q"
+            type="search"
+            placeholder="Search an idea, a problem, or a lesson…"
+            autocomplete="off"
+          /><button type="submit">Search ↵</button>
+        </form>
+        <div class="explorer">
+          <aside class="browse-sidebar" aria-label="Browse categories">
+            <p class="eyebrow">Browse by subject</p>
+            <div id="categories">{{CATEGORIES}}</div>
+            <a class="all-pages" href="/browse/">Full archive ↗</a>
+            <p class="sidebar-note">
+              Outcomes are recorded observations. They can change with new
+              evidence.
+            </p>
+          </aside>
+          <div class="results-area">
+            <div class="filter-bar">
+              <div
+                id="outcomes"
+                class="outcome-tabs"
+                aria-label="Filter by outcome"
+              >
+                {{OUTCOMES}}
+              </div>
+              <details class="more-filters">
+                <summary>More filters</summary>
+                <div class="filter-fields">
+                  <label
+                    >Mechanism<select id="mechanism">
+                      <option value="">Any mechanism</option>
+                      {{MECHANISMS_OPTIONS}}
+                    </select></label
+                  ><label
+                    >Sort by<select id="sort">
+                      <option value="title">Title A–Z</option>
+                      <option value="lessons">Most lessons</option>
+                      <option value="score">Library score</option>
+                    </select></label
+                  >
+                </div>
+              </details>
+            </div>
+            <div class="result-toolbar">
+              <p id="result-count" role="status" aria-live="polite">
+                {{RESULT_COUNT}}
+              </p>
+              <button id="clear" class="text-button" hidden>
+                Clear filters ×
+              </button>
+            </div>
+            <div id="applied" class="applied"></div>
+            <div id="load-error" hidden role="alert"></div>
+            <ol id="results" class="experiment-list">
+              {{RESULTS}}
+            </ol>
+            <nav
+              id="pagination"
+              class="pagination"
+              aria-label="Search results pages"
+            >
+              <a href="/browse/">Browse the complete archive →</a>
+            </nav>
+            <noscript
+              ><p>
+                Search and filters need JavaScript.
+                <a href="/browse/"
+                  >Browse every experiment without JavaScript.</a
+                >
+              </p></noscript
+            >
+          </div>
+        </div>
+      </section>
+      <section class="field-notes" id="strata">
+        <div class="notes-intro">
+          <p class="eyebrow">02 / Field notes</p>
+          <h2>The part worth<br />passing on.</h2>
+          <p>
+            Every lesson comes from a recorded attempt. Read the context before
+            you reuse the conclusion.
+          </p>
+          <a href="/LESSONS.md">All {{LESSONS}} lessons ↗</a>
+        </div>
+        <div class="featured-notes">{{NOTES}}</div>
+      </section>
+      <section id="mechanics" class="mechanisms-section">
+        <div class="section-title">
+          <p class="eyebrow">03 / Connecting the dots</p>
+          <h2>Different projects.<br />The same underlying problem.</h2>
+          <p>Explore what helped an idea work—or got in its way.</p>
+        </div>
+        <div class="mechanism-list">{{MECHANISMS}}</div>
+      </section>
+      <section id="open" class="open-section">
+        <div class="section-title">
+          <p class="eyebrow">04 / Unfinished business</p>
+          <h2>Some questions<br />are still yours to answer.</h2>
+          <p>
+            {{OPEN_COUNT}} recorded questions. Each names the measurement that
+            could settle it.
+          </p>
+        </div>
+        <div class="question-list">{{QUESTIONS}}</div>
+      </section>
+      <section id="board" class="score-section">
+        <details>
+          <summary>
+            Explore the library scoreboard
+            <span>How experiments are ranked ↗</span>
+          </summary>
+          <p>
+            These are calculated library scores, not independent ratings or
+            proof of success.
+            <a href="{{REPO}}/blob/main/SCOREBOARD.md"
+              >Read the scoring method and full ranking.</a
+            >
+          </p>
+          <ol>
+            {{SCORES}}
+          </ol>
+        </details>
+      </section>
+      <section class="contribution">
+        <p class="eyebrow">
+          A library grows when people leave something useful.
+        </p>
+        <h2>What did <em>you</em> find out?</h2>
+        <div>
+          <p>
+            Add an experiment, share reusable code, or test an unanswered
+            question. People and AI agents are welcome.
+          </p>
+          <a href="{{REPO}}/blob/main/CONTRIBUTING.md">Make a contribution ↗</a>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div>
+        <a class="footer-brand" href="/">Idea Library ↗</a>
+        <p><a href="/about/">About the library and its design</a></p>
+        <p>Built in the open. Learning out loud.</p>
       </div>
-    </div>
-    <div class="hero-hint" aria-hidden="true">
-      <span>each band is one idea · colour is its outcome</span>
-    </div>
-  </section>
-
-  <!-- =========================================================== STRATA -->
-  <section id="strata" class="strata">
-    <div class="section-head">
-      <h2>The core sample</h2>
-      <p>
-        We built this by digging through our own history in passes. So the library reads like
-        sediment: each band below is a real idea, its thickness the effort spent, its colour the
-        outcome. The dark bands are the expensive failures — the part worth reading.
+      <div>
+        <a href="{{REPO}}">Repository ↗</a><a href="{{REPO}}/wiki">Wiki ↗</a
+        ><a href="{{REPO}}/issues/new?template=correct-an-outcome.yml"
+          >Correct an outcome ↗</a
+        >
+      </div>
+      <div>
+        <a href="/llms.txt">For AI agents</a
+        ><a href="/catalog/manifest.json">Catalog API</a
+        ><a href="/feed.xml">RSS feed</a>
+      </div>
+      <p class="footer-bottom">
+        Prose CC-BY-4.0 · Code MIT
+        <span>Generated from the public repository on each deployment.</span>
       </p>
-    </div>
-    <div class="legend" id="legend"></div>
-    <div class="column" id="column"></div>
-  </section>
-
-  <!-- ======================================================== MECHANICS -->
-  <section id="mechanics" class="mechanics">
-    <div class="section-head">
-      <h2>What actually decided it</h2>
-      <p>
-        Every idea is tagged with a <strong>mechanic</strong> — the thing that made it work or
-        killed it. This is the axis nobody else indexes, and it's the part that transfers: a
-        distribution gap kills an on-chain launch and a developer tool in exactly the same way.
-      </p>
-    </div>
-    <div class="mech-grid" id="mechGrid"></div>
-  </section>
-
-  <!-- ========================================================== CATALOG -->
-  <section id="catalog" class="catalog">
-    <div class="section-head">
-      <h2>Catalog</h2>
-      <p>Filter by what happened, or by what decided it.</p>
-    </div>
-
-    <div class="filters">
-      <input type="search" id="q" placeholder="Search titles, verdicts, lessons…" aria-label="Search ideas">
-      <div class="chips" id="outcomeChips"></div>
-      <div class="chips" id="mechChips"></div>
-      <button class="chip clear" id="clearFilters" hidden>Clear filters</button>
-    </div>
-
-    <p class="result-count" id="resultCount"></p>
-    <div class="cards" id="cards"></div>
-  </section>
-
-  <!-- ============================================================ OPEN -->
-  <section id="open" class="open">
-    <div class="section-head">
-      <h2>Open questions</h2>
-      <p>
-        Verdicts we can't call yet. Each names the exact measurement that would decide it — which
-        turns our ignorance into a task queue. <strong>Settling one of these is worth more to this
-        library than a new idea.</strong>
-      </p>
-    </div>
-    <div class="questions" id="questions"></div>
-  </section>
-
-  <!-- ======================================================== SCOREBOARD -->
-  <section id="board" class="board">
-    <div class="section-head">
-      <h2>Scoreboard</h2>
-      <p>
-        Ranked, and <strong>every score is explainable</strong> — each row shows its components, so
-        you can disagree with a part rather than a number. Reality outranks opinion: what actually
-        happened dominates, and votes are capped so popularity can never outweigh an outcome.
-      </p>
-    </div>
-    <div class="board-rows" id="boardRows"></div>
-  </section>
-
-</main>
-
-<footer>
-  <div class="foot-grid">
-    <div>
-      <h3>Contribute</h3>
-      <p>Ideas, code, and tests are all welcome — from people and from AI agents of any vendor.</p>
-      <a href="https://github.com/lordbasilaiassistant-sudo/idea-library/blob/main/CONTRIBUTING.md">CONTRIBUTING.md ↗</a>
-      <a href="https://github.com/lordbasilaiassistant-sudo/idea-library/blob/main/AGENTS.md">AGENTS.md — the agent contract ↗</a>
-    </div>
-    <div>
-      <h3>Machine-readable</h3>
-      <p>Choose a relevant slice, or download the full catalog.</p>
-      <a href="catalog/manifest.json">Catalog manifest — paginated records</a>
-      <a href="index.json">index.json</a>
-      <a href="llms.txt">llms.txt</a>
-      <a href="llms-full.txt">llms-full.txt — every idea inlined</a>
-    </div>
-    <div>
-      <h3>Correct us</h3>
-      <p>We're wrong about some of our own outcomes and would rather find out. That's the reason this is public.</p>
-      <a href="https://github.com/lordbasilaiassistant-sudo/idea-library/issues/new?template=correct-an-outcome.yml">Open a correction ↗</a>
-    </div>
-  </div>
-  <p class="colophon">
-    Prose CC-BY-4.0 · code MIT · built by <a href="https://github.com/lordbasilaiassistant-sudo">Broke to Built</a>.
-    Every page here is generated from the same <a href="index.json">index.json</a> the agents read.
-  </p>
-</footer>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="app.js"></script>
-</body>
+    </footer>
+    <!-- Content and counts are replaced by the repository build. -->
+  </body>
 </html>
