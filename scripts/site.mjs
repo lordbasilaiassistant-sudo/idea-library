@@ -15,6 +15,8 @@
 import { copyFileSync, mkdirSync, existsSync, readdirSync, writeFileSync, readFileSync, unlinkSync, cpSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { ROOT, loadIdeas, loadTaxonomy, readJSON } from './lib/ideas.mjs';
+import { buildHome } from './lib/site-home.mjs';
+import { createHash } from 'node:crypto';
 
 const OUT = join(ROOT, 'site', 'dist');
 if (resolve(OUT) !== resolve(ROOT, 'site', 'dist')) throw new Error('Unexpected site output directory');
@@ -51,7 +53,7 @@ for (const f of dataFiles) if (existsSync(join(ROOT, f))) copyFileSync(join(ROOT
 cpSync(join(ROOT, 'catalog'), join(OUT, 'catalog'), { recursive: true });
 for (const f of ['AGENTS.md', 'CONTRIBUTING.md', 'LESSONS.md', 'FAILURES.md', 'WORKED.md', 'OPEN-QUESTIONS.md', 'STATUS.md']) copyFileSync(join(ROOT, f), join(OUT, f));
 mkdirSync(join(OUT, 'docs'), { recursive: true });
-for (const f of ['ORGANIZATION.md', 'EVIDENCE.md']) copyFileSync(join(ROOT, 'docs', f), join(OUT, 'docs', f));
+for (const f of ['ORGANIZATION.md', 'EVIDENCE.md','VOTING.md','WEBSITE.md']) copyFileSync(join(ROOT, 'docs', f), join(OUT, 'docs', f));
 copyFileSync(join(ROOT, 'data', 'scoreboard.json'), join(OUT, 'scoreboard.json'));
 
 /* ------------------------------------------------------- tiny md renderer */
@@ -174,6 +176,7 @@ function ideaPage(i) {
     ${esc(i.verdict || i.description)}
   </p>
   <p class="oc-def">${esc(oc?.definition ?? '')} <span>Our confidence in this verdict: <b>${esc(i.confidence)}</b>.</span></p>
+  <aside class="vote-prompt"><a class="vote-link" href="${site.repo}/issues/new?template=community-vote.yml&amp;idea=${encodeURIComponent(i.id)}">Vote for this experiment ↗</a><p>Public GitHub ballot · Counts after independent review. <a href="/docs/VOTING.md">Voting rules</a></p></aside>
 
   ${i.what_would_settle_it ? `<aside class="settle">
     <h2>What would settle it</h2>
@@ -276,8 +279,22 @@ ${rows.slice(start, start + 100).map((i) => `<li><a href="/ideas/${i.category}/$
 
 /* favicon as a real file so idea pages can reference it */
 writeFileSync(join(OUT, 'favicon.svg'),
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" fill="#0b0d10"/><rect x="5" y="6" width="22" height="3" fill="#e8c547"/><rect x="5" y="12" width="22" height="3" fill="#6b7280"/><rect x="5" y="18" width="22" height="3" fill="#d9544d"/><rect x="5" y="24" width="22" height="3" fill="#4a9d7f"/></svg>\n`,
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" fill="#c63218"/><text x="4" y="26" fill="#f7f7f2" font-family="Georgia,serif" font-size="29" font-style="italic" font-weight="bold" letter-spacing="-3">il</text></svg>\n`,
   'utf8');
 
+buildHome({root:ROOT,out:OUT,ideas,tax,site});
+// Public reading pages, derived from the same versioned repository guidance.
+for(const [slug,file,title] of [['voting','VOTING.md','Community voting'],['about','WEBSITE.md','About this library']]){
+ const dir=join(OUT,slug);mkdirSync(dir,{recursive:true});
+ const body=readFileSync(join(ROOT,'docs',file),'utf8').replace(/^# [^\n]+\n/,'');
+ const tally=readJSON('data/ballots.json');
+ const voteSnapshot=JSON.parse(readFileSync(join(OUT,'community.json'),'utf8'));
+ const audit=slug==='voting'?`<section class="meta"><h2>Published vote receipts</h2><p>${voteSnapshot.accepted} counted votes. Last reconciliation: ${esc(tally.as_of)}. Pending ballots are not included.</p><ul>${Object.entries(voteSnapshot.counts).map(([id,count])=>`<li>${esc(ideasById.get(id)?.title||id)}: ${count} · ${(voteSnapshot.receipts[id]||[]).map(n=>`<a href="${site.repo}/issues/${n}">Ballot #${n}</a>`).join(', ')}</li>`).join('')}</ul><p><a href="${site.repo}/issues?q=is%3Aissue+is%3Aopen+label%3Acommunity-vote">Public ballot queue ↗</a></p></section>`:'';
+ writeFileSync(join(dir,'index.html'),`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title} — Idea Library</title><meta name="description" content="${title==='Community voting'?'How reviewed public ballots work, how they are counted, and what abuse protections can and cannot establish.':'The design, research and repository publication model behind Idea Library.'}"><link rel="canonical" href="${BASE}/${slug}/"><link rel="icon" href="/favicon.svg"><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/idea.css"></head><body class="idea-page"><header class="topbar"><a class="brand" href="/">Idea Library</a><nav><a href="/#catalog">Explore</a><a href="${site.repo}/wiki">Wiki ↗</a></nav></header><article><p class="eyebrow">The open record</p><h1>${title}</h1>${audit}<section class="body">${markdown(body)}</section></article></body></html>`);
+}
+// Version assets so a repository deploy cannot keep an old stylesheet in browser cache.
+const versions = Object.fromEntries(['style.css','idea.css','app.js'].map(f=>[f,createHash('sha256').update(readFileSync(join(OUT,f))).digest('hex').slice(0,12)]));
+function versionPages(dir){for(const e of readdirSync(dir,{withFileTypes:true})){const p=join(dir,e.name);if(e.isDirectory())versionPages(p);else if(e.name.endsWith('.html')){let html=readFileSync(p,'utf8');for(const [asset,hash] of Object.entries(versions))html=html.replaceAll(`"/${asset}"`,`"/${asset}?v=${hash}"`);html=html.replace(/<link (?:rel="preconnect"[^>]+|href="https:\/\/fonts\.googleapis\.com[^>]+)>\s*/g,'').replaceAll('href="/docs/VOTING.md"','href="/voting/"').replaceAll('<br>','<br> ');writeFileSync(p,html);}}}
+versionPages(OUT);
 console.log(`site: assembled ${staticFiles.length + dataFiles.length + 2} root files and ${pages} generated pages into site/dist`);
 if (!HAS_SITE) console.log('site: no canonical host configured (data/site.json) — internal links are root-relative.');

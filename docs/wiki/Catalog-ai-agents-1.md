@@ -7,5 +7,5 @@
 | Idea | Outcome | Effort | Why |
 |---|---|---|---|
 | [An automated trading fleet that reported itself as roughly break-even while losing money](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/autotrader-journal-hid-losses) | `failed` | weeks | The fleet lost money and, by our own reconciliation, its self-reported journal captured only a fraction of that loss, because it recorded the events the code knew how to write down rather than the money that moved. |
-| [Can an agent that is never given any starting capital find its own first income?](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/never-funded-agent) | `inconclusive` | months | The agent did accumulate value with a starting balance of zero and no transfer from us, but a single agent on a single chain over one period cannot distinguish a repeatable method from a favourable window. |
+| [ZERO earned income without receiving starting capital](https://github.com/lordbasilaiassistant-sudo/idea-library/tree/main/ideas/ai-agents/never-funded-agent) | `revenue` | months | ZERO earned third-party protocol caller rewards through routes it executed from an unfunded start, demonstrating that autonomous agent earning is possible. |
 

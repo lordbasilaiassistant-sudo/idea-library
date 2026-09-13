@@ -4,16 +4,17 @@
   <link>https://ideas.broke2builtai.com/</link>
   <description>Ideas we ran, and what actually happened.</description>
   <item>
+    <title>ZERO earned income without receiving starting capital</title>
+    <link>https://ideas.broke2builtai.com/ideas/ai-agents/never-funded-agent/</link>
+    <guid>https://ideas.broke2builtai.com/ideas/ai-agents/never-funded-agent/</guid>
+    <pubDate>Sun, 13 Sep 2026 00:00:00 GMT</pubDate>
+    <description>ZERO demonstrated an autonomous agent earning protocol rewards from an unfunded wallet. Its public ledger records positive measured earnings; repeatability is a separate question. (revenue)</description>
+  </item>
+  <item>
     <title>An automated trading fleet that reported itself as roughly break-even while losing money</title>
     <link>https://ideas.broke2builtai.com/ideas/ai-agents/autotrader-journal-hid-losses/</link>
     <guid>https://ideas.broke2builtai.com/ideas/ai-agents/autotrader-journal-hid-losses/</guid>
     <description>The fleet's own journal was the only record of its performance, and an audit found it was accounting for about a third of the actual loss. (failed)</description>
-  </item>
-  <item>
-    <title>Can an agent that is never given any starting capital find its own first income?</title>
-    <link>https://ideas.broke2builtai.com/ideas/ai-agents/never-funded-agent/</link>
-    <guid>https://ideas.broke2builtai.com/ideas/ai-agents/never-funded-agent/</guid>
-    <description>An on-chain agent created its own wallet, received no funding from us at any point, and accumulated value entirely from routes it found itself. Whether that generalises is unsettled. (inconclusive)</description>
   </item>
   <item>
     <title>A registration flow where you need the API key to retrieve the API key</title>

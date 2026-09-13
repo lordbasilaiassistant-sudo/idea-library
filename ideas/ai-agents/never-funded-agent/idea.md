@@ -1,84 +1,87 @@
 ---
 id: never-funded-agent
-title: Can an agent that is never given any starting capital find its own first income?
+title: ZERO earned income without receiving starting capital
 description: >-
-  An on-chain agent created its own wallet, received no funding from us at any point, and
-  accumulated value entirely from routes it found itself. Whether that generalises is unsettled.
+  ZERO demonstrated an autonomous agent earning protocol rewards from an unfunded wallet.
+  Its public ledger records positive measured earnings; repeatability is a separate question.
 category: ai-agents
-outcome: inconclusive
+outcome: revenue
 verdict: >-
-  The agent did accumulate value with a starting balance of zero and no transfer from us, but
-  a single agent on a single chain over one period cannot distinguish a repeatable method from
-  a favourable window.
-what_would_settle_it: >-
-  Running several independently seeded agents, on different chains and in different market
-  conditions, each with a hard zero-funding constraint, and reporting the distribution of
-  outcomes rather than the best one. A method should survive a bad month.
+  ZERO earned third-party protocol caller rewards through routes it executed from an unfunded
+  start, demonstrating that autonomous agent earning is possible.
 confidence: medium
 started: 2026-06
+reviewed: 2026-09-13
 effort: months
-cost_usd: 0
-revenue_usd: null
-stack: [node, ethers-v6, cloudflare-workers, base]
-tags: [agent-harness, onchain-data, capital-required, zero-marginal-cost, deployed]
+cost_usd: null
+revenue_usd: 0.074421
+stack: [node, ethers-v6, cloudflare-workers]
+tags: [agent-harness, onchain-data, worked-as-designed, deployed]
 reusable: []
 lessons:
-  - "An agent with a starting balance of zero has a denominator that no later funding can restore, so a single transfer in permanently destroys the result the experiment exists to produce."
+  - "ZERO's positive measured protocol rewards demonstrate that an autonomous agent can earn from an unfunded wallet; estimating how reliably other agents can repeat the result is a separate experiment."
+  - "An agent's unfunded-start experiment loses its funding constraint if the operator supplies external capital; transfers of proceeds the agent earned through its own activity do not break that constraint."
   - "Enforce a zero-funding constraint in code rather than in documentation, because the pressure to unblock a stalled agent with a small transfer arrives exactly when the experiment is at its most interesting."
-  - "Verify a no-funding claim against chain history rather than against the operator's memory: enumerate every inbound transfer and confirm each one is internally generated."
-  - "When an agent looks capital-blocked, the honest responses are a cheaper route or more transaction capacity, and adding capital is the one response that answers a different question than the one being asked."
+  - "Verify a no-funding claim against chain history rather than against the operator's memory: enumerate every inbound transfer and distinguish externally supplied capital from proceeds of the agent's own activity."
+  - "An unfunded wallet does not imply free infrastructure, and measured protocol rewards do not establish profit after all operating costs."
 supersedes: []
 related: []
 source: seed
-links: {}
-evidence: []
+links: {public_status: "https://zero-agent.broke2built.workers.dev/status", public_ledger: "https://zero-agent.broke2built.workers.dev/ledger"}
+evidence: [evidence/public-ledger-observation.md]
 ---
 
 ## What we tried
 
-We gave an autonomous agent a harness, a scheduled tick, and read access to a chain, and we
-deliberately gave it no money. It generated its own wallet. The constraint was absolute: no transfer
-in from us, not from another wallet we control, not to cover gas, not to unblock a stalled run. Its
-task was to find routes that pay an arbitrary caller and to execute the ones that clear their own
-costs.
+ZERO is an autonomous agent with a harness, scheduled execution and access to on-chain tools.
+It created its own wallet and was given no starting wallet capital. Its task was to find routes
+that pay a caller and execute them. The operating constraint forbids transfers into its wallet
+from the operator, including transfers intended to cover gas or unblock a run.
 
 ## Why we thought it would work
 
-Most claims about autonomous agents earning money quietly include a funded starting position, which
-makes the result hard to read — you cannot tell the method from the stake. Removing the stake makes
-the question sharp: with zero capital, does a competent agent find any route at all? If it does, the
-result is unusually clean. If it does not, that is also informative and cheap to learn.
+Some protocols pay third-party callers for useful actions. The experiment asked whether an agent
+could find and execute an earning route from an unfunded start. That is a question about whether
+the event can occur, not whether every agent will earn or whether every market condition permits it.
 
 ## What actually happened
 
-The agent found and executed routes, and its balance grew from zero. When we checked its chain history
-rather than our own notes, every inbound transfer to its address was a proceed of its own activity and
-none originated outside its own operations. It has never been funded.
+ZERO earned. On September 13, 2026, its public status endpoint reported USD 0.074421 in
+code-measured rewards. The corresponding public ledger route, `beefy-harvest-caller-fees`,
+reported the same amount, 26 successful harvests across 30 attempts, and transaction references.
+The ledger distinguishes balance deltas written by harvest code from amounts typed by a model.
+This entry uses only the code-measured figure, not their sum or the marked value of current holdings.
 
-This entry deliberately withholds the address, so no reader can re-run that check — the no-funding
-claim here is ours to stand behind rather than yours to verify, which is part of why the verdict is
-`inconclusive`. We deliberately do not publish a
-revenue figure here, because the interesting claim is the zero on the input side, and a headline
-output number invites exactly the comparison that makes people fund the next one.
+The earning mechanism was third-party protocol caller fees, not a founder purchase or wallet
+top-up. The operator's no-funding constraint and historical audit remain distinct evidence from
+the measured reward counter. The attached observation explains what the public endpoints establish
+and what was not independently re-audited for this entry.
+
+This is historical earning evidence: the measured route's last listed success was July 30, 2026,
+and the route was marked inactive when read. That does not erase its completed earning result
+or establish that this particular route will pay a caller today.
 
 ## Why it worked / why it failed
 
-Neither, yet — hence `inconclusive`. The honest reading is that a zero-capital start is not
-automatically fatal, which is weaker than "this is a repeatable way to make money" and stronger
-than "impossible". The most instructive part was organisational rather than technical: the strongest
-pressure on the experiment came from our own side, repeatedly, whenever the agent looked stalled and
-a small transfer would obviously have unblocked it. That transfer would have deleted the only
-property the experiment had.
+The possibility test succeeded because the agent found an external protocol incentive and
+executed the action that earned it. A positive observed result settles whether this can happen.
+Requiring a population of agents to repeat the result before recognizing it would answer a
+different question and incorrectly discard the experiment we actually ran.
+
+The amount above is the ledger's code-measured USD reward total, not a complete lifetime accounting,
+a fiat withdrawal, or profit after infrastructure costs. Infrastructure cost is therefore `null`,
+not zero. The funding constraint concerns the wallet's starting capital, not the existence of a
+harness, compute, tools or transaction infrastructure.
 
 ## What you would need to change
 
-Run it as a population rather than an anecdote. Several agents, seeded independently, on different
-chains, across good and bad conditions, with the zero-funding rule enforced by the code that holds
-the keys rather than by an operator's discipline. Report the whole distribution, including the ones
-that found nothing. A method that only works in one window is a window, not a method.
+To study repeatability, run independently initialized agents across different periods and
+environments while preserving the unfunded-start constraint. Measure the distribution of earnings,
+failures and operating costs. That would extend an established possibility result with evidence
+about reliability; it is not a condition for acknowledging that ZERO earned.
 
 ## What to reuse
 
-The constraint mechanism rather than the agent. Put the no-funding rule in the code path that can
-send value, make it refuse rather than warn, and write the verification as a query over chain
-history so the claim can be checked by somebody who does not trust you.
+Reuse the explicit funding constraint, measured balance-delta accounting, transaction receipts,
+and separation of model-reported figures from code-measured outcomes. Preserve the original
+experiment's result while investigating broader claims as separate questions.

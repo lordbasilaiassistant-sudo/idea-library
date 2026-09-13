@@ -15,6 +15,7 @@ import { createHash } from 'node:crypto';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const steps = [
+  ['vote-integrity','scripts/vote-integrity.mjs','prevent ballot history rollback and trust-key substitution'],
   ['tests', '--test', 'security and malformed contribution regressions', ...readdirSync(join(ROOT, 'tests')).filter(f => f.endsWith('.test.mjs')).map(f => `tests/${f}`)],
   ['scale', 'scripts/scale.mjs', '10000 synthetic ideas through the production catalog generator'],
   ['scrub',     'scripts/scrub.mjs',    'secrets, personal data, un-allowlisted addresses'],

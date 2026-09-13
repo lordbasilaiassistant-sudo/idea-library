@@ -1,102 +1,266 @@
-/* Per-idea reading page. Long-form, single column, generous measure.
-   Deliberately quieter than the landing page: this is where somebody reads a
-   thousand words about why something failed, so nothing here competes with the
-   text. */
-
+.grain {
+  display: none;
+}
 .idea-page article {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 52px 24px 80px;
-  position: relative;
-  z-index: 2;
+  max-width: 930px;
+  margin: auto;
+  padding: 48px 48px 64px;
 }
-
-.crumb { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; margin: 0 0 18px; }
-.crumb a { color: var(--accent); text-decoration: none; }
-
 .idea-page h1 {
-  font-family: var(--serif);
-  font-size: clamp(1.9rem, 4.6vw, 2.9rem);
-  font-weight: 600; line-height: 1.08; letter-spacing: -.025em;
-  margin: 0 0 24px;
+  font-size: clamp(34px, 4.8vw, 62px);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+  margin: 20px 0 30px;
 }
-
+.idea-page .brand-mark {
+  font-size: 0;
+}
+.idea-page .brand-mark:after {
+  content: "il";
+  font:
+    italic bold 38px/0.9 Georgia,
+    serif;
+  letter-spacing: -5px;
+}
+.idea-page .brand-text > span {
+  color: var(--accent);
+}
+.crumb {
+  font: 13px var(--mono);
+  color: var(--muted);
+}
+.crumb a {
+  text-decoration: none;
+}
 .verdict-lead {
-  font-size: 19px; line-height: 1.5; color: var(--ink);
-  border-left: 3px solid var(--oc, var(--accent));
-  padding: 4px 0 4px 18px; margin: 0 0 10px;
+  font-size: 21px;
+  line-height: 1.5;
+  border-left: 3px solid var(--accent);
+  padding: 8px 0 8px 22px;
+  margin: 24px 0;
 }
 .oc-badge {
-  display: inline-block; font-family: var(--mono); font-size: 10.5px;
-  letter-spacing: .12em; text-transform: uppercase; color: var(--oc, var(--accent));
-  border: 1px solid var(--oc, var(--accent)); border-radius: 2px;
-  padding: 2px 7px; margin-right: 10px; vertical-align: 2px;
+  display: block;
+  text-transform: uppercase;
+  font: 12px var(--mono);
+  color: var(--accent);
+  margin-bottom: 12px;
 }
-.oc-def { font-size: 13.5px; color: var(--ink-3); margin: 0 0 34px; padding-left: 21px; }
-.oc-def span { display: block; margin-top: 3px; }
-.oc-def b { color: var(--ink-2); }
-
-.settle {
-  background: var(--bg-2); border: 1px solid var(--line);
-  border-left: 3px solid var(--inconclusive);
-  border-radius: 3px; padding: 20px 22px; margin: 0 0 34px;
+.oc-def {
+  font-size: 14px;
+  color: var(--muted);
 }
-.settle h2 {
-  font-family: var(--mono); font-size: 11px; letter-spacing: .13em; text-transform: uppercase;
-  color: var(--inconclusive); margin: 0 0 9px;
-}
-.settle p { margin: 0; font-size: 15.5px; color: var(--ink); }
-.settle .settle-cta { margin-top: 12px; font-size: 14px; color: var(--ink-2); }
-.settle a { color: var(--accent); }
-
 .facts {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 1px; background: var(--line-soft); border: 1px solid var(--line-soft);
-  margin: 0 0 40px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 24px 0;
+  margin: 30px 0;
 }
-.facts div { background: var(--bg-2); padding: 13px 15px; }
-.facts dt { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
-.facts dd { margin: 5px 0 0; font-size: 15px; font-weight: 500; }
-.facts dd em { font-style: normal; color: var(--ink-3); font-weight: 400; font-size: 13.5px; }
-
-.lessons { margin: 0 0 44px; }
-.lessons h2, .body h2, .meta h2, .related h2 {
-  font-family: var(--serif); font-size: 1.45rem; font-weight: 600;
-  letter-spacing: -.02em; margin: 40px 0 14px;
+.facts dt {
+  font: 12px var(--mono);
+  color: var(--muted);
+  margin-bottom: 8px;
 }
-.lessons h2 { margin-top: 0; }
-.lessons-note { font-size: 13.5px; color: var(--ink-3); margin: 0 0 16px; }
-.lessons ol { margin: 0; padding-left: 22px; display: grid; gap: 13px; }
-.lessons li { font-size: 16.5px; line-height: 1.55; }
-.lessons li code { font-family: var(--mono); font-size: .88em; background: var(--bg-3); padding: 1px 5px; border-radius: 2px; }
-.anchor { opacity: 0; text-decoration: none; color: var(--ink-3); padding-left: 4px; }
-.lessons li:hover .anchor { opacity: 1; }
-.lessons li:target { background: color-mix(in srgb, var(--accent) 10%, transparent); }
-
-.body p { font-size: 16.5px; line-height: 1.72; color: var(--ink-2); margin: 0 0 18px; }
-.body h2 { color: var(--ink); }
-.body strong { color: var(--ink); }
-.body code { font-family: var(--mono); font-size: .88em; background: var(--bg-3); padding: 1px 5px; border-radius: 2px; color: var(--ink); }
-.body pre { background: var(--bg-2); border: 1px solid var(--line); border-radius: 3px; padding: 14px 16px; overflow-x: auto; }
-.body pre code { background: none; padding: 0; font-size: 13px; line-height: 1.6; }
-.body ul { padding-left: 22px; }
-.body li { font-size: 16.5px; line-height: 1.65; color: var(--ink-2); margin-bottom: 8px; }
-
-.axis { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 0 0 10px; }
-.axis-name { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); width: 74px; flex-shrink: 0; }
-
-.related ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
-.related li { padding-bottom: 12px; border-bottom: 1px solid var(--line-soft); }
-.related a { color: var(--ink); text-decoration: none; font-size: 16px; font-weight: 500; }
-.related a:hover { color: var(--accent); }
-.related .oc-def { padding-left: 0; margin: 4px 0 0; }
-
-.idea-foot { margin-top: 52px; padding-top: 26px; border-top: 1px solid var(--line); }
-.idea-foot p { font-size: 14.5px; color: var(--ink-2); }
-.idea-foot a { color: var(--accent); }
-.idea-foot .cite { font-family: var(--mono); font-size: 11.5px; color: var(--ink-3); margin-top: 16px; line-height: 1.6; }
-
+.facts dd {
+  margin: 0;
+  font-size: 16px;
+}
+.facts em {
+  font-style: normal;
+  color: var(--muted);
+}
+.idea-page h2 {
+  font-size: 29px;
+  margin: 32px 0 18px;
+}
+.idea-page h3 {
+  font-size: 22px;
+}
+.lessons {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 8px 28px 24px;
+  margin: 32px 0;
+}
+.lessons-note {
+  font-size: 13px;
+  color: #c4cdc8;
+}
+.lessons ol {
+  padding-left: 20px;
+}
+.lessons li {
+  padding: 12px 0 12px 8px;
+  font-size: 17px;
+}
+.anchor {
+  font: 12px var(--mono);
+  color: #c4cdc8;
+}
+.body {
+  font-size: 17px;
+  line-height: 1.8;
+}
+.body h2 {
+  margin-top: 40px;
+}
+.body li {
+  margin: 8px 0;
+}
+.body code {
+  font: 14px var(--mono);
+  background: #e9ece5;
+  padding: 2px 5px;
+  overflow-wrap: anywhere;
+}
+.body pre {
+  overflow-x: auto;
+  padding: 20px;
+  background: #e9ece5;
+}
+.body pre code {
+  padding: 0;
+}
+.settle {
+  background: #e8ede5;
+  padding: 8px 24px 20px;
+}
+.settle p {
+  font-size: 16px;
+}
+.settle-cta {
+  font-size: 14px !important;
+}
+.meta {
+  border-top: 1px solid var(--line);
+  margin-top: 32px;
+  padding-top: 2px;
+}
+.meta p,
+.meta li {
+  font-size: 14px;
+}
+.axis {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+}
+.axis-name {
+  font: 12px var(--mono);
+  min-width: 75px;
+  color: var(--muted);
+}
+.tag {
+  display: inline-block;
+  font: 12px var(--mono);
+  background: #e9ece5;
+  padding: 4px 7px;
+  overflow-wrap: anywhere;
+}
+.related ul {
+  list-style: none;
+  padding: 0;
+}
+.related li {
+  padding: 20px 0;
+  border-top: 1px solid var(--line);
+}
+.related li > a {
+  font-size: 21px;
+  text-decoration: none;
+  line-height: 1.35;
+  display: inline-block;
+  margin-bottom: 9px;
+}
+.related li > a:hover {
+  color: var(--accent);
+}
+.related .tag {
+  margin-left: 8px;
+}
+.related .oc-def {
+  font-size: 15px;
+  line-height: 1.6;
+  display: inline-block;
+}
+.idea-foot {
+  border-top: 1px solid var(--ink);
+  margin-top: 40px;
+  padding-top: 18px;
+  font-size: 14px;
+}
+.cite {
+  color: var(--muted);
+  font: 12px/1.7 var(--mono);
+  overflow-wrap: anywhere;
+}
+.idea-page nav[aria-label="Catalog pages"] {
+  padding: 24px 0;
+  border-top: 1px solid var(--ink);
+  font-size: 14px;
+}
+.idea-page article a {
+  overflow-wrap: anywhere;
+}
+.vote-prompt {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+.vote-link {
+  display: inline-block;
+  border: 1px solid var(--ink);
+  padding: 10px 16px;
+  font-size: 14px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.vote-link:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+.vote-prompt p {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0;
+}
 @media (max-width: 700px) {
-  .idea-page article { padding: 36px 16px 60px; }
-  .axis-name { width: 100%; }
+  .idea-page article {
+    padding: 28px 20px 40px;
+  }
+  .idea-page h1 {
+    font-size: 36px;
+  }
+  .verdict-lead {
+    font-size: 18px;
+    padding-left: 16px;
+  }
+  .facts {
+    grid-template-columns: 1fr 1fr;
+  }
+  .lessons {
+    padding: 4px 18px 18px;
+  }
+  .idea-page h2 {
+    font-size: 26px;
+  }
+  .body {
+    font-size: 16px;
+  }
+  .idea-page .topbar nav {
+    gap: 12px;
+  }
+  .vote-prompt {
+    display: block;
+  }
+  .vote-prompt p {
+    margin-top: 12px;
+  }
 }

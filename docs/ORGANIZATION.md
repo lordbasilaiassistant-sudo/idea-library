@@ -93,6 +93,11 @@ only proves availability. A successful build only proves the build. `confidence:
 
 For revenue, record the period, currency/conversion method, payer exclusion, refunds, platform fees,
 and whether the amount is gross or net. `revenue_usd` is revenue, not profit or wallet valuation.
+
+A demonstrated possibility and its repeatability are different questions. If an agent has earned
+from an unfunded start, that answers whether it can happen. Classify that specific observed
+result while keeping replication, reliability and unverified financial totals separate.
+Do not use an unanswered follow-up question to relabel the observed result as inconclusive.
 Unmeasured amounts stay `null`. Do not sum overlapping project and actor observations.
 Use [EVIDENCE.md](EVIDENCE.md) as a capture checklist.
 

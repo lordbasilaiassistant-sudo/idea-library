@@ -406,6 +406,8 @@ if (HAS_SITE) {
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     `  <url><loc>${SITE}/</loc></url>`,
+    `  <url><loc>${SITE}/voting/</loc></url>`,
+    `  <url><loc>${SITE}/about/</loc></url>`,
     ...Array.from({ length: Math.ceil(ideas.length / 100) }, (_, n) => `  <url><loc>${SITE}/browse/${n ? `page/${n + 1}/` : ''}</loc></url>`),
     ...tax.categories.filter((c) => counts.by_category[c.id] > 0)
       .map((c) => `  <url><loc>${SITE}/ideas/${c.id}/</loc></url>`),

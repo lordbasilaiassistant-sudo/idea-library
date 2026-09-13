@@ -55,6 +55,19 @@ test('production site handles page two, safe metadata, evidence, sitemap and wit
   const out = join(dir, 'site/dist');
   for (const file of ['docs/ORGANIZATION.md', 'docs/EVIDENCE.md']) assert(existsSync(join(out, file)), `missing contribution guidance ${file}`);
   const html = path => readFileSync(join(out, path, 'index.html'), 'utf8');
+  const home = html('');
+  assert.equal([...home.matchAll(/class="experiment"/g)].length, 12, 'initial catalog stays bounded');
+  assert(!home.includes('<script>injected()'), 'home escapes repository text');
+  assert(!home.includes('{{'), 'all homepage template slots populated');
+  const searchManifest = () => JSON.parse(readFileSync(join(out, 'explore.json'), 'utf8'));
+  const searchBefore = searchManifest();
+  assert.equal(searchBefore.count, 101);
+  assert.equal(searchBefore.pages.length, 2);
+  const searchRecords = searchBefore.pages.flatMap(p => JSON.parse(readFileSync(join(out,p.path), 'utf8')));
+  assert.equal(searchRecords.length, 101);
+  assert(searchBefore.pages.every(p => p.count <= 100));
+  assert.equal(searchRecords.find(i=>i.id==='fixture-000').title,dangerousTitle);
+  assert(searchRecords.every(i=>!('_body' in i)&&!('dir' in i)), 'search ships only explicit public fields');
   for (const base of ['browse', `ideas/${category}`]) {
     assert(html(base).includes(`href="/${base}/page/2/">Next</a>`));
     const second = html(`${base}/page/2`);
@@ -72,7 +85,7 @@ test('production site handles page two, safe metadata, evidence, sitemap and wit
   assert(first.includes(`${config.repo}/blob/main/ideas/${category}/fixture-000/evidence/observation.txt`));
   const locations = [...readFileSync(join(out, 'sitemap.xml'), 'utf8').matchAll(/<loc>(.*?)<\/loc>/g)].map(m => m[1]);
   assert.equal(new Set(locations).size, locations.length);
-  assert.equal(locations.length, 106);
+  assert.equal(locations.length, 108);
   for (const location of locations) assert(existsSync(join(out, new URL(location).pathname, 'index.html')), `missing sitemap target ${location}`);
   const inspect = path => {
     for (const entry of readdirSync(path, { withFileTypes: true })) {
@@ -91,6 +104,9 @@ test('production site handles page two, safe metadata, evidence, sitemap and wit
   for (const file of withdrawnFiles) assert(existsSync(join(dir, file)));
   rmSync(ideaDir('fixture-100'), { recursive: true, force: true });
   run();
+  assert.equal(searchManifest().count,100,'withdrawals update homepage search');
+  for(const p of searchBefore.pages)assert(!existsSync(join(out,p.path)),'old search shards removed');
+  assert(!readFileSync(join(out,'index.html'),'utf8').includes('101 experiments'),'homepage count follows source');
   for (const file of withdrawnFiles) {
     assert(!existsSync(join(dir, file)), `stale source catalog ${file}`);
     assert(!existsSync(join(out, file)), `stale deployed catalog ${file}`);

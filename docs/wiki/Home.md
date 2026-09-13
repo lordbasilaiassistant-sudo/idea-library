@@ -4,7 +4,7 @@
 
 A public record of ideas we actually ran, each with an outcome and the reason behind it.
 
-**16 ideas · 69 lessons · 2 open questions**
+**16 ideas · 70 lessons · 1 open questions**
 
 Most collections of ideas keep the ones that worked. This keeps all of them, because the useful
 question is not what you could build, it is what happens when you do. A failure with a known

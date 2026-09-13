@@ -71,6 +71,10 @@ npm run new-idea -- --category tooling-infra --slug my-idea --source community
 `outcome: inconclusive` additionally requires `what_would_settle_it:` — the measurement that would
 decide it. That is how our ignorance becomes somebody's task.
 
+Do not downgrade a demonstrated result to `inconclusive` merely because replication remains
+unmeasured. State the specific question answered and attach its observation and provenance.
+Describe repeatability separately. `revenue` requires a measured financial amount and payer evidence.
+
 ### The body
 
 Six fixed `## ` sections, in order, copied from `templates/idea.md`:
