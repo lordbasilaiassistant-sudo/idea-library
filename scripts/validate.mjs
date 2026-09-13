@@ -2,18 +2,21 @@
 /**
  * validate.mjs — schema + vocabulary + quality checks on every idea.md.
  *
- * Everything AGENTS.md asks for is checked here. That is deliberate: if the contract
- * is prose-only, an outside agent gets a CI failure it had no way to predict, and
- * outside contribution dies. Every rule below names the file and line and says how
- * to fix it.
+ * Structural rules are checked here and documented in AGENTS.md. Evidence truth,
+ * licensing permission, and reviewer independence still require review. Diagnostics
+ * identify the file, the broken rule, and how to fix it.
  */
 
-import { loadIdeas, loadTaxonomy, loadSources } from './lib/ideas.mjs';
+import { ROOT, loadIdeas, loadTaxonomy, loadSources, readJSON } from './lib/ideas.mjs';
+import { validateProjects } from './lib/projects.mjs';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
 const tax = loadTaxonomy();
 const sources = loadSources();
 const sourceIds = new Set(sources.digs.map((d) => d.id));
 const ideas = loadIdeas();
+const ideaIds = new Set(ideas.map(i => i.id));
 
 const errors = [];
 const warnings = [];
@@ -28,6 +31,8 @@ const REQUIRED = [
 
 const NO_VERDICT_OUTCOMES = new Set(['active']);
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const projectRegistry = validateProjects(readJSON('data/projects.json'));
+for (const message of projectRegistry.errors) err('data/projects.json', message, 'Use public identities only; see docs/ORGANIZATION.md.');
 
 const BODY_SECTIONS = [
   'What we tried',
@@ -69,6 +74,18 @@ const PLACEHOLDERS = [
 
 const seenIds = new Map();
 
+for (const [name, rows] of Object.entries({ categories: tax.raw.categories, outcomes: tax.raw.outcomes,
+  confidence: tax.raw.confidence, effort: tax.raw.effort, tags: Object.values(tax.raw.tags).filter(Array.isArray).flat(), sources: sources.digs })) {
+  const ids = new Set();
+  for (const row of rows) {
+    if (!SLUG_RE.test(row.id) || ids.has(row.id)) err(`data/${name}`, `invalid or duplicate ID ${row.id}`, 'Use unique kebab-case IDs.');
+    ids.add(row.id);
+  }
+}
+for (const [alias, target] of Object.entries(tax.aliases)) {
+  if (tax.tagDefs.has(alias) || !tax.tagDefs.has(target)) err('data/taxonomy.json', `invalid alias ${alias}`, 'Alias must resolve directly to a canonical tag and cannot shadow one.');
+}
+
 for (const idea of ideas) {
   const where = idea.file || idea.dir;
 
@@ -79,10 +96,29 @@ for (const idea of ideas) {
 
   // ---- required fields -----------------------------------------------------
   for (const key of REQUIRED) {
+    if (key === 'verdict' && NO_VERDICT_OUTCOMES.has(idea.outcome)) continue;
     const v = idea[key];
     const empty = v === undefined || v === null || v === '' ||
       (Array.isArray(v) && v.length === 0);
     if (empty) err(where, `missing required field \`${key}\``, `Add \`${key}:\` to the frontmatter.`);
+  }
+
+  for (const key of ['title', 'description', 'category', 'outcome', 'confidence', 'effort', 'source']) {
+    if (typeof idea[key] !== 'string') err(where, `${key} must be a string`, 'Use a text value.');
+  }
+  for (const key of ['tags', 'lessons', 'related', 'supersedes', 'evidence', 'reusable', 'projects', 'aliases', 'stack']) {
+    if (key in idea && (!Array.isArray(idea[key]) || idea[key].some(v => typeof v !== 'string'))) {
+      err(where, `${key} must be a list of strings`, 'Use a YAML list.');
+      idea[key] = [];
+    }
+    if (Array.isArray(idea[key]) && new Set(idea[key]).size !== idea[key].length) err(where, `${key} has duplicates`, 'Remove repeated values.');
+  }
+  for (const project of idea.projects || []) {
+    if (!SLUG_RE.test(project)) err(where, 'projects must contain public kebab-case IDs', 'Use a stable public project identifier.');
+    else if (!projectRegistry.ids.has(project)) err(where, `unknown project ${project}`, 'Register its public identity in data/projects.json, or use the existing canonical ID.');
+  }
+  if (idea.reviewed != null && (!/^\d{4}-\d{2}-\d{2}$/.test(idea.reviewed) || !Number.isFinite(Date.parse(idea.reviewed)) || new Date(idea.reviewed).toISOString().slice(0, 10) !== idea.reviewed)) {
+    err(where, 'reviewed must be a real YYYY-MM-DD date or null', 'Use the actual review date, never a build timestamp.');
   }
 
   // ---- id / folder agreement ----------------------------------------------
@@ -209,8 +245,10 @@ for (const idea of ideas) {
   }
   if (idea.outcome === 'revenue' && !(typeof idea.revenue_usd === 'number' && idea.revenue_usd > 0)) {
     err(where, '`outcome: revenue` with no measured revenue_usd > 0',
-      'Revenue means a verified, source-checked payment. Otherwise this is `shipped`.');
+      'Revenue means a verified, source-checked payment. Choose the non-revenue outcome supported by evidence; shipped also requires deployment and usage.');
   }
+  if (idea.outcome === 'revenue' && !idea.evidence?.length) err(where, 'revenue requires evidence files', 'Attach a sanitized, dated payment observation with period and payer exclusions.');
+  for (const key of ['cost_usd', 'revenue_usd']) if (typeof idea[key] === 'number' && (!Number.isFinite(idea[key]) || idea[key] < 0)) err(where, `${key} must be finite and nonnegative`, 'Use null for unmeasured amounts.');
 
   // ---- dates ---------------------------------------------------------------
   for (const key of ['started', 'ended']) {
@@ -223,7 +261,7 @@ for (const idea of ideas) {
   for (const key of ['related', 'supersedes']) {
     if (Array.isArray(idea[key])) {
       for (const ref of idea[key]) {
-        if (!ideas.some((o) => o.id === ref)) {
+        if (!ideaIds.has(ref)) {
           err(where, `${key} points at unknown idea id \`${ref}\``, 'Reference an id that exists, or drop it.');
         }
         if (ref === idea.id) err(where, `${key} references itself`, 'Remove it.');
@@ -238,10 +276,12 @@ for (const idea of ideas) {
         const bucket = String(p).split('/')[0];
         const restPath = String(p).slice(bucket.length + 1);
         const list = idea.assets?.[bucket];
+        if (bucket !== (key === 'evidence' ? 'evidence' : 'code')) err(where, `${key} must point inside its own folder`, 'Use evidence/ for observations and code/ for reusable code.');
         if (!list || !list.includes(restPath)) {
           err(where, `${key} lists \`${p}\` but that file is not in the idea folder`,
             'Commit the file, or remove the reference. A dangling citation is worse than none.');
         }
+        else if (!readFileSync(join(ROOT, idea.dir, p)).length) err(where, `${key} file is empty`, 'Attach the actual observation or artifact.');
       }
     }
   }
@@ -249,7 +289,9 @@ for (const idea of ideas) {
   // ---- links are public URLs only -----------------------------------------
   if (idea.links && typeof idea.links === 'object') {
     for (const [k, v] of Object.entries(idea.links)) {
-      if (typeof v !== 'string' || !/^https:\/\//.test(v)) {
+      let valid = false;
+      try { const url = new URL(v); valid = typeof v === 'string' && url.protocol === 'https:' && !url.username && !url.password; } catch { /* invalid URL */ }
+      if (!valid) {
         err(where, `links.${k} must be an https:// URL`, 'Public URLs only — no local paths, no http.');
       }
     }
@@ -257,12 +299,15 @@ for (const idea of ideas) {
 
   // ---- body structure (retrieval chunks arrive pre-labelled) --------------
   const body = idea._body || '';
-  for (const section of BODY_SECTIONS) {
-    if (!body.includes(`## ${section}`)) {
+  if (/\bTODO\b|IMPORT NOTES/.test(body)) err(where, 'unfinished draft or private import notes remain', 'Finish the entry and remove private staging notes before publication.');
+  const headings = [...body.replace(/```[^\n]*\n[\s\S]*?```/g, '').matchAll(/^## (.+)\s*$/gm)].map(m => m[1].trim());
+  for (const [n, section] of BODY_SECTIONS.entries()) {
+    if (headings[n] !== section) {
       err(where, `body is missing the \`## ${section}\` section`,
         'The fixed sections make every page comparable and make retrieved chunks self-labelling. Copy templates/idea.md.');
     }
   }
+  if (headings.length !== BODY_SECTIONS.length) err(where, 'body must have exactly six level-two sections', 'Use level-three headings for subsections.');
   if (body.trim().length < 400) {
     warn(where, 'body is very short', 'The frontmatter is the data; the body is the story. Tell it.');
   }

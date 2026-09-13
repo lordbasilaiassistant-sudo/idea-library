@@ -21,6 +21,7 @@
       "parked": 0
     },
     "by_category": {
+      "data-extraction": 0,
       "crypto-onchain": 5,
       "ai-agents": 2,
       "ml-research": 0,
@@ -48,6 +49,11 @@
   },
   "taxonomy": {
     "categories": [
+      {
+        "id": "data-extraction",
+        "label": "Data Extraction",
+        "definition": "Scrapers, crawlers, datasets, and extraction products whose central question concerns collecting usable data."
+      },
       {
         "id": "crypto-onchain",
         "label": "Crypto & On-chain",
@@ -145,6 +151,14 @@
       "$comment": "Three orthogonal axes. An idea normally carries at least one domain tag, at least one mechanic tag, and exactly one stage tag.",
       "domain": [
         {
+          "id": "apify-actors",
+          "definition": "Building and operating actors on the Apify platform."
+        },
+        {
+          "id": "data-quality",
+          "definition": "Measuring completeness, accuracy, freshness, and usefulness of collected data."
+        },
+        {
           "id": "token-launch",
           "definition": "Deploying or launching tokens."
         },
@@ -238,6 +252,14 @@
         }
       ],
       "mechanic": [
+        {
+          "id": "repeat-demand",
+          "definition": "Observed repeat usage or purchases sustained the product."
+        },
+        {
+          "id": "output-correctness",
+          "definition": "The correctness or completeness of produced data decided the result."
+        },
         {
           "id": "rate-limits",
           "definition": "A throughput cap was the binding constraint."
@@ -414,6 +436,9 @@
   "ideas": [
     {
       "id": "autotrader-journal-hid-losses",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
       "title": "An automated trading fleet that reported itself as roughly break-even while losing money",
       "description": "The fleet's own journal was the only record of its performance, and an audit found it was accounting for about a third of the actual loss.",
       "category": "ai-agents",
@@ -469,7 +494,7 @@
       "path": "/ideas/ai-agents/autotrader-journal-hid-losses/",
       "url": "https://ideas.broke2builtai.com/ideas/ai-agents/autotrader-journal-hid-losses/",
       "repo_path": "ideas/ai-agents/autotrader-journal-hid-losses",
-      "updated": "2026-06-01T00:00:00Z",
+      "updated": null,
       "related_all": [
         "hardcoded-event-topic-hash",
         "never-funded-agent",
@@ -480,6 +505,9 @@
     },
     {
       "id": "never-funded-agent",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
       "title": "Can an agent that is never given any starting capital find its own first income?",
       "description": "An on-chain agent created its own wallet, received no funding from us at any point, and accumulated value entirely from routes it found itself. Whether that generalises is unsettled.",
       "category": "ai-agents",
@@ -533,13 +561,16 @@
       "path": "/ideas/ai-agents/never-funded-agent/",
       "url": "https://ideas.broke2builtai.com/ideas/ai-agents/never-funded-agent/",
       "repo_path": "ideas/ai-agents/never-funded-agent",
-      "updated": "2026-06-01T00:00:00Z",
+      "updated": null,
       "related_all": [
         "autotrader-journal-hid-losses"
       ]
     },
     {
       "id": "circular-api-key-registration",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
       "title": "A registration flow where you need the API key to retrieve the API key",
       "description": "Registering an agent returned a key exactly once, every later command required that key, and re-registering the same wallet failed as already registered. Losing the key locked us out.",
       "category": "automation-ops",
@@ -595,13 +626,16 @@
       "path": "/ideas/automation-ops/circular-api-key-registration/",
       "url": "https://ideas.broke2builtai.com/ideas/automation-ops/circular-api-key-registration/",
       "repo_path": "ideas/automation-ops/circular-api-key-registration",
-      "updated": "2026-04-01T00:00:00Z",
+      "updated": null,
       "related_all": [
         "deploy-time-metadata-window"
       ]
     },
     {
       "id": "deploy-time-metadata-window",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
       "title": "Why a token's image and description cannot be fixed after deployment",
       "description": "Launchpad indexers snapshot a token's metadata once, at deploy time. Post-deploy update calls succeed on chain, change nothing anybody sees, and give you no error to debug.",
       "category": "crypto-onchain",
@@ -657,7 +691,7 @@
       "path": "/ideas/crypto-onchain/deploy-time-metadata-window/",
       "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/deploy-time-metadata-window/",
       "repo_path": "ideas/crypto-onchain/deploy-time-metadata-window",
-      "updated": "2026-05-01T00:00:00Z",
+      "updated": null,
       "related_all": [
         "circular-api-key-registration",
         "fee-claim-needs-trading-first",
@@ -668,6 +702,9 @@
     },
     {
       "id": "fee-claim-needs-trading-first",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
       "title": "A permissionless fee claim that pays nothing because no one has traded",
       "description": "The fee collection function was open to any caller and needed no API key, which felt like a found revenue rail until we noticed fees only exist once other people trade the token.",
       "category": "crypto-onchain",
@@ -722,7 +759,7 @@
       "path": "/ideas/crypto-onchain/fee-claim-needs-trading-first/",
       "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/fee-claim-needs-trading-first/",
       "repo_path": "ideas/crypto-onchain/fee-claim-needs-trading-first",
-      "updated": "2026-04-01T00:00:00Z",
+      "updated": null,
       "related_all": [
         "deploy-time-metadata-window",
         "forty-three-services-no-customers",
@@ -732,6 +769,9 @@
     },
     {
       "id": "five-hundred-tokens-zero-volume",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
       "title": "Five hundred tokens, one hundred and forty generic names, and zero trading volume",
       "description": "Deploys were free and gas was sponsored, so we launched at volume to see whether quantity could substitute for narrative. It cannot, and the result was unambiguous.",
       "category": "crypto-onchain",
@@ -792,7 +832,7 @@
       "path": "/ideas/crypto-onchain/five-hundred-tokens-zero-volume/",
       "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/five-hundred-tokens-zero-volume/",
       "repo_path": "ideas/crypto-onchain/five-hundred-tokens-zero-volume",
-      "updated": "2026-05-01T00:00:00Z",
+      "updated": null,
       "related_all": [
         "deploy-time-metadata-window",
         "forty-three-services-no-customers",
@@ -801,6 +841,9 @@
     },
     {
       "id": "retail-arbitrage-is-closed",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
       "title": "Cross-DEX arbitrage and DEX scalping are both closed to a small wallet",
       "description": "We tested two classic on-chain trading strategies from a tiny wallet on a fast L2. Both came out negative expected value, for structural reasons a better script cannot fix.",
       "category": "crypto-onchain",
@@ -855,7 +898,7 @@
       "path": "/ideas/crypto-onchain/retail-arbitrage-is-closed/",
       "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/retail-arbitrage-is-closed/",
       "repo_path": "ideas/crypto-onchain/retail-arbitrage-is-closed",
-      "updated": "2026-06-01T00:00:00Z",
+      "updated": null,
       "related_all": [
         "autotrader-journal-hid-losses",
         "scan-for-money-loop"
@@ -863,6 +906,9 @@
     },
     {
       "id": "sdk-launch-discovery-gap",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
       "title": "Launching tokens through an SDK instead of the web UI, and losing every discovery hook",
       "description": "Batch-launching tokens programmatically worked and cost pennies, but SDK-deployed tokens never appeared in the trending feed the web UI populates, so nobody ever saw them.",
       "category": "crypto-onchain",
@@ -918,7 +964,7 @@
       "path": "/ideas/crypto-onchain/sdk-launch-discovery-gap/",
       "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/sdk-launch-discovery-gap/",
       "repo_path": "ideas/crypto-onchain/sdk-launch-discovery-gap",
-      "updated": "2026-05-01T00:00:00Z",
+      "updated": null,
       "related_all": [
         "deploy-time-metadata-window",
         "fee-claim-needs-trading-first",
@@ -928,6 +974,9 @@
     },
     {
       "id": "scan-for-money-loop",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
       "title": "We re-derived the same dead strategy across many sessions without noticing",
       "description": "An on-chain search strategy failed, and we kept coming back to it because each new session started without any record that the last one had already tried it.",
       "category": "experiments",
@@ -984,7 +1033,7 @@
       "path": "/ideas/experiments/scan-for-money-loop/",
       "url": "https://ideas.broke2builtai.com/ideas/experiments/scan-for-money-loop/",
       "repo_path": "ideas/experiments/scan-for-money-loop",
-      "updated": "2026-07-01T00:00:00Z",
+      "updated": null,
       "related_all": [
         "forty-three-services-no-customers",
         "retail-arbitrage-is-closed"
@@ -992,6 +1041,9 @@
     },
     {
       "id": "secrets-committed-to-source",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
       "title": "An audit of our own app found hardcoded credentials that every prior read had missed",
       "description": "A multi-agent security pass over one of our shipped web apps found hardcoded credentials, an unauthenticated privileged endpoint, and a scheduled job that failed open.",
       "category": "security-audit",
@@ -1055,6 +1107,9 @@
     },
     {
       "id": "self-reported-rewards-vs-balance",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
       "title": "A protocol reported claimable rewards that did not exist when claimed",
       "description": "A contract's view function showed a pending reward balance. Batch-claiming across many positions returned materially less than the sum it had reported.",
       "category": "security-audit",
@@ -1111,7 +1166,7 @@
       "path": "/ideas/security-audit/self-reported-rewards-vs-balance/",
       "url": "https://ideas.broke2builtai.com/ideas/security-audit/self-reported-rewards-vs-balance/",
       "repo_path": "ideas/security-audit/self-reported-rewards-vs-balance",
-      "updated": "2026-05-01T00:00:00Z",
+      "updated": null,
       "related_all": [
         "autotrader-journal-hid-losses",
         "fee-claim-needs-trading-first",
@@ -1121,6 +1176,9 @@
     },
     {
       "id": "synthetic-pool-chart-spoof",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
       "title": "A liquidity pool that showed a price chart and held no liquidity",
       "description": "A price aggregator displayed a pool with a chart and a market. On chain there was no liquidity position to withdraw and never had been.",
       "category": "security-audit",
@@ -1177,13 +1235,16 @@
       "path": "/ideas/security-audit/synthetic-pool-chart-spoof/",
       "url": "https://ideas.broke2builtai.com/ideas/security-audit/synthetic-pool-chart-spoof/",
       "repo_path": "ideas/security-audit/synthetic-pool-chart-spoof",
-      "updated": "2026-06-01T00:00:00Z",
+      "updated": null,
       "related_all": [
         "self-reported-rewards-vs-balance"
       ]
     },
     {
       "id": "concurrent-nonce-collision",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
       "title": "Why a wallet script kept failing when a live backend shared the same key",
       "description": "A consolidation script read the wallet nonce once and built its transactions from it, while a production backend was signing from the same key, so half the sends collided and vanished.",
       "category": "tooling-infra",
@@ -1238,13 +1299,16 @@
       "path": "/ideas/tooling-infra/concurrent-nonce-collision/",
       "url": "https://ideas.broke2builtai.com/ideas/tooling-infra/concurrent-nonce-collision/",
       "repo_path": "ideas/tooling-infra/concurrent-nonce-collision",
-      "updated": "2026-05-01T00:00:00Z",
+      "updated": null,
       "related_all": [
         "multicall-batch-reads"
       ]
     },
     {
       "id": "hardcoded-event-topic-hash",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
       "title": "A single mistyped event hash made every scanner return zero results for weeks",
       "description": "Every token scanner we wrote reported nothing found. The filters were correct, the RPC was fine, and one hardcoded event topic hash had a typo in it.",
       "category": "tooling-infra",
@@ -1300,7 +1364,7 @@
       "path": "/ideas/tooling-infra/hardcoded-event-topic-hash/",
       "url": "https://ideas.broke2builtai.com/ideas/tooling-infra/hardcoded-event-topic-hash/",
       "repo_path": "ideas/tooling-infra/hardcoded-event-topic-hash",
-      "updated": "2026-02-01T00:00:00Z",
+      "updated": null,
       "related_all": [
         "autotrader-journal-hid-losses",
         "deploy-time-metadata-window",
@@ -1309,6 +1373,9 @@
     },
     {
       "id": "multicall-batch-reads",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
       "title": "Reading thousands of contract values through Multicall3 instead of a block explorer API",
       "description": "Replacing per-token explorer API calls with batched Multicall3 aggregates against a public RPC made bulk on-chain reads roughly two orders of magnitude faster and removed the API key.",
       "category": "tooling-infra",
@@ -1364,7 +1431,7 @@
       "path": "/ideas/tooling-infra/multicall-batch-reads/",
       "url": "https://ideas.broke2builtai.com/ideas/tooling-infra/multicall-batch-reads/",
       "repo_path": "ideas/tooling-infra/multicall-batch-reads",
-      "updated": "2026-04-01T00:00:00Z",
+      "updated": null,
       "related_all": [
         "concurrent-nonce-collision",
         "sdk-launch-discovery-gap"
@@ -1372,6 +1439,9 @@
     },
     {
       "id": "forty-three-services-no-customers",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
       "title": "We built forty-three paid micro-services and never found a single customer",
       "description": "Thirty-five working paid endpoints, eight broken, zero external buyers. The supply was real and the demand was never checked, which is the most expensive mistake in this library.",
       "category": "web-saas",
@@ -1431,7 +1501,7 @@
       "path": "/ideas/web-saas/forty-three-services-no-customers/",
       "url": "https://ideas.broke2builtai.com/ideas/web-saas/forty-three-services-no-customers/",
       "repo_path": "ideas/web-saas/forty-three-services-no-customers",
-      "updated": "2026-04-01T00:00:00Z",
+      "updated": null,
       "related_all": [
         "fee-claim-needs-trading-first",
         "five-hundred-tokens-zero-volume",

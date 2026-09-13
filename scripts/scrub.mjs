@@ -18,6 +18,7 @@
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, relative, sep, extname, basename, isAbsolute } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { execFileSync } from 'node:child_process';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const argv = process.argv.slice(2);
@@ -34,14 +35,13 @@ const BINARY_EXT = new Set([
   '.otf', '.eot', '.mp4', '.mov', '.webm', '.mp3', '.wav', '.exe', '.dll',
   '.so', '.dylib', '.wasm', '.node', '.lnk',
 ]);
-const MAX_BYTES = 2 * 1024 * 1024;
 
 // Path-level exemptions are kept as small as possible. This file is deliberately NOT
 // one of them: an audit pointed out that scrub.mjs is the single file a developer is
 // most likely to paste a real key into — while tuning a regex to confirm it matches —
-// and a blanket path exemption meant the gate would never read it. Only the pattern
-// table below is skipped, via a pair of region sentinels, so every other
-// line of this file is scanned like any other.
+// and a blanket path exemption meant the gate would never read it. The pattern
+// table and every other line of this script are scanned normally; comments cannot
+// turn off the scanner.
 //
 // The three that remain are exempt because their entire purpose is to hold the
 // literals the gate matches on, and each is small enough to review by eye:
@@ -58,8 +58,6 @@ const SELF_EXEMPT = new Set([
 // ---------------------------------------------------------------------------
 // Class A — generic secret patterns.
 // ---------------------------------------------------------------------------
-/* scrub-ignore-begin — the pattern table itself. Everything OUTSIDE this block,
-   including anything you paste in below it while testing, IS scanned. */
 const PATTERNS = [
   { id: 'private-key-hex', severity: 'critical',
     why: 'looks like a 64-hex private key',
@@ -126,7 +124,6 @@ const PATTERNS = [
     why: 'looks like a street address',
     re: /\b\d{1,5}\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*\s+(?:St|Street|Ave|Avenue|Rd|Road|Blvd|Dr|Drive|Ln|Lane|Ct|Court|Way|Pl|Place)\b\.?/g },
 ];
-/* scrub-ignore-end */
 
 // ---------------------------------------------------------------------------
 // Class C — wallet addresses are DEFAULT-DENY.
@@ -205,6 +202,22 @@ function isBinary(file) {
 
 const findings = [];
 
+// Gitignored intake and local policy files must stay private even after git add -f.
+// Content exclusions never authorize publishing one of these paths.
+if (!TARGETS.length) {
+  let tracked = [];
+  try {
+    tracked = execFileSync('git', ['ls-files', '-z'], { cwd: ROOT, stdio: ['ignore', 'pipe', 'ignore'] }).toString().split('\0').filter(Boolean);
+  } catch { /* Standalone scrub fixtures do not need a git repository. */ }
+  for (const path of tracked) {
+    const base = basename(path).toLowerCase();
+    if (path.startsWith('_inbox/') || path === 'scripts/denylist.local.json' ||
+        (base !== '.env.example' && (base === '.env' || base.startsWith('.env.') || base.endsWith('.env')))) {
+      report(join(ROOT, path), 1, 1, { id: 'private-tracked-path', severity: 'critical', why: 'Private intake or local configuration is tracked by Git; remove it from the index' }, 'private-file');
+    }
+  }
+}
+
 function report(file, line, col, rule, match) {
   findings.push({
     file: relative(ROOT, file).split(sep).join('/'),
@@ -235,20 +248,16 @@ function scanFile(file) {
   }
   if (isBinary(file)) return;
 
-  let size = 0;
-  try { size = statSync(file).size; } catch { return; }
-  if (size > MAX_BYTES) return;
-
   let text;
-  try { text = readFileSync(file, 'utf8'); } catch { return; }
-  if (text.includes(String.fromCharCode(0))) return; // binary we did not know about
+  try { text = readFileSync(file, 'utf8'); } catch {
+    report(file, 1, 1, { id: 'unreadable-file', severity: 'critical', why: 'Cannot scan a readable-text candidate' }, 'unreadable');
+    return;
+  }
 
   const lines = text.split(/\r?\n/);
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    if (line.length > 5000) continue;
-    if (/scrub-ignore-line/.test(line)) continue;
 
     for (const rule of PATTERNS) {
       rule.re.lastIndex = 0;
@@ -324,7 +333,7 @@ if (FLAGS.has('--json')) {
       console.log(`           sample: ${f.sample}`);
     }
     console.log('\nNothing moves while this is red. Redact, then re-scan — never delete the key and keep the file unscanned.');
-    console.log('False positive? Add `scrub-ignore-line` to that line, or allowlist the address in data/public-addresses.allow.json.');
+    console.log('False positive? Correct the matching rule with a regression test, or review the public address allowlist. Inline exclusion markers do not disable scanning.');
   }
 }
 

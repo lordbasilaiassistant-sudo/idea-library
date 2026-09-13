@@ -24,18 +24,17 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: '20' }
 
-      # Class B (our own PII literals) lives in a repo secret and is never committed.
-      # scrub.mjs FAILS in CI when no denylist is loaded — Class B silently off is
-      # exactly how this gate would rot.
+      # Public denylist is mandatory everywhere. Private literals are optional and
+      # never exposed to pull-request code (including same-repository PRs).
       - name: Materialise denylist
+        if: github.event_name != 'pull_request'
         env:
           DENYLIST: ${{ secrets.SCRUB_DENYLIST_JSON }}
         run: |
           if [ -n "$DENYLIST" ]; then
             printf '%s' "$DENYLIST" > /tmp/denylist.json
           else
-            echo "::error::SCRUB_DENYLIST_JSON secret is not set — Class B PII checks would be off."
-            exit 1
+            echo "Private literals unavailable; mandatory public denylist and pattern gates remain active."
           fi
 
       - name: scrub
@@ -78,11 +77,10 @@ jobs:
         with: { fetch-depth: 0 }
       - uses: actions/setup-node@v4
         with: { node-version: '20' }
-      - run: node scripts/build.mjs
-      - run: node scripts/scoreboard.mjs
+      - run: npm run check
       - name: Assert no drift
         run: |
-          if ! git diff --quiet; then
+          if [ -n "$(git status --porcelain --untracked-files=all)" ]; then
             echo "::error::Generated files are stale. Run \`npm run build\` and commit the result."
             git --no-pager diff --stat
             exit 1
@@ -115,15 +113,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Reject large files
-        run: |
-          big=$(find . -path ./.git -prune -o -type f -size +2M -print)
-          if [ -n "$big" ]; then
-            echo "::error::Files over 2MB are not accepted. This is a library of text, not an asset host."
-            echo "$big"
-            exit 1
-          fi
-          echo "no oversized files"
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: node scripts/size.mjs
 
   codeql:
     name: codeql (only when code/ changes)

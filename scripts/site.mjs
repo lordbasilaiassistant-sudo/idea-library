@@ -12,11 +12,23 @@
  * that did not exist. If a URL is generated, something must answer it.
  */
 
-import { copyFileSync, mkdirSync, existsSync, readdirSync, writeFileSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { copyFileSync, mkdirSync, existsSync, readdirSync, writeFileSync, readFileSync, unlinkSync, cpSync } from 'node:fs';
+import { join, resolve } from 'node:path';
 import { ROOT, loadIdeas, loadTaxonomy, readJSON } from './lib/ideas.mjs';
 
 const OUT = join(ROOT, 'site', 'dist');
+if (resolve(OUT) !== resolve(ROOT, 'site', 'dist')) throw new Error('Unexpected site output directory');
+// Empty generated files without deleting OneDrive's directory handles.
+function clearOutput(dir) {
+  if (!existsSync(dir)) return;
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    if (entry.isSymbolicLink()) throw new Error('Symlinks are not allowed in site output');
+    const path = join(dir, entry.name);
+    if (entry.isDirectory()) clearOutput(path);
+    else unlinkSync(path);
+  }
+}
+clearOutput(OUT);
 mkdirSync(OUT, { recursive: true });
 
 const site = readJSON('data/site.json');
@@ -25,6 +37,7 @@ const HAS_SITE = typeof SITE === 'string' && SITE.startsWith('https://');
 const BASE = HAS_SITE ? SITE : '';
 const tax = loadTaxonomy();
 const ideas = loadIdeas().filter((i) => !i._error);
+const ideasById = new Map(ideas.map(i => [i.id, i]));
 
 /* ---------------------------------------------------------------- statics */
 // `_headers` has no extension but must ship: it is what gives HTML a short edge cache,
@@ -35,6 +48,10 @@ const dataFiles = ['index.json', 'llms.txt', 'llms-full.txt', 'sitemap.xml', 'ro
 
 for (const f of staticFiles) copyFileSync(join(ROOT, 'site', f), join(OUT, f));
 for (const f of dataFiles) if (existsSync(join(ROOT, f))) copyFileSync(join(ROOT, f), join(OUT, f));
+cpSync(join(ROOT, 'catalog'), join(OUT, 'catalog'), { recursive: true });
+for (const f of ['AGENTS.md', 'CONTRIBUTING.md', 'LESSONS.md', 'FAILURES.md', 'WORKED.md', 'OPEN-QUESTIONS.md', 'STATUS.md']) copyFileSync(join(ROOT, f), join(OUT, f));
+mkdirSync(join(OUT, 'docs'), { recursive: true });
+for (const f of ['ORGANIZATION.md', 'EVIDENCE.md']) copyFileSync(join(ROOT, 'docs', f), join(OUT, 'docs', f));
 copyFileSync(join(ROOT, 'data', 'scoreboard.json'), join(OUT, 'scoreboard.json'));
 
 /* ------------------------------------------------------- tiny md renderer */
@@ -103,8 +120,7 @@ function ideaPage(i) {
     abstract: i.description,
     articleSection: cat?.label ?? i.category,
     keywords: (i.tags ?? []).join(', '),
-    datePublished: i.started ?? undefined,
-    dateModified: i.ended ?? i.started ?? undefined,
+    dateModified: i.reviewed ?? undefined,
     url,
     isPartOf: { '@type': 'Collection', name: 'idea-library', url: BASE || site.repo },
     author: { '@type': 'Organization', name: 'Broke to Built' },
@@ -132,7 +148,7 @@ function ideaPage(i) {
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/style.css">
 <link rel="stylesheet" href="/idea.css">
-<script type="application/ld+json">${JSON.stringify(ld)}</script>
+<script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>
 </head>
 <body class="idea-page">
 <div class="grain" aria-hidden="true"></div>
@@ -179,6 +195,12 @@ function ideaPage(i) {
   </section>` : ''}
 
   <section class="body">${markdown(i._body || '')}</section>
+  <section class="meta"><h2>Evidence and sources</h2>
+    <p>Last reviewed: ${esc(i.reviewed || 'not recorded')}. Experiment dates above are historical.</p>
+    <ul>${(i.evidence || []).map(p => `<li><a href="${site.repo}/blob/main/${i.dir}/${p.split('/').map(encodeURIComponent).join('/')}">${esc(p)}</a></li>`).join('')}
+    ${Object.entries(i.links || {}).map(([label, url]) => `<li><a href="${esc(url)}">${esc(label)}</a></li>`).join('')}</ul>
+    ${!i.evidence?.length ? '<p>No attached measurement files. Treat the confidence label as the author’s assessment.</p>' : ''}
+  </section>
 
   <section class="meta">
     <h2>Tags</h2>
@@ -193,7 +215,7 @@ function ideaPage(i) {
   ${(i.related ?? []).length ? `<section class="related">
     <h2>Related</h2>
     <ul>${i.related.map((r) => {
-      const o = ideas.find((x) => x.id === r);
+      const o = ideasById.get(r);
       return o ? `<li><a href="/ideas/${o.category}/${o.id}/">${esc(o.title)}</a> <span class="tag">${esc(o.outcome)}</span></li>` : '';
     }).join('')}</ul>
   </section>` : ''}
@@ -218,17 +240,21 @@ for (const i of ideas) {
 }
 
 /* category index pages, because /ideas/<cat>/ is in the sitemap */
-for (const cat of tax.categories) {
-  const rows = ideas.filter((i) => i.category === cat.id);
+for (const cat of [{ id: null, label: 'All experiments', definition: 'Browse the recorded experiments, outcomes, and causes.' }, ...tax.categories]) {
+  const rows = cat.id ? ideas.filter((i) => i.category === cat.id) : ideas;
   if (!rows.length) continue;
-  const dir = join(OUT, 'ideas', cat.id);
+  for (let start = 0; start < rows.length; start += 100) {
+  const page = start / 100 + 1;
+  const basePath = cat.id ? `/ideas/${cat.id}/` : '/browse/';
+  const path = page === 1 ? basePath : `${basePath}page/${page}/`;
+  const dir = join(OUT, path);
   mkdirSync(dir, { recursive: true });
   writeFileSync(join(dir, 'index.html'), `<!doctype html>
 <html lang="en" data-theme="dark"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(cat.label)} — idea-library</title>
+<title>${esc(cat.label)} — page ${page} — idea-library</title>
 <meta name="description" content="${esc(cat.definition)}">
-<link rel="canonical" href="${BASE}/ideas/${cat.id}/">
+<link rel="canonical" href="${BASE}${path}">
 <link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/idea.css">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head><body class="idea-page">
@@ -239,11 +265,13 @@ for (const cat of tax.categories) {
 <h1>${esc(cat.label)}</h1>
 <p class="verdict-lead" style="--oc:#e8c547">${esc(cat.definition)}</p>
 <section class="related"><h2>${rows.length} idea${rows.length === 1 ? '' : 's'}</h2><ul>
-${rows.map((i) => `<li><a href="/ideas/${i.category}/${i.id}/">${esc(i.title)}</a> <span class="tag">${esc(i.outcome)}</span><br><span class="oc-def">${esc(i.verdict || i.description)}</span></li>`).join('')}
+${rows.slice(start, start + 100).map((i) => `<li><a href="/ideas/${i.category}/${i.id}/">${esc(i.title)}</a> <span class="tag">${esc(i.outcome)}</span><br><span class="oc-def">${esc(i.verdict || i.description)}</span></li>`).join('')}
 </ul></section>
+<nav aria-label="Catalog pages">${page > 1 ? `<a href="${page === 2 ? basePath : `${basePath}page/${page - 1}/`}">Previous</a> · ` : ''}Page ${page} of ${Math.ceil(rows.length / 100)}${start + 100 < rows.length ? ` · <a href="${basePath}page/${page + 1}/">Next</a>` : ''}</nav>
 </article></body></html>
 `, 'utf8');
   pages++;
+  }
 }
 
 /* favicon as a real file so idea pages can reference it */

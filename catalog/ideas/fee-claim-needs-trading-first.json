@@ -1,0 +1,67 @@
+{
+  "id": "fee-claim-needs-trading-first",
+  "aliases": [],
+  "projects": [],
+  "reviewed": null,
+  "title": "A permissionless fee claim that pays nothing because no one has traded",
+  "description": "The fee collection function was open to any caller and needed no API key, which felt like a found revenue rail until we noticed fees only exist once other people trade the token.",
+  "category": "crypto-onchain",
+  "outcome": "inconclusive",
+  "verdict": "Fee collection really is permissionless and keyless, but it is gated on trading volume that we had no mechanism to create, so the open door led to an empty room.",
+  "what_would_settle_it": "Launch a token where volume comes from genuine third-party traders, then claim. Until the same claim path is exercised against real outside trading, we have tested the plumbing and not the revenue.",
+  "confidence": "medium",
+  "started": "2026-04",
+  "ended": null,
+  "effort": "weeks",
+  "cost_usd": null,
+  "revenue_usd": 0,
+  "stack": [
+    "node",
+    "viem",
+    "base"
+  ],
+  "tags": [
+    "token-launch",
+    "trading",
+    "cold-start",
+    "distribution-gap",
+    "deployed"
+  ],
+  "tags_by_axis": {
+    "domain": [
+      "token-launch",
+      "trading"
+    ],
+    "mechanic": [
+      "cold-start",
+      "distribution-gap"
+    ],
+    "stage": [
+      "deployed"
+    ]
+  },
+  "lessons": [
+    "A permissionless fee-collection function is a claim mechanism, not a revenue source; the revenue is the trading that produced the fees, and that is a different problem entirely.",
+    "Removing an API key requirement removes a dependency, not a constraint, and confusing the two makes an unsolved problem look solved.",
+    "When something is permissionless, find out what it is gated on instead, because access and availability are different constraints and the binding one rarely has a login form."
+  ],
+  "reusable": [],
+  "evidence": [],
+  "related": [
+    "deploy-time-metadata-window",
+    "sdk-launch-discovery-gap"
+  ],
+  "supersedes": [],
+  "source": "project-registry",
+  "links": {},
+  "path": "/ideas/crypto-onchain/fee-claim-needs-trading-first/",
+  "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/fee-claim-needs-trading-first/",
+  "repo_path": "ideas/crypto-onchain/fee-claim-needs-trading-first",
+  "updated": null,
+  "related_all": [
+    "deploy-time-metadata-window",
+    "forty-three-services-no-customers",
+    "sdk-launch-discovery-gap",
+    "self-reported-rewards-vs-balance"
+  ]
+}

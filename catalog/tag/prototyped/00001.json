@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "ideas": [
+    {
+      "id": "scan-for-money-loop",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "We re-derived the same dead strategy across many sessions without noticing",
+      "description": "An on-chain search strategy failed, and we kept coming back to it because each new session started without any record that the last one had already tried it.",
+      "category": "experiments",
+      "outcome": "abandoned",
+      "verdict": "The strategy was dead after the first honest attempt, but nothing recorded that verdict where the next session would read it, so the same ground was re-excavated until a human intervened.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-04",
+      "ended": "2026-07",
+      "effort": "months",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base"
+      ],
+      "tags": [
+        "onchain-data",
+        "agent-harness",
+        "wrong-abstraction",
+        "maintenance-cost",
+        "prototyped"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "onchain-data",
+          "agent-harness"
+        ],
+        "mechanic": [
+          "wrong-abstraction",
+          "maintenance-cost"
+        ],
+        "stage": [
+          "prototyped"
+        ]
+      },
+      "lessons": [
+        "A strategy that failed is only abandoned if the verdict is written somewhere the next attempt will read before starting, otherwise a fresh session will rediscover the idea and find it appealing for the same reasons it originally did.",
+        "Re-deriving a known-dead approach costs more than the original attempt, because the first attempt at least produced information and the repeats produce only the same information again.",
+        "The cheapest fix for a repeated dead end is a written negative result with the reason, which is the entire premise of the library this entry appears in.",
+        "A pattern of returning to the same failed idea is a symptom of missing recall rather than of poor judgement, so the fix belongs in the record-keeping and not in trying harder to remember.",
+        "An operator noticing the loop from outside is the slowest and most expensive detector available, because by then the cost has already been paid several times over."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "forty-three-services-no-customers",
+        "retail-arbitrage-is-closed"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/experiments/scan-for-money-loop/",
+      "url": "https://ideas.broke2builtai.com/ideas/experiments/scan-for-money-loop/",
+      "repo_path": "ideas/experiments/scan-for-money-loop",
+      "updated": null,
+      "related_all": [
+        "forty-three-services-no-customers",
+        "retail-arbitrage-is-closed"
+      ]
+    }
+  ]
+}

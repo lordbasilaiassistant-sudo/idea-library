@@ -1,0 +1,206 @@
+{
+  "schema_version": 1,
+  "ideas": [
+    {
+      "id": "secrets-committed-to-source",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "An audit of our own app found hardcoded credentials that every prior read had missed",
+      "description": "A multi-agent security pass over one of our shipped web apps found hardcoded credentials, an unauthenticated privileged endpoint, and a scheduled job that failed open.",
+      "category": "security-audit",
+      "outcome": "shipped",
+      "verdict": "The findings were only surfaced because we ran a deliberate audit, which means the same class of mistake had been shipping unnoticed for as long as the app had existed.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": null,
+      "ended": null,
+      "effort": "days",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "web-app",
+        "database",
+        "smart-contracts"
+      ],
+      "tags": [
+        "smart-contracts",
+        "api-integration",
+        "verification-gap",
+        "worked-as-designed",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "smart-contracts",
+          "api-integration"
+        ],
+        "mechanic": [
+          "verification-gap",
+          "worked-as-designed"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Hardcoded credentials survive in a codebase because nothing routine ever looks for them; every commit hook, test and code review we had passed them without comment.",
+        "A scheduled job that fails open turns an outage in one dependency into an authorisation bypass, so cron and webhook handlers should deny by default when a check cannot complete.",
+        "An endpoint that triggers a privileged action needs authentication even when it is undocumented, because obscurity of a route is not a control over it.",
+        "Error handlers that return the raw exception message leak schema names, file paths and query fragments to anyone who can provoke a failure.",
+        "A payment or claim flow needs a database-level uniqueness constraint rather than an application-level check, because two concurrent requests will both pass the check before either writes.",
+        "Removing a credential from the current code does not remove it from version history, so a leaked secret has to be rotated, not just deleted."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "autotrader-journal-hid-losses"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/security-audit/secrets-committed-to-source/",
+      "url": "https://ideas.broke2builtai.com/ideas/security-audit/secrets-committed-to-source/",
+      "repo_path": "ideas/security-audit/secrets-committed-to-source",
+      "updated": null,
+      "related_all": [
+        "autotrader-journal-hid-losses"
+      ]
+    },
+    {
+      "id": "self-reported-rewards-vs-balance",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "A protocol reported claimable rewards that did not exist when claimed",
+      "description": "A contract's view function showed a pending reward balance. Batch-claiming across many positions returned materially less than the sum it had reported.",
+      "category": "security-audit",
+      "outcome": "shipped",
+      "verdict": "The reported figure was an estimate computed under assumptions that no longer held at claim time, so trusting it and batching on top of it spent gas on claims that returned nothing.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-05",
+      "ended": "2026-05",
+      "effort": "hours",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base"
+      ],
+      "tags": [
+        "smart-contracts",
+        "onchain-data",
+        "verification-gap",
+        "silent-failure",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "smart-contracts",
+          "onchain-data"
+        ],
+        "mechanic": [
+          "verification-gap",
+          "silent-failure"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "A view function reporting a pending or claimable amount is that contract's estimate under its own assumptions, and it is not a promise that the amount will arrive when claimed.",
+        "Measure the actual balance delta across a claim - balance before, claim, balance after - and treat that difference as the only real number, especially before repeating the operation across many positions.",
+        "Batching amplifies a wrong assumption instead of revealing it: fifty claims built on one bad estimate cost fifty times the gas and produce the same nothing.",
+        "Simulate one claim and assert a positive balance delta before batching, because the cost of that single check is one transaction and the cost of skipping it scales with the batch."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "autotrader-journal-hid-losses",
+        "hardcoded-event-topic-hash",
+        "fee-claim-needs-trading-first"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/security-audit/self-reported-rewards-vs-balance/",
+      "url": "https://ideas.broke2builtai.com/ideas/security-audit/self-reported-rewards-vs-balance/",
+      "repo_path": "ideas/security-audit/self-reported-rewards-vs-balance",
+      "updated": null,
+      "related_all": [
+        "autotrader-journal-hid-losses",
+        "fee-claim-needs-trading-first",
+        "hardcoded-event-topic-hash",
+        "synthetic-pool-chart-spoof"
+      ]
+    },
+    {
+      "id": "synthetic-pool-chart-spoof",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "A liquidity pool that showed a price chart and held no liquidity",
+      "description": "A price aggregator displayed a pool with a chart and a market. On chain there was no liquidity position to withdraw and never had been.",
+      "category": "security-audit",
+      "outcome": "shipped",
+      "verdict": "The pool existed as a contract producing chart-shaped data without holding reserves, so the aggregator rendered a market that had nothing behind it.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-06",
+      "ended": "2026-06",
+      "effort": "hours",
+      "cost_usd": 0,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base"
+      ],
+      "tags": [
+        "onchain-data",
+        "smart-contracts",
+        "trading",
+        "verification-gap",
+        "worked-as-designed",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "onchain-data",
+          "smart-contracts",
+          "trading"
+        ],
+        "mechanic": [
+          "verification-gap",
+          "worked-as-designed"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "A price chart on an aggregator proves that something emitted events in the shape of trades, not that a pool holds reserves you could trade against.",
+        "Verify a pool by reading its reserves and its token balances directly from the contract, because a chart is rendered from events and events can be produced without any backing value.",
+        "Displayed liquidity and withdrawable liquidity are different quantities, and only the second one is yours.",
+        "Read the pool contract's own state before planning any action that depends on a position existing, including the action of simply withdrawing what you believe you own."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "self-reported-rewards-vs-balance"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/security-audit/synthetic-pool-chart-spoof/",
+      "url": "https://ideas.broke2builtai.com/ideas/security-audit/synthetic-pool-chart-spoof/",
+      "repo_path": "ideas/security-audit/synthetic-pool-chart-spoof",
+      "updated": null,
+      "related_all": [
+        "self-reported-rewards-vs-balance"
+      ]
+    }
+  ]
+}

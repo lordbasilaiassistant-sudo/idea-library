@@ -5,23 +5,24 @@ contract, and it applies identically whatever you are running on — Claude, GPT
 GLM, Llama, or something that does not exist yet. There is no privileged path and no vendor-specific
 path. `CLAUDE.md`, `.github/copilot-instructions.md` and `.cursor/rules/` all point here.
 
-**Everything this file asks for is machine-checked by `npm run check`.** If you follow this document,
-CI will pass. If CI fails on something this document did not tell you, that is our bug — open an
-issue.
+**`npm run check` enforces structure, vocabulary, privacy patterns, and generated-file consistency.**
+Reviewers assess truth, causality, licensing, and independence; passing a script cannot prove them.
+If a structural check fails on a rule this document did not tell you, that is our bug — open an issue.
 
 ---
 
 ## 1. Read this first
 
 ```
-GET https://raw.githubusercontent.com/lordbasilaiassistant-sudo/idea-library/main/index.json
+GET https://raw.githubusercontent.com/lordbasilaiassistant-sudo/idea-library/main/catalog/manifest.json
 ```
 
-That is the entire catalog — every idea, verdict, lesson, tag, and cross-reference — in one fetch.
-**Do not crawl the file tree.** `llms.txt` is a smaller map; `llms-full.txt` is every idea inlined if
-you want the whole corpus in one context window.
+Select category, outcome, tag, or project shards from that manifest (at most 100 entries per page).
+**Do not crawl the file tree.** `index.json` is the complete bulk export; `llms.txt` is an entry map.
+`llms-full.txt` is the optional inlined corpus. Read [docs/ORGANIZATION.md](docs/ORGANIZATION.md)
+before classifying or importing: a project is a source, while an idea is one testable question.
 
-Check `index.json` before you write anything. If your idea already exists, the useful contribution is
+Check the relevant catalog shards or full `index.json` before you write anything. If your idea already exists, the useful contribution is
 an *update* to that idea — new evidence, a corrected outcome — not a second copy of it.
 
 ## 2. What counts as a contribution
@@ -95,8 +96,8 @@ Starting a lesson with `it` / `this` / `they` / `that` / `there` is a hard error
 prose, never a range, never a remembered figure. If you did not measure it, write `null`. A blank is
 more useful than a confident guess, and it is the difference between a library and a blog.
 
-`outcome: revenue` requires `revenue_usd > 0` from a verified, non-founder payer. Otherwise it is
-`shipped`.
+`outcome: revenue` requires `revenue_usd > 0` from a verified, non-founder payer. Without that
+evidence, choose the non-revenue outcome supported by observations; missing revenue does not prove usage.
 
 **Tags come from the controlled vocabulary.** Unknown tags fail with a suggestion. Adding a term is a
 normal, welcome PR against `data/taxonomy.json` — include a one-line definition. The **mechanic** tag
@@ -114,6 +115,20 @@ locally, on pre-commit, and in CI.
 from somewhere else — you are responsible for what is inside it.
 
 ## 5. Before you commit
+
+Optional `projects` is a list of public kebab-case project identifiers from `data/projects.json`; `aliases` is a list of
+public names/search terms. `reviewed` is a real YYYY-MM-DD review date or null. Evidence files
+must be non-empty and under `evidence/`; reusable files must be under `code/`. Revenue entries
+require a dated payment observation. Numbers must be finite and nonnegative. List fields contain
+unique strings. The six level-two sections appear exactly once, in order; use level-three headings
+for subsections. Taxonomy IDs are unique kebab-case values and aliases resolve directly to tags.
+Links must be valid HTTPS URLs without embedded credentials. Unfinished TODO/import-note blocks
+cannot appear in published bodies. Project records accept only id, label, aliases, and links;
+public identities cannot collide. Raw intake and the private denylist cannot be tracked even by
+forcing Git to add them. Inline scanner exclusion markers do not disable security checks.
+
+Private intake commands and review states are documented in [docs/ORGANIZATION.md](docs/ORGANIZATION.md).
+Do not publish the inventory. Similarity is a review suggestion, never proof of duplication.
 
 ```bash
 npm run check

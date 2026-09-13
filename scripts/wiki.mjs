@@ -15,7 +15,7 @@
  * comes from.
  */
 
-import { writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { writeFileSync, mkdirSync, existsSync, readFileSync, readdirSync, unlinkSync } from 'node:fs';
 import { join } from 'node:path';
 import { ROOT, loadIdeas, loadTaxonomy, loadSources, readJSON } from './lib/ideas.mjs';
 
@@ -25,11 +25,8 @@ for (let i = 0; i < argv.length; i++) {
   if (argv[i].startsWith('--')) args.set(argv[i].slice(2), argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[++i] : 'true');
 }
 
-const OUT = args.get('out');
-if (!OUT) {
-  console.error('usage: node scripts/wiki.mjs --out <path to cloned .wiki repo>');
-  process.exit(1);
-}
+const OUT = args.get('out') || join(ROOT, 'docs', 'wiki');
+if (!args.get('out')) mkdirSync(OUT, { recursive: true });
 if (!existsSync(OUT)) {
   console.error(`wiki: ${OUT} does not exist. Clone the wiki first:`);
   console.error('  git clone https://github.com/lordbasilaiassistant-sudo/idea-library.wiki.git');
@@ -72,6 +69,8 @@ page('Home', [
   '| [For AI Agents](For-AI-Agents) | The contribution contract, vendor-neutral |',
   '| [Bot Protocol](Bot-Protocol) | Rules for automated maintainers, automerge, and required checks |',
   '| [Excavation Status](Excavation-Status) | Which parts of our history have been mined, and which have not |',
+  '| [Organization](Organization) | Project versus idea, intake, evidence, deduplication, and maintenance |',
+  '| [Evidence](Evidence) | Reproducible observation and financial evidence checklist |',
   '',
   '## The three things that make an entry worth reading',
   '',
@@ -127,6 +126,8 @@ page('Idea-Schema', [
   '| `evidence` | Paths inside `evidence/`. Must exist and be non-empty |',
   '| `related` / `supersedes` | Ids of other ideas. Must resolve |',
   '| `links` | Map of label → `https://` URL. Public URLs only |',
+  '| `projects` / `aliases` | Public project IDs (kebab-case) and public former names/search terms |',
+  '| `reviewed` | Actual review date, YYYY-MM-DD, or null; never a generated timestamp |',
   '',
   '## Outcomes',
   '',
@@ -135,7 +136,7 @@ page('Idea-Schema', [
   ...tax.raw.outcomes.map((o) => `| \`${o.id}\` | ${o.definition} |`),
   '',
   '`outcome: revenue` additionally requires `revenue_usd > 0` from a verified, non-founder payer.',
-  'Otherwise it is `shipped`.',
+  'Without payment evidence, choose the non-revenue outcome supported by observations; do not infer usage.',
   '',
   '## The body',
   '',
@@ -249,10 +250,16 @@ page('Taxonomy', [
   for (const c of tax.categories) {
     const rows = ideas.filter((i) => i.category === c.id);
     if (!rows.length) continue;
-    lines.push(`## ${c.label}`, '', `*${c.definition}*`, '',
-      '| Idea | Outcome | Effort | Why |', '|---|---|---|---|');
-    for (const i of rows) {
-      lines.push(`| ${ideaLink(i)} | \`${i.outcome}\` | ${i.effort} | ${String(i.verdict).replace(/\|/g, '\\|')} |`);
+    lines.push(`## ${c.label}`, '', `*${c.definition}*`, '');
+    for (let n = 0; n < rows.length; n += 100) {
+      const name = `Catalog-${c.id}-${n / 100 + 1}`;
+      lines.push(`- [Page ${n / 100 + 1}](${name}) — ${Math.min(100, rows.length - n)} ideas`);
+      page(name, [`# ${c.label} — page ${n / 100 + 1}`, '', '[All categories](Catalog)', '',
+        ...(n > 0 ? [`[Previous](Catalog-${c.id}-${n / 100})`, ''] : []),
+        '| Idea | Outcome | Effort | Why |', '|---|---|---|---|',
+        ...rows.slice(n, n + 100).map(i => `| ${ideaLink(i)} | \`${i.outcome}\` | ${i.effort} | ${String(i.verdict || i.description).replace(/\|/g, '\\|')} |`), '',
+        ...(n + 100 < rows.length ? [`[Next](Catalog-${c.id}-${n / 100 + 2})`] : []),
+      ]);
     }
     lines.push('');
   }
@@ -309,8 +316,8 @@ page('Security-Model', [
   'per class, removes the file, and confirms the tree is clean afterwards. Any MISSED line is a hole',
   'and a bug worth reporting.',
   '',
-  'A gate nobody has watched fail is decoration. This one has been watched failing, including on its',
-  'own source: the scanner scans itself, and only its pattern table is exempt.',
+  'The scanner scans its own source too. Inline exclusion markers cannot disable the gate.',
+  'Binary artifacts still require manual review; a clean text scan is not a complete privacy review.',
   '',
   '## Importing private material',
   '',
@@ -342,11 +349,11 @@ page('For-AI-Agents', [
   '## Read this first',
   '',
   '```',
-  `GET ${REPO.replace('github.com', 'raw.githubusercontent.com')}/main/index.json`,
+  `GET ${REPO.replace('github.com', 'raw.githubusercontent.com')}/main/catalog/manifest.json`,
   '```',
   '',
-  'The entire catalog in one fetch. **Do not crawl the tree.** `llms.txt` is a smaller map;',
-  '`llms-full.txt` is every idea inlined for single-shot ingestion.',
+  'Choose the relevant category, outcome, tag, or project shards. Pages contain at most 100 records.',
+  '`index.json` and `llms-full.txt` remain full bulk exports; `llms.txt` is the entry map.',
   '',
   'Check it before writing anything. If your idea is already here, the useful contribution is an',
   'update with new evidence, not a second copy.',
@@ -414,7 +421,7 @@ page('Bot-Protocol', [
   '| `scrub` | No secrets, personal data, or un-allowlisted addresses — in the tree **or** the commit messages |',
   '| `validate` | Schema, vocabulary, quotable lessons, measured numbers |',
   '| `build-idempotent` | Generated files match their sources |',
-  '| `size` | No file over 2 MB — this is a library of text |',
+  '| `size` | Source files stay below 2 MiB; only named generated bulk exports are exempt |',
   '| `commitlint` | Conventional commit subjects |',
   '',
   '`links` and `codeql` also run. `links` is advisory on PRs, because a third party being down is',
@@ -465,7 +472,7 @@ page('Excavation-Status', [
   '|---|---|---|---|',
   ...sources.digs.map((d) => {
     const y = ideas.filter((i) => i.source === d.id).length;
-    const status = d.status === 'complete' ? 'complete' : d.status === 'open' ? 'open' : 'pending';
+    const status = d.status;
     return `| ${d.label} | ${status} | ${y} | ${d.detail} |`;
   }),
   '',
@@ -481,9 +488,13 @@ page('Excavation-Status', [
 
 // ---------------------------------------------------------------------------
 mkdirSync(OUT, { recursive: true });
+for (const [name, file] of [['Organization', 'ORGANIZATION.md'], ['Evidence', 'EVIDENCE.md']]) {
+  page(name, [readFileSync(join(ROOT, 'docs', file), 'utf8').replace(/\]\(EVIDENCE\.md\)/g, '](Evidence)')]);
+}
 const written = [];
 for (const [name, content] of Object.entries(pages)) {
-  writeFileSync(join(OUT, `${name}.md`), content.endsWith('\n') ? content : content + '\n', 'utf8');
+  const text = content.replace(/\]\(([A-Z][A-Za-z-]*(?:-\d+)?)\)/g, args.get('out') ? ']($1)' : ']($1.md)');
+  writeFileSync(join(OUT, `${name}.md`), text.endsWith('\n') ? text : text + '\n', 'utf8');
   written.push(`${name}.md`);
 }
 
@@ -499,6 +510,8 @@ writeFileSync(join(OUT, '_Sidebar.md'), [
   '**Reference**',
   '- [Idea Schema](Idea-Schema)',
   '- [Taxonomy](Taxonomy)',
+  '- [Organization](Organization)',
+  '- [Evidence](Evidence)',
   '- [Excavation Status](Excavation-Status)',
   '',
   '**Contributing**',
@@ -508,9 +521,14 @@ writeFileSync(join(OUT, '_Sidebar.md'), [
   '',
   `- [↩ repository](${REPO})`,
   '',
-].join('\n'), 'utf8');
+].join('\n').replace(/\]\(([A-Z][A-Za-z-]*(?:-\d+)?)\)/g, args.get('out') ? ']($1)' : ']($1.md)'), 'utf8');
 written.push('_Sidebar.md');
+for (const entry of readdirSync(OUT, { withFileTypes: true })) {
+  if (!entry.isFile() || !entry.name.endsWith('.md') || written.includes(entry.name)) continue;
+  const path = join(OUT, entry.name);
+  if (readFileSync(path, 'utf8').startsWith(BANNER)) unlinkSync(path);
+}
 
 console.log(`wiki: wrote ${written.length} page(s) to ${OUT}`);
 for (const w of written) console.log(`  + ${w}`);
-console.log('\nNext: commit and push from the wiki clone.');
+console.log(args.get('out') ? '\nNext: review, commit and push from the wiki clone.' : '\nWiki snapshot is part of the main repository checks.');

@@ -1,0 +1,1079 @@
+{
+  "schema_version": 1,
+  "ideas": [
+    {
+      "id": "autotrader-journal-hid-losses",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "An automated trading fleet that reported itself as roughly break-even while losing money",
+      "description": "The fleet's own journal was the only record of its performance, and an audit found it was accounting for about a third of the actual loss.",
+      "category": "ai-agents",
+      "outcome": "failed",
+      "verdict": "The fleet lost money and, by our own reconciliation, its self-reported journal captured only a fraction of that loss, because it recorded the events the code knew how to write down rather than the money that moved.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-05",
+      "ended": "2026-06",
+      "effort": "weeks",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base"
+      ],
+      "tags": [
+        "agent-harness",
+        "trading",
+        "verification-gap",
+        "silent-failure",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "agent-harness",
+          "trading"
+        ],
+        "mechanic": [
+          "verification-gap",
+          "silent-failure"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "An automated system's own log is a record of what its authors anticipated, so using it as the performance measurement means grading the system with a ruler it cut itself.",
+        "Reconcile an automated trader against wallet balance change over the period, because balance is the only number that cannot be shaped by a bug in the code that reports it.",
+        "Costs that arrive through paths the journal has no writer for - failed transactions, slippage, gas on reverts, dust left in intermediate tokens - are exactly the costs that go unrecorded.",
+        "A high request rate against several endpoints is concentration of activity rather than evidence of volume, and reading it as traction inverts what the number means."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "secrets-committed-to-source",
+        "never-funded-agent"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/ai-agents/autotrader-journal-hid-losses/",
+      "url": "https://ideas.broke2builtai.com/ideas/ai-agents/autotrader-journal-hid-losses/",
+      "repo_path": "ideas/ai-agents/autotrader-journal-hid-losses",
+      "updated": null,
+      "related_all": [
+        "hardcoded-event-topic-hash",
+        "never-funded-agent",
+        "retail-arbitrage-is-closed",
+        "secrets-committed-to-source",
+        "self-reported-rewards-vs-balance"
+      ]
+    },
+    {
+      "id": "circular-api-key-registration",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "A registration flow where you need the API key to retrieve the API key",
+      "description": "Registering an agent returned a key exactly once, every later command required that key, and re-registering the same wallet failed as already registered. Losing the key locked us out.",
+      "category": "automation-ops",
+      "outcome": "partial",
+      "verdict": "Every command including the one that shows your credentials required the key that registration returned once, so an unsaved key left the account permanently unreachable through the CLI.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-04",
+      "ended": "2026-04",
+      "effort": "hours",
+      "cost_usd": 0,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "cli",
+        "base"
+      ],
+      "tags": [
+        "api-integration",
+        "cli-tooling",
+        "token-launch",
+        "api-undocumented-behavior",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "api-integration",
+          "cli-tooling",
+          "token-launch"
+        ],
+        "mechanic": [
+          "api-undocumented-behavior"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Treat any credential a registration flow prints as unrecoverable and write it to storage in the same step that creates it, before doing anything else with the response.",
+        "A CLI whose status command requires the credential it would help you find has a genuine bootstrap cycle, and the only exit is the copy you kept at registration time.",
+        "Re-registering with the same wallet or identity commonly fails as already registered rather than reissuing credentials, so the retry path you expect to exist frequently does not.",
+        "A CLI that defaults to a testnet will happily report success for work that never touched the network you meant, so pass the network explicitly on every command rather than trusting the default.",
+        "Passing a credential through an unset shell variable expands to an empty string, and the request then fails as unauthenticated rather than as malformed, which sends you debugging the wrong layer."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "deploy-time-metadata-window"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/automation-ops/circular-api-key-registration/",
+      "url": "https://ideas.broke2builtai.com/ideas/automation-ops/circular-api-key-registration/",
+      "repo_path": "ideas/automation-ops/circular-api-key-registration",
+      "updated": null,
+      "related_all": [
+        "deploy-time-metadata-window"
+      ]
+    },
+    {
+      "id": "concurrent-nonce-collision",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "Why a wallet script kept failing when a live backend shared the same key",
+      "description": "A consolidation script read the wallet nonce once and built its transactions from it, while a production backend was signing from the same key, so half the sends collided and vanished.",
+      "category": "tooling-infra",
+      "outcome": "shipped",
+      "verdict": "Caching the nonce at startup is correct only for a key nobody else is using, and the fix was to refetch the pending nonce immediately before every single send.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-05",
+      "ended": "2026-05",
+      "effort": "hours",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base"
+      ],
+      "tags": [
+        "smart-contracts",
+        "onchain-data",
+        "silent-failure",
+        "wrong-abstraction",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "smart-contracts",
+          "onchain-data"
+        ],
+        "mechanic": [
+          "silent-failure",
+          "wrong-abstraction"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "A transaction nonce is shared mutable state belonging to the account, not to your script, so any key a live service also signs with makes a cached nonce wrong the moment you read it.",
+        "Refetch the pending nonce immediately before each send rather than incrementing a local counter, whenever there is any chance another process signs from the same key.",
+        "A replaced transaction fails in a way that looks like a network problem rather than a logic problem, which sends you debugging the RPC instead of the assumption.",
+        "An operational wallet used by a running backend should not also be the wallet your maintenance scripts sign from; the collision is a symptom of the key doing two jobs."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "multicall-batch-reads"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/tooling-infra/concurrent-nonce-collision/",
+      "url": "https://ideas.broke2builtai.com/ideas/tooling-infra/concurrent-nonce-collision/",
+      "repo_path": "ideas/tooling-infra/concurrent-nonce-collision",
+      "updated": null,
+      "related_all": [
+        "multicall-batch-reads"
+      ]
+    },
+    {
+      "id": "deploy-time-metadata-window",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "Why a token's image and description cannot be fixed after deployment",
+      "description": "Launchpad indexers snapshot a token's metadata once, at deploy time. Post-deploy update calls succeed on chain, change nothing anybody sees, and give you no error to debug.",
+      "category": "crypto-onchain",
+      "outcome": "failed",
+      "verdict": "Metadata update calls after deployment succeed on chain but are never re-indexed, so every token launched with a placeholder image stayed placeholder forever with no failure signal.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-04",
+      "ended": "2026-05",
+      "effort": "weeks",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "ethers",
+        "viem",
+        "base"
+      ],
+      "tags": [
+        "token-launch",
+        "smart-contracts",
+        "silent-failure",
+        "api-undocumented-behavior",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "token-launch",
+          "smart-contracts"
+        ],
+        "mechanic": [
+          "silent-failure",
+          "api-undocumented-behavior"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Launchpad indexers snapshot token metadata at deploy time only; a later updateMetadata call changes contract state without changing anything a user or aggregator will ever see.",
+        "A transaction that succeeds on chain is not evidence that the effect you wanted happened, because the part that mattered ran on an indexer that was never listening.",
+        "The listing IS the product for a launched token: image, description and links are set in the deploy transaction or not at all.",
+        "viem coerces a JavaScript object passed as a string argument into the literal text [object Object], so metadata must be JSON.stringify-ed before it goes into calldata."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "sdk-launch-discovery-gap",
+        "fee-claim-needs-trading-first"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/crypto-onchain/deploy-time-metadata-window/",
+      "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/deploy-time-metadata-window/",
+      "repo_path": "ideas/crypto-onchain/deploy-time-metadata-window",
+      "updated": null,
+      "related_all": [
+        "circular-api-key-registration",
+        "fee-claim-needs-trading-first",
+        "five-hundred-tokens-zero-volume",
+        "hardcoded-event-topic-hash",
+        "sdk-launch-discovery-gap"
+      ]
+    },
+    {
+      "id": "fee-claim-needs-trading-first",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "A permissionless fee claim that pays nothing because no one has traded",
+      "description": "The fee collection function was open to any caller and needed no API key, which felt like a found revenue rail until we noticed fees only exist once other people trade the token.",
+      "category": "crypto-onchain",
+      "outcome": "inconclusive",
+      "verdict": "Fee collection really is permissionless and keyless, but it is gated on trading volume that we had no mechanism to create, so the open door led to an empty room.",
+      "what_would_settle_it": "Launch a token where volume comes from genuine third-party traders, then claim. Until the same claim path is exercised against real outside trading, we have tested the plumbing and not the revenue.",
+      "confidence": "medium",
+      "started": "2026-04",
+      "ended": null,
+      "effort": "weeks",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "viem",
+        "base"
+      ],
+      "tags": [
+        "token-launch",
+        "trading",
+        "cold-start",
+        "distribution-gap",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "token-launch",
+          "trading"
+        ],
+        "mechanic": [
+          "cold-start",
+          "distribution-gap"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "A permissionless fee-collection function is a claim mechanism, not a revenue source; the revenue is the trading that produced the fees, and that is a different problem entirely.",
+        "Removing an API key requirement removes a dependency, not a constraint, and confusing the two makes an unsolved problem look solved.",
+        "When something is permissionless, find out what it is gated on instead, because access and availability are different constraints and the binding one rarely has a login form."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "deploy-time-metadata-window",
+        "sdk-launch-discovery-gap"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/crypto-onchain/fee-claim-needs-trading-first/",
+      "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/fee-claim-needs-trading-first/",
+      "repo_path": "ideas/crypto-onchain/fee-claim-needs-trading-first",
+      "updated": null,
+      "related_all": [
+        "deploy-time-metadata-window",
+        "forty-three-services-no-customers",
+        "sdk-launch-discovery-gap",
+        "self-reported-rewards-vs-balance"
+      ]
+    },
+    {
+      "id": "five-hundred-tokens-zero-volume",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "Five hundred tokens, one hundred and forty generic names, and zero trading volume",
+      "description": "Deploys were free and gas was sponsored, so we launched at volume to see whether quantity could substitute for narrative. It cannot, and the result was unambiguous.",
+      "category": "crypto-onchain",
+      "outcome": "failed",
+      "verdict": "Launch quantity has no relationship to trading volume, because a token with no narrative, no distinctive art and no community signal gives a buyer nothing to act on however many exist.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-02",
+      "ended": "2026-05",
+      "effort": "months",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "base",
+        "solana",
+        "canvas",
+        "launchpad-sdk"
+      ],
+      "tags": [
+        "token-launch",
+        "trading",
+        "oversaturated",
+        "craft-floor",
+        "distribution-gap",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "token-launch",
+          "trading"
+        ],
+        "mechanic": [
+          "oversaturated",
+          "craft-floor",
+          "distribution-gap"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Free deploys and sponsored gas remove the cost of launching and change nothing about the cost of being worth buying, which is why a launch count is not a strategy.",
+        "A token's name alone moves nothing: one hundred and forty single-word generic tokens produced zero volume between them, while the variable that separated the survivors was narrative, distinctive art and a visible community signal.",
+        "Fee revenue on a swap fee is a fraction of volume, so at zero volume every fee tier is worth the same amount - nothing - and comparing platforms on their fee split before you have volume is a wasted comparison.",
+        "Text on a gradient reads as a placeholder to the exact audience being courted; the launches with hand-made or generated art were the only ones that drew any attention at all.",
+        "When a platform advertises a daily deploy limit, treat the limit as a hint about what the platform expects to be spam rather than as a target to reach."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "forty-three-services-no-customers",
+        "sdk-launch-discovery-gap",
+        "deploy-time-metadata-window"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/crypto-onchain/five-hundred-tokens-zero-volume/",
+      "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/five-hundred-tokens-zero-volume/",
+      "repo_path": "ideas/crypto-onchain/five-hundred-tokens-zero-volume",
+      "updated": null,
+      "related_all": [
+        "deploy-time-metadata-window",
+        "forty-three-services-no-customers",
+        "sdk-launch-discovery-gap"
+      ]
+    },
+    {
+      "id": "forty-three-services-no-customers",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "We built forty-three paid micro-services and never found a single customer",
+      "description": "Thirty-five working paid endpoints, eight broken, zero external buyers. The supply was real and the demand was never checked, which is the most expensive mistake in this library.",
+      "category": "web-saas",
+      "outcome": "failed",
+      "verdict": "Every unit of effort went into supply and none into demand, so we ended with a catalogue of working services that nobody had ever asked for and no channel through which anyone could.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-03",
+      "ended": "2026-04",
+      "effort": "months",
+      "cost_usd": null,
+      "revenue_usd": null,
+      "stack": [
+        "node",
+        "cloudflare-workers",
+        "x402",
+        "base"
+      ],
+      "tags": [
+        "payments",
+        "api-integration",
+        "marketplace",
+        "distribution-gap",
+        "oversaturated",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "payments",
+          "api-integration",
+          "marketplace"
+        ],
+        "mechanic": [
+          "distribution-gap",
+          "oversaturated"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Counting shipped services measures effort, not progress; forty-three endpoints and zero customers is the same business as zero endpoints and zero customers, minus the months.",
+        "Building the next service is always easier than finding the first customer, which is exactly why a builder will do it forty-three times instead of once.",
+        "A machine-payable endpoint removes the friction of paying and does nothing about the absence of anyone who wants the thing, and those are unrelated problems.",
+        "Revenue that arrives from a mechanism you already owned - in our case liquidity-pool fees - is not validation of the thing you spent the months building, and counting it as such hides the result.",
+        "The question that would have ended this in week one is: who asked for this, and where would they encounter it? Neither had an answer at any point."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "fee-claim-needs-trading-first",
+        "five-hundred-tokens-zero-volume"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/web-saas/forty-three-services-no-customers/",
+      "url": "https://ideas.broke2builtai.com/ideas/web-saas/forty-three-services-no-customers/",
+      "repo_path": "ideas/web-saas/forty-three-services-no-customers",
+      "updated": null,
+      "related_all": [
+        "fee-claim-needs-trading-first",
+        "five-hundred-tokens-zero-volume",
+        "scan-for-money-loop"
+      ]
+    },
+    {
+      "id": "hardcoded-event-topic-hash",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "A single mistyped event hash made every scanner return zero results for weeks",
+      "description": "Every token scanner we wrote reported nothing found. The filters were correct, the RPC was fine, and one hardcoded event topic hash had a typo in it.",
+      "category": "tooling-infra",
+      "outcome": "shipped",
+      "verdict": "A copied-and-mistyped event topic hash matched nothing, so every log query returned an empty set and reported it as a clean result rather than as an error.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-02",
+      "ended": "2026-02",
+      "effort": "weeks",
+      "cost_usd": 0,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base"
+      ],
+      "tags": [
+        "onchain-data",
+        "cli-tooling",
+        "silent-failure",
+        "verification-gap",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "onchain-data",
+          "cli-tooling"
+        ],
+        "mechanic": [
+          "silent-failure",
+          "verification-gap"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Derive an event topic hash in code with a helper such as ethers.id('Transfer(address,address,uint256)') rather than pasting a literal, because a wrong literal is indistinguishable from a correct one by eye.",
+        "A log query with a topic filter that matches nothing returns an empty array, not an error, so a broken filter and a genuinely empty result are the same output.",
+        "Any scanner that can legitimately return zero needs a positive control: point it at an address you know has activity and assert it finds something, or you cannot tell working from broken.",
+        "Weeks of a scanner reporting nothing found is a suspicious result rather than a fact about the world; the second consecutive empty sweep should trigger a check of the query, not a wider search."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "autotrader-journal-hid-losses",
+        "deploy-time-metadata-window"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/tooling-infra/hardcoded-event-topic-hash/",
+      "url": "https://ideas.broke2builtai.com/ideas/tooling-infra/hardcoded-event-topic-hash/",
+      "repo_path": "ideas/tooling-infra/hardcoded-event-topic-hash",
+      "updated": null,
+      "related_all": [
+        "autotrader-journal-hid-losses",
+        "deploy-time-metadata-window",
+        "self-reported-rewards-vs-balance"
+      ]
+    },
+    {
+      "id": "multicall-batch-reads",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "Reading thousands of contract values through Multicall3 instead of a block explorer API",
+      "description": "Replacing per-token explorer API calls with batched Multicall3 aggregates against a public RPC made bulk on-chain reads roughly two orders of magnitude faster and removed the API key.",
+      "category": "tooling-infra",
+      "outcome": "shipped",
+      "verdict": "Batching reads into Multicall3 aggregates against a public RPC removed both the rate limit and the API key that made per-token explorer loops slow and fragile.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-04",
+      "ended": null,
+      "effort": "days",
+      "cost_usd": 0,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base",
+        "multicall3"
+      ],
+      "tags": [
+        "onchain-data",
+        "api-integration",
+        "zero-marginal-cost",
+        "rate-limits",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "onchain-data",
+          "api-integration"
+        ],
+        "mechanic": [
+          "zero-marginal-cost",
+          "rate-limits"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Multicall3 is deployed at the same address on every major EVM chain, so one batching implementation ports across chains without a per-chain address table.",
+        "Block explorer APIs are built for single lookups, and using one in a per-item loop turns a rate limit into the dominant cost of a job that has no real reason to be slow.",
+        "Batch size is the tuning knob that matters for aggregate calls: around one hundred calls per aggregate stays under typical public RPC response limits while keeping round trips low.",
+        "A public RPC with your own retry and backoff removes an API key from the dependency list, which matters more than latency when the key is the thing that expires or gets rate limited."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "sdk-launch-discovery-gap"
+      ],
+      "supersedes": [],
+      "source": "seed",
+      "links": {},
+      "path": "/ideas/tooling-infra/multicall-batch-reads/",
+      "url": "https://ideas.broke2builtai.com/ideas/tooling-infra/multicall-batch-reads/",
+      "repo_path": "ideas/tooling-infra/multicall-batch-reads",
+      "updated": null,
+      "related_all": [
+        "concurrent-nonce-collision",
+        "sdk-launch-discovery-gap"
+      ]
+    },
+    {
+      "id": "never-funded-agent",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "Can an agent that is never given any starting capital find its own first income?",
+      "description": "An on-chain agent created its own wallet, received no funding from us at any point, and accumulated value entirely from routes it found itself. Whether that generalises is unsettled.",
+      "category": "ai-agents",
+      "outcome": "inconclusive",
+      "verdict": "The agent did accumulate value with a starting balance of zero and no transfer from us, but a single agent on a single chain over one period cannot distinguish a repeatable method from a favourable window.",
+      "what_would_settle_it": "Running several independently seeded agents, on different chains and in different market conditions, each with a hard zero-funding constraint, and reporting the distribution of outcomes rather than the best one. A method should survive a bad month.",
+      "confidence": "medium",
+      "started": "2026-06",
+      "ended": null,
+      "effort": "months",
+      "cost_usd": 0,
+      "revenue_usd": null,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "cloudflare-workers",
+        "base"
+      ],
+      "tags": [
+        "agent-harness",
+        "onchain-data",
+        "capital-required",
+        "zero-marginal-cost",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "agent-harness",
+          "onchain-data"
+        ],
+        "mechanic": [
+          "capital-required",
+          "zero-marginal-cost"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "An agent with a starting balance of zero has a denominator that no later funding can restore, so a single transfer in permanently destroys the result the experiment exists to produce.",
+        "Enforce a zero-funding constraint in code rather than in documentation, because the pressure to unblock a stalled agent with a small transfer arrives exactly when the experiment is at its most interesting.",
+        "Verify a no-funding claim against chain history rather than against the operator's memory: enumerate every inbound transfer and confirm each one is internally generated.",
+        "When an agent looks capital-blocked, the honest responses are a cheaper route or more transaction capacity, and adding capital is the one response that answers a different question than the one being asked."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [],
+      "supersedes": [],
+      "source": "seed",
+      "links": {},
+      "path": "/ideas/ai-agents/never-funded-agent/",
+      "url": "https://ideas.broke2builtai.com/ideas/ai-agents/never-funded-agent/",
+      "repo_path": "ideas/ai-agents/never-funded-agent",
+      "updated": null,
+      "related_all": [
+        "autotrader-journal-hid-losses"
+      ]
+    },
+    {
+      "id": "retail-arbitrage-is-closed",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "Cross-DEX arbitrage and DEX scalping are both closed to a small wallet",
+      "description": "We tested two classic on-chain trading strategies from a tiny wallet on a fast L2. Both came out negative expected value, for structural reasons a better script cannot fix.",
+      "category": "crypto-onchain",
+      "outcome": "failed",
+      "verdict": "Arbitrage fails on professional latency and scalping fails on a fee floor above the volatility being harvested, and neither cause is something a retail participant can change.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-03",
+      "ended": "2026-06",
+      "effort": "months",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base"
+      ],
+      "tags": [
+        "trading",
+        "onchain-data",
+        "unit-economics",
+        "capital-required",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "trading",
+          "onchain-data"
+        ],
+        "mechanic": [
+          "unit-economics",
+          "capital-required"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Simple cross-DEX arbitrage on a fast L2 is closed to anyone without professional latency, because the spread is captured within the same block by parties whose infrastructure is the entire product.",
+        "DEX scalping on liquid tokens is negative expected value before it begins whenever the round-trip fee is larger than the moves being harvested, which in our runs it was.",
+        "Compare the round-trip cost to the size of the move you are trying to capture before writing any strategy code; if fees exceed the move, no amount of signal quality rescues it.",
+        "Flash loans remove the capital constraint and leave the opportunity constraint untouched, so a strategy that finds nothing with borrowed capital was never short of capital."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "autotrader-journal-hid-losses"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/crypto-onchain/retail-arbitrage-is-closed/",
+      "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/retail-arbitrage-is-closed/",
+      "repo_path": "ideas/crypto-onchain/retail-arbitrage-is-closed",
+      "updated": null,
+      "related_all": [
+        "autotrader-journal-hid-losses",
+        "scan-for-money-loop"
+      ]
+    },
+    {
+      "id": "scan-for-money-loop",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "We re-derived the same dead strategy across many sessions without noticing",
+      "description": "An on-chain search strategy failed, and we kept coming back to it because each new session started without any record that the last one had already tried it.",
+      "category": "experiments",
+      "outcome": "abandoned",
+      "verdict": "The strategy was dead after the first honest attempt, but nothing recorded that verdict where the next session would read it, so the same ground was re-excavated until a human intervened.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-04",
+      "ended": "2026-07",
+      "effort": "months",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base"
+      ],
+      "tags": [
+        "onchain-data",
+        "agent-harness",
+        "wrong-abstraction",
+        "maintenance-cost",
+        "prototyped"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "onchain-data",
+          "agent-harness"
+        ],
+        "mechanic": [
+          "wrong-abstraction",
+          "maintenance-cost"
+        ],
+        "stage": [
+          "prototyped"
+        ]
+      },
+      "lessons": [
+        "A strategy that failed is only abandoned if the verdict is written somewhere the next attempt will read before starting, otherwise a fresh session will rediscover the idea and find it appealing for the same reasons it originally did.",
+        "Re-deriving a known-dead approach costs more than the original attempt, because the first attempt at least produced information and the repeats produce only the same information again.",
+        "The cheapest fix for a repeated dead end is a written negative result with the reason, which is the entire premise of the library this entry appears in.",
+        "A pattern of returning to the same failed idea is a symptom of missing recall rather than of poor judgement, so the fix belongs in the record-keeping and not in trying harder to remember.",
+        "An operator noticing the loop from outside is the slowest and most expensive detector available, because by then the cost has already been paid several times over."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "forty-three-services-no-customers",
+        "retail-arbitrage-is-closed"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/experiments/scan-for-money-loop/",
+      "url": "https://ideas.broke2builtai.com/ideas/experiments/scan-for-money-loop/",
+      "repo_path": "ideas/experiments/scan-for-money-loop",
+      "updated": null,
+      "related_all": [
+        "forty-three-services-no-customers",
+        "retail-arbitrage-is-closed"
+      ]
+    },
+    {
+      "id": "sdk-launch-discovery-gap",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "Launching tokens through an SDK instead of the web UI, and losing every discovery hook",
+      "description": "Batch-launching tokens programmatically worked and cost pennies, but SDK-deployed tokens never appeared in the trending feed the web UI populates, so nobody ever saw them.",
+      "category": "crypto-onchain",
+      "outcome": "failed",
+      "verdict": "The SDK deploy produced identical on-chain state to a web-UI deploy but skipped the platform's server-side discovery hooks, so the launches were invisible and the cheap batch pipeline had nothing to feed.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-05",
+      "ended": "2026-05",
+      "effort": "weeks",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "typescript",
+        "ethers",
+        "base",
+        "launchpad-sdk"
+      ],
+      "tags": [
+        "token-launch",
+        "smart-contracts",
+        "distribution-gap",
+        "api-undocumented-behavior",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "token-launch",
+          "smart-contracts"
+        ],
+        "mechanic": [
+          "distribution-gap",
+          "api-undocumented-behavior"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "A launchpad SDK and its web UI can produce identical on-chain state while the UI additionally fires server-side discovery hooks that the SDK cannot reach.",
+        "Setting an `interface` or `referrer` field in SDK calldata to impersonate the web client does not reproduce the web client's discovery behaviour, because those hooks run on the platform's servers and never read calldata.",
+        "Cheap batch deployment is worth nothing when the binding constraint is discovery; measure whether anyone can find the output before optimising the cost of producing it.",
+        "A high-volume address in a token's trade history is more often a shared router contract than a bot, and mistaking one for the other sends you hunting a whitelist that does not exist."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "multicall-batch-reads"
+      ],
+      "supersedes": [],
+      "source": "seed",
+      "links": {},
+      "path": "/ideas/crypto-onchain/sdk-launch-discovery-gap/",
+      "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/sdk-launch-discovery-gap/",
+      "repo_path": "ideas/crypto-onchain/sdk-launch-discovery-gap",
+      "updated": null,
+      "related_all": [
+        "deploy-time-metadata-window",
+        "fee-claim-needs-trading-first",
+        "five-hundred-tokens-zero-volume",
+        "multicall-batch-reads"
+      ]
+    },
+    {
+      "id": "secrets-committed-to-source",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "An audit of our own app found hardcoded credentials that every prior read had missed",
+      "description": "A multi-agent security pass over one of our shipped web apps found hardcoded credentials, an unauthenticated privileged endpoint, and a scheduled job that failed open.",
+      "category": "security-audit",
+      "outcome": "shipped",
+      "verdict": "The findings were only surfaced because we ran a deliberate audit, which means the same class of mistake had been shipping unnoticed for as long as the app had existed.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": null,
+      "ended": null,
+      "effort": "days",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "web-app",
+        "database",
+        "smart-contracts"
+      ],
+      "tags": [
+        "smart-contracts",
+        "api-integration",
+        "verification-gap",
+        "worked-as-designed",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "smart-contracts",
+          "api-integration"
+        ],
+        "mechanic": [
+          "verification-gap",
+          "worked-as-designed"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Hardcoded credentials survive in a codebase because nothing routine ever looks for them; every commit hook, test and code review we had passed them without comment.",
+        "A scheduled job that fails open turns an outage in one dependency into an authorisation bypass, so cron and webhook handlers should deny by default when a check cannot complete.",
+        "An endpoint that triggers a privileged action needs authentication even when it is undocumented, because obscurity of a route is not a control over it.",
+        "Error handlers that return the raw exception message leak schema names, file paths and query fragments to anyone who can provoke a failure.",
+        "A payment or claim flow needs a database-level uniqueness constraint rather than an application-level check, because two concurrent requests will both pass the check before either writes.",
+        "Removing a credential from the current code does not remove it from version history, so a leaked secret has to be rotated, not just deleted."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "autotrader-journal-hid-losses"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/security-audit/secrets-committed-to-source/",
+      "url": "https://ideas.broke2builtai.com/ideas/security-audit/secrets-committed-to-source/",
+      "repo_path": "ideas/security-audit/secrets-committed-to-source",
+      "updated": null,
+      "related_all": [
+        "autotrader-journal-hid-losses"
+      ]
+    },
+    {
+      "id": "self-reported-rewards-vs-balance",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "A protocol reported claimable rewards that did not exist when claimed",
+      "description": "A contract's view function showed a pending reward balance. Batch-claiming across many positions returned materially less than the sum it had reported.",
+      "category": "security-audit",
+      "outcome": "shipped",
+      "verdict": "The reported figure was an estimate computed under assumptions that no longer held at claim time, so trusting it and batching on top of it spent gas on claims that returned nothing.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-05",
+      "ended": "2026-05",
+      "effort": "hours",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base"
+      ],
+      "tags": [
+        "smart-contracts",
+        "onchain-data",
+        "verification-gap",
+        "silent-failure",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "smart-contracts",
+          "onchain-data"
+        ],
+        "mechanic": [
+          "verification-gap",
+          "silent-failure"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "A view function reporting a pending or claimable amount is that contract's estimate under its own assumptions, and it is not a promise that the amount will arrive when claimed.",
+        "Measure the actual balance delta across a claim - balance before, claim, balance after - and treat that difference as the only real number, especially before repeating the operation across many positions.",
+        "Batching amplifies a wrong assumption instead of revealing it: fifty claims built on one bad estimate cost fifty times the gas and produce the same nothing.",
+        "Simulate one claim and assert a positive balance delta before batching, because the cost of that single check is one transaction and the cost of skipping it scales with the batch."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "autotrader-journal-hid-losses",
+        "hardcoded-event-topic-hash",
+        "fee-claim-needs-trading-first"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/security-audit/self-reported-rewards-vs-balance/",
+      "url": "https://ideas.broke2builtai.com/ideas/security-audit/self-reported-rewards-vs-balance/",
+      "repo_path": "ideas/security-audit/self-reported-rewards-vs-balance",
+      "updated": null,
+      "related_all": [
+        "autotrader-journal-hid-losses",
+        "fee-claim-needs-trading-first",
+        "hardcoded-event-topic-hash",
+        "synthetic-pool-chart-spoof"
+      ]
+    },
+    {
+      "id": "synthetic-pool-chart-spoof",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "A liquidity pool that showed a price chart and held no liquidity",
+      "description": "A price aggregator displayed a pool with a chart and a market. On chain there was no liquidity position to withdraw and never had been.",
+      "category": "security-audit",
+      "outcome": "shipped",
+      "verdict": "The pool existed as a contract producing chart-shaped data without holding reserves, so the aggregator rendered a market that had nothing behind it.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-06",
+      "ended": "2026-06",
+      "effort": "hours",
+      "cost_usd": 0,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base"
+      ],
+      "tags": [
+        "onchain-data",
+        "smart-contracts",
+        "trading",
+        "verification-gap",
+        "worked-as-designed",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "onchain-data",
+          "smart-contracts",
+          "trading"
+        ],
+        "mechanic": [
+          "verification-gap",
+          "worked-as-designed"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "A price chart on an aggregator proves that something emitted events in the shape of trades, not that a pool holds reserves you could trade against.",
+        "Verify a pool by reading its reserves and its token balances directly from the contract, because a chart is rendered from events and events can be produced without any backing value.",
+        "Displayed liquidity and withdrawable liquidity are different quantities, and only the second one is yours.",
+        "Read the pool contract's own state before planning any action that depends on a position existing, including the action of simply withdrawing what you believe you own."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "self-reported-rewards-vs-balance"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/security-audit/synthetic-pool-chart-spoof/",
+      "url": "https://ideas.broke2builtai.com/ideas/security-audit/synthetic-pool-chart-spoof/",
+      "repo_path": "ideas/security-audit/synthetic-pool-chart-spoof",
+      "updated": null,
+      "related_all": [
+        "self-reported-rewards-vs-balance"
+      ]
+    }
+  ]
+}

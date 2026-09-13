@@ -1,0 +1,344 @@
+{
+  "schema_version": 1,
+  "ideas": [
+    {
+      "id": "autotrader-journal-hid-losses",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "An automated trading fleet that reported itself as roughly break-even while losing money",
+      "description": "The fleet's own journal was the only record of its performance, and an audit found it was accounting for about a third of the actual loss.",
+      "category": "ai-agents",
+      "outcome": "failed",
+      "verdict": "The fleet lost money and, by our own reconciliation, its self-reported journal captured only a fraction of that loss, because it recorded the events the code knew how to write down rather than the money that moved.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-05",
+      "ended": "2026-06",
+      "effort": "weeks",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base"
+      ],
+      "tags": [
+        "agent-harness",
+        "trading",
+        "verification-gap",
+        "silent-failure",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "agent-harness",
+          "trading"
+        ],
+        "mechanic": [
+          "verification-gap",
+          "silent-failure"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "An automated system's own log is a record of what its authors anticipated, so using it as the performance measurement means grading the system with a ruler it cut itself.",
+        "Reconcile an automated trader against wallet balance change over the period, because balance is the only number that cannot be shaped by a bug in the code that reports it.",
+        "Costs that arrive through paths the journal has no writer for - failed transactions, slippage, gas on reverts, dust left in intermediate tokens - are exactly the costs that go unrecorded.",
+        "A high request rate against several endpoints is concentration of activity rather than evidence of volume, and reading it as traction inverts what the number means."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "secrets-committed-to-source",
+        "never-funded-agent"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/ai-agents/autotrader-journal-hid-losses/",
+      "url": "https://ideas.broke2builtai.com/ideas/ai-agents/autotrader-journal-hid-losses/",
+      "repo_path": "ideas/ai-agents/autotrader-journal-hid-losses",
+      "updated": null,
+      "related_all": [
+        "hardcoded-event-topic-hash",
+        "never-funded-agent",
+        "retail-arbitrage-is-closed",
+        "secrets-committed-to-source",
+        "self-reported-rewards-vs-balance"
+      ]
+    },
+    {
+      "id": "fee-claim-needs-trading-first",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "A permissionless fee claim that pays nothing because no one has traded",
+      "description": "The fee collection function was open to any caller and needed no API key, which felt like a found revenue rail until we noticed fees only exist once other people trade the token.",
+      "category": "crypto-onchain",
+      "outcome": "inconclusive",
+      "verdict": "Fee collection really is permissionless and keyless, but it is gated on trading volume that we had no mechanism to create, so the open door led to an empty room.",
+      "what_would_settle_it": "Launch a token where volume comes from genuine third-party traders, then claim. Until the same claim path is exercised against real outside trading, we have tested the plumbing and not the revenue.",
+      "confidence": "medium",
+      "started": "2026-04",
+      "ended": null,
+      "effort": "weeks",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "viem",
+        "base"
+      ],
+      "tags": [
+        "token-launch",
+        "trading",
+        "cold-start",
+        "distribution-gap",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "token-launch",
+          "trading"
+        ],
+        "mechanic": [
+          "cold-start",
+          "distribution-gap"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "A permissionless fee-collection function is a claim mechanism, not a revenue source; the revenue is the trading that produced the fees, and that is a different problem entirely.",
+        "Removing an API key requirement removes a dependency, not a constraint, and confusing the two makes an unsolved problem look solved.",
+        "When something is permissionless, find out what it is gated on instead, because access and availability are different constraints and the binding one rarely has a login form."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "deploy-time-metadata-window",
+        "sdk-launch-discovery-gap"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/crypto-onchain/fee-claim-needs-trading-first/",
+      "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/fee-claim-needs-trading-first/",
+      "repo_path": "ideas/crypto-onchain/fee-claim-needs-trading-first",
+      "updated": null,
+      "related_all": [
+        "deploy-time-metadata-window",
+        "forty-three-services-no-customers",
+        "sdk-launch-discovery-gap",
+        "self-reported-rewards-vs-balance"
+      ]
+    },
+    {
+      "id": "five-hundred-tokens-zero-volume",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "Five hundred tokens, one hundred and forty generic names, and zero trading volume",
+      "description": "Deploys were free and gas was sponsored, so we launched at volume to see whether quantity could substitute for narrative. It cannot, and the result was unambiguous.",
+      "category": "crypto-onchain",
+      "outcome": "failed",
+      "verdict": "Launch quantity has no relationship to trading volume, because a token with no narrative, no distinctive art and no community signal gives a buyer nothing to act on however many exist.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-02",
+      "ended": "2026-05",
+      "effort": "months",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "base",
+        "solana",
+        "canvas",
+        "launchpad-sdk"
+      ],
+      "tags": [
+        "token-launch",
+        "trading",
+        "oversaturated",
+        "craft-floor",
+        "distribution-gap",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "token-launch",
+          "trading"
+        ],
+        "mechanic": [
+          "oversaturated",
+          "craft-floor",
+          "distribution-gap"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Free deploys and sponsored gas remove the cost of launching and change nothing about the cost of being worth buying, which is why a launch count is not a strategy.",
+        "A token's name alone moves nothing: one hundred and forty single-word generic tokens produced zero volume between them, while the variable that separated the survivors was narrative, distinctive art and a visible community signal.",
+        "Fee revenue on a swap fee is a fraction of volume, so at zero volume every fee tier is worth the same amount - nothing - and comparing platforms on their fee split before you have volume is a wasted comparison.",
+        "Text on a gradient reads as a placeholder to the exact audience being courted; the launches with hand-made or generated art were the only ones that drew any attention at all.",
+        "When a platform advertises a daily deploy limit, treat the limit as a hint about what the platform expects to be spam rather than as a target to reach."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "forty-three-services-no-customers",
+        "sdk-launch-discovery-gap",
+        "deploy-time-metadata-window"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/crypto-onchain/five-hundred-tokens-zero-volume/",
+      "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/five-hundred-tokens-zero-volume/",
+      "repo_path": "ideas/crypto-onchain/five-hundred-tokens-zero-volume",
+      "updated": null,
+      "related_all": [
+        "deploy-time-metadata-window",
+        "forty-three-services-no-customers",
+        "sdk-launch-discovery-gap"
+      ]
+    },
+    {
+      "id": "retail-arbitrage-is-closed",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "Cross-DEX arbitrage and DEX scalping are both closed to a small wallet",
+      "description": "We tested two classic on-chain trading strategies from a tiny wallet on a fast L2. Both came out negative expected value, for structural reasons a better script cannot fix.",
+      "category": "crypto-onchain",
+      "outcome": "failed",
+      "verdict": "Arbitrage fails on professional latency and scalping fails on a fee floor above the volatility being harvested, and neither cause is something a retail participant can change.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-03",
+      "ended": "2026-06",
+      "effort": "months",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base"
+      ],
+      "tags": [
+        "trading",
+        "onchain-data",
+        "unit-economics",
+        "capital-required",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "trading",
+          "onchain-data"
+        ],
+        "mechanic": [
+          "unit-economics",
+          "capital-required"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Simple cross-DEX arbitrage on a fast L2 is closed to anyone without professional latency, because the spread is captured within the same block by parties whose infrastructure is the entire product.",
+        "DEX scalping on liquid tokens is negative expected value before it begins whenever the round-trip fee is larger than the moves being harvested, which in our runs it was.",
+        "Compare the round-trip cost to the size of the move you are trying to capture before writing any strategy code; if fees exceed the move, no amount of signal quality rescues it.",
+        "Flash loans remove the capital constraint and leave the opportunity constraint untouched, so a strategy that finds nothing with borrowed capital was never short of capital."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "autotrader-journal-hid-losses"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/crypto-onchain/retail-arbitrage-is-closed/",
+      "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/retail-arbitrage-is-closed/",
+      "repo_path": "ideas/crypto-onchain/retail-arbitrage-is-closed",
+      "updated": null,
+      "related_all": [
+        "autotrader-journal-hid-losses",
+        "scan-for-money-loop"
+      ]
+    },
+    {
+      "id": "synthetic-pool-chart-spoof",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "A liquidity pool that showed a price chart and held no liquidity",
+      "description": "A price aggregator displayed a pool with a chart and a market. On chain there was no liquidity position to withdraw and never had been.",
+      "category": "security-audit",
+      "outcome": "shipped",
+      "verdict": "The pool existed as a contract producing chart-shaped data without holding reserves, so the aggregator rendered a market that had nothing behind it.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-06",
+      "ended": "2026-06",
+      "effort": "hours",
+      "cost_usd": 0,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base"
+      ],
+      "tags": [
+        "onchain-data",
+        "smart-contracts",
+        "trading",
+        "verification-gap",
+        "worked-as-designed",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "onchain-data",
+          "smart-contracts",
+          "trading"
+        ],
+        "mechanic": [
+          "verification-gap",
+          "worked-as-designed"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "A price chart on an aggregator proves that something emitted events in the shape of trades, not that a pool holds reserves you could trade against.",
+        "Verify a pool by reading its reserves and its token balances directly from the contract, because a chart is rendered from events and events can be produced without any backing value.",
+        "Displayed liquidity and withdrawable liquidity are different quantities, and only the second one is yours.",
+        "Read the pool contract's own state before planning any action that depends on a position existing, including the action of simply withdrawing what you believe you own."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "self-reported-rewards-vs-balance"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/security-audit/synthetic-pool-chart-spoof/",
+      "url": "https://ideas.broke2builtai.com/ideas/security-audit/synthetic-pool-chart-spoof/",
+      "repo_path": "ideas/security-audit/synthetic-pool-chart-spoof",
+      "updated": null,
+      "related_all": [
+        "self-reported-rewards-vs-balance"
+      ]
+    }
+  ]
+}

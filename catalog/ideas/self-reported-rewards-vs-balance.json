@@ -1,0 +1,69 @@
+{
+  "id": "self-reported-rewards-vs-balance",
+  "aliases": [],
+  "projects": [],
+  "reviewed": null,
+  "title": "A protocol reported claimable rewards that did not exist when claimed",
+  "description": "A contract's view function showed a pending reward balance. Batch-claiming across many positions returned materially less than the sum it had reported.",
+  "category": "security-audit",
+  "outcome": "shipped",
+  "verdict": "The reported figure was an estimate computed under assumptions that no longer held at claim time, so trusting it and batching on top of it spent gas on claims that returned nothing.",
+  "what_would_settle_it": null,
+  "confidence": "medium",
+  "started": "2026-05",
+  "ended": "2026-05",
+  "effort": "hours",
+  "cost_usd": null,
+  "revenue_usd": 0,
+  "stack": [
+    "node",
+    "ethers-v6",
+    "base"
+  ],
+  "tags": [
+    "smart-contracts",
+    "onchain-data",
+    "verification-gap",
+    "silent-failure",
+    "deployed"
+  ],
+  "tags_by_axis": {
+    "domain": [
+      "smart-contracts",
+      "onchain-data"
+    ],
+    "mechanic": [
+      "verification-gap",
+      "silent-failure"
+    ],
+    "stage": [
+      "deployed"
+    ]
+  },
+  "lessons": [
+    "A view function reporting a pending or claimable amount is that contract's estimate under its own assumptions, and it is not a promise that the amount will arrive when claimed.",
+    "Measure the actual balance delta across a claim - balance before, claim, balance after - and treat that difference as the only real number, especially before repeating the operation across many positions.",
+    "Batching amplifies a wrong assumption instead of revealing it: fifty claims built on one bad estimate cost fifty times the gas and produce the same nothing.",
+    "Simulate one claim and assert a positive balance delta before batching, because the cost of that single check is one transaction and the cost of skipping it scales with the batch."
+  ],
+  "reusable": [],
+  "evidence": [],
+  "related": [
+    "autotrader-journal-hid-losses",
+    "hardcoded-event-topic-hash",
+    "fee-claim-needs-trading-first"
+  ],
+  "supersedes": [],
+  "source": "project-registry",
+  "links": {},
+  "path": "/ideas/security-audit/self-reported-rewards-vs-balance/",
+  "url": "https://ideas.broke2builtai.com/ideas/security-audit/self-reported-rewards-vs-balance/",
+  "repo_path": "ideas/security-audit/self-reported-rewards-vs-balance",
+  "updated": null,
+  "related_all": [
+    "autotrader-journal-hid-losses",
+    "fee-claim-needs-trading-first",
+    "hardcoded-event-topic-hash",
+    "synthetic-pool-chart-spoof"
+  ]
+}
