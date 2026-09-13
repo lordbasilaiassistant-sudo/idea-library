@@ -10,7 +10,7 @@
 
 import { writeFileSync, mkdirSync, existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { ROOT, loadTaxonomy, loadSources } from './lib/ideas.mjs';
+import { ROOT, loadTaxonomy, loadSources, loadIdeas } from './lib/ideas.mjs';
 
 const args = new Map();
 const argv = process.argv.slice(2);
@@ -50,6 +50,7 @@ if (!sources.digs.some((d) => d.id === source)) {
 }
 
 const dir = join(ROOT, 'ideas', category, slug);
+if (loadIdeas().some(i => i.id === slug)) die(`id ${slug} already exists in the library; update it instead`);
 if (existsSync(dir)) die(`ideas/${category}/${slug}/ already exists`);
 
 const template = readFileSync(join(ROOT, 'templates', 'idea.md'), 'utf8');

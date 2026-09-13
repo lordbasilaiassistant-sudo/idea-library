@@ -25,6 +25,11 @@
   Cache-Control: public, max-age=0, s-maxage=120, must-revalidate
   Access-Control-Allow-Origin: *
 
+/catalog/*
+  ! Cache-Control
+  Cache-Control: public, max-age=0, s-maxage=120, must-revalidate
+  Access-Control-Allow-Origin: *
+
 /llms.txt
   ! Cache-Control
   Cache-Control: public, max-age=0, s-maxage=120, must-revalidate

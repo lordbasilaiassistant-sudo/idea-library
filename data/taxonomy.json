@@ -31,6 +31,7 @@
   ],
 
   "categories": [
+    { "id": "data-extraction", "label": "Data Extraction", "definition": "Scrapers, crawlers, datasets, and extraction products whose central question concerns collecting usable data." },
     { "id": "crypto-onchain",  "label": "Crypto & On-chain",   "definition": "Anything that touches a blockchain: token launches, contracts, wallets, MEV, on-chain data." },
     { "id": "ai-agents",       "label": "AI Agents",           "definition": "Autonomous or semi-autonomous agent systems, harnesses, and multi-agent coordination." },
     { "id": "ml-research",     "label": "ML Research",         "definition": "Model behaviour, architecture experiments, benchmarks, and training-side work." },
@@ -47,6 +48,8 @@
     "$comment": "Three orthogonal axes. An idea normally carries at least one domain tag, at least one mechanic tag, and exactly one stage tag.",
 
     "domain": [
+      { "id": "apify-actors", "definition": "Building and operating actors on the Apify platform." },
+      { "id": "data-quality", "definition": "Measuring completeness, accuracy, freshness, and usefulness of collected data." },
       { "id": "token-launch",        "definition": "Deploying or launching tokens." },
       { "id": "smart-contracts",     "definition": "Writing, deploying, or reading contracts." },
       { "id": "trading",             "definition": "Buying, selling, arbitrage, market making." },
@@ -73,6 +76,8 @@
     ],
 
     "mechanic": [
+      { "id": "repeat-demand", "definition": "Observed repeat usage or purchases sustained the product." },
+      { "id": "output-correctness", "definition": "The correctness or completeness of produced data decided the result." },
       { "id": "rate-limits",              "definition": "A throughput cap was the binding constraint." },
       { "id": "distribution-gap",         "definition": "It worked and nobody found it. The classic killer." },
       { "id": "cold-start",               "definition": "Needed users/liquidity/data it could not bootstrap." },

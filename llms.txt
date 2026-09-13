@@ -7,7 +7,8 @@ Ideas: 16 · lessons: 69 · open questions: 2
 
 ## Start here
 
-- [index.json](https://ideas.broke2builtai.com/index.json): the entire catalog in one fetch. Read this first; do not crawl the tree.
+- [catalog/manifest.json](https://ideas.broke2builtai.com/catalog/manifest.json): start here; counts, facets, and pages of at most 100 records.
+- [index.json](https://ideas.broke2builtai.com/index.json): full structured bulk export; optional for large libraries.
 - [llms-full.txt](https://ideas.broke2builtai.com/llms-full.txt): every idea inlined, for single-shot ingestion.
 - [AGENTS.md](https://ideas.broke2builtai.com/AGENTS.md): how to contribute. Applies to every agent, any vendor.
 - [LESSONS.md](https://ideas.broke2builtai.com/LESSONS.md): every lesson in the library, grouped by failure mechanic.
@@ -25,24 +26,10 @@ Ideas: 16 · lessons: 69 · open questions: 2
 - [Automation & Ops](https://ideas.broke2builtai.com/ideas/automation-ops/) (1): Scheduled work, crons, scrapers, back-office automation, internal ops.
 - [Experiments](https://ideas.broke2builtai.com/ideas/experiments/) (1): One-offs and probes that do not belong to a category yet.
 
-## Ideas
+## Retrieval
 
-- [An automated trading fleet that reported itself as roughly break-even while losing money](https://ideas.broke2builtai.com/ideas/ai-agents/autotrader-journal-hid-losses/) — `failed`: The fleet's own journal was the only record of its performance, and an audit found it was accounting for about a third of the actual loss.
-- [Can an agent that is never given any starting capital find its own first income?](https://ideas.broke2builtai.com/ideas/ai-agents/never-funded-agent/) — `inconclusive`: An on-chain agent created its own wallet, received no funding from us at any point, and accumulated value entirely from routes it found itself. Whether that generalises is unsettled.
-- [A registration flow where you need the API key to retrieve the API key](https://ideas.broke2builtai.com/ideas/automation-ops/circular-api-key-registration/) — `partial`: Registering an agent returned a key exactly once, every later command required that key, and re-registering the same wallet failed as already registered. Losing the key locked us out.
-- [Why a token's image and description cannot be fixed after deployment](https://ideas.broke2builtai.com/ideas/crypto-onchain/deploy-time-metadata-window/) — `failed`: Launchpad indexers snapshot a token's metadata once, at deploy time. Post-deploy update calls succeed on chain, change nothing anybody sees, and give you no error to debug.
-- [A permissionless fee claim that pays nothing because no one has traded](https://ideas.broke2builtai.com/ideas/crypto-onchain/fee-claim-needs-trading-first/) — `inconclusive`: The fee collection function was open to any caller and needed no API key, which felt like a found revenue rail until we noticed fees only exist once other people trade the token.
-- [Five hundred tokens, one hundred and forty generic names, and zero trading volume](https://ideas.broke2builtai.com/ideas/crypto-onchain/five-hundred-tokens-zero-volume/) — `failed`: Deploys were free and gas was sponsored, so we launched at volume to see whether quantity could substitute for narrative. It cannot, and the result was unambiguous.
-- [Cross-DEX arbitrage and DEX scalping are both closed to a small wallet](https://ideas.broke2builtai.com/ideas/crypto-onchain/retail-arbitrage-is-closed/) — `failed`: We tested two classic on-chain trading strategies from a tiny wallet on a fast L2. Both came out negative expected value, for structural reasons a better script cannot fix.
-- [Launching tokens through an SDK instead of the web UI, and losing every discovery hook](https://ideas.broke2builtai.com/ideas/crypto-onchain/sdk-launch-discovery-gap/) — `failed`: Batch-launching tokens programmatically worked and cost pennies, but SDK-deployed tokens never appeared in the trending feed the web UI populates, so nobody ever saw them.
-- [We re-derived the same dead strategy across many sessions without noticing](https://ideas.broke2builtai.com/ideas/experiments/scan-for-money-loop/) — `abandoned`: An on-chain search strategy failed, and we kept coming back to it because each new session started without any record that the last one had already tried it.
-- [An audit of our own app found hardcoded credentials that every prior read had missed](https://ideas.broke2builtai.com/ideas/security-audit/secrets-committed-to-source/) — `shipped`: A multi-agent security pass over one of our shipped web apps found hardcoded credentials, an unauthenticated privileged endpoint, and a scheduled job that failed open.
-- [A protocol reported claimable rewards that did not exist when claimed](https://ideas.broke2builtai.com/ideas/security-audit/self-reported-rewards-vs-balance/) — `shipped`: A contract's view function showed a pending reward balance. Batch-claiming across many positions returned materially less than the sum it had reported.
-- [A liquidity pool that showed a price chart and held no liquidity](https://ideas.broke2builtai.com/ideas/security-audit/synthetic-pool-chart-spoof/) — `shipped`: A price aggregator displayed a pool with a chart and a market. On chain there was no liquidity position to withdraw and never had been.
-- [Why a wallet script kept failing when a live backend shared the same key](https://ideas.broke2builtai.com/ideas/tooling-infra/concurrent-nonce-collision/) — `shipped`: A consolidation script read the wallet nonce once and built its transactions from it, while a production backend was signing from the same key, so half the sends collided and vanished.
-- [A single mistyped event hash made every scanner return zero results for weeks](https://ideas.broke2builtai.com/ideas/tooling-infra/hardcoded-event-topic-hash/) — `shipped`: Every token scanner we wrote reported nothing found. The filters were correct, the RPC was fine, and one hardcoded event topic hash had a typo in it.
-- [Reading thousands of contract values through Multicall3 instead of a block explorer API](https://ideas.broke2builtai.com/ideas/tooling-infra/multicall-batch-reads/) — `shipped`: Replacing per-token explorer API calls with batched Multicall3 aggregates against a public RPC made bulk on-chain reads roughly two orders of magnitude faster and removed the API key.
-- [We built forty-three paid micro-services and never found a single customer](https://ideas.broke2builtai.com/ideas/web-saas/forty-three-services-no-customers/) — `failed`: Thirty-five working paid endpoints, eight broken, zero external buyers. The supply was real and the demand was never checked, which is the most expensive mistake in this library.
+Choose category, outcome, tag, or project pages from the manifest. Follow each listed path relative to the repository or site root.
+Fetch catalog/ideas/<id>.json for one record, then its canonical URL for the full narrative and evidence.
 
 ## Citation
 

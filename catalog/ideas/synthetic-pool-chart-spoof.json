@@ -1,0 +1,66 @@
+{
+  "id": "synthetic-pool-chart-spoof",
+  "aliases": [],
+  "projects": [],
+  "reviewed": null,
+  "title": "A liquidity pool that showed a price chart and held no liquidity",
+  "description": "A price aggregator displayed a pool with a chart and a market. On chain there was no liquidity position to withdraw and never had been.",
+  "category": "security-audit",
+  "outcome": "shipped",
+  "verdict": "The pool existed as a contract producing chart-shaped data without holding reserves, so the aggregator rendered a market that had nothing behind it.",
+  "what_would_settle_it": null,
+  "confidence": "medium",
+  "started": "2026-06",
+  "ended": "2026-06",
+  "effort": "hours",
+  "cost_usd": 0,
+  "revenue_usd": 0,
+  "stack": [
+    "node",
+    "ethers-v6",
+    "base"
+  ],
+  "tags": [
+    "onchain-data",
+    "smart-contracts",
+    "trading",
+    "verification-gap",
+    "worked-as-designed",
+    "deployed"
+  ],
+  "tags_by_axis": {
+    "domain": [
+      "onchain-data",
+      "smart-contracts",
+      "trading"
+    ],
+    "mechanic": [
+      "verification-gap",
+      "worked-as-designed"
+    ],
+    "stage": [
+      "deployed"
+    ]
+  },
+  "lessons": [
+    "A price chart on an aggregator proves that something emitted events in the shape of trades, not that a pool holds reserves you could trade against.",
+    "Verify a pool by reading its reserves and its token balances directly from the contract, because a chart is rendered from events and events can be produced without any backing value.",
+    "Displayed liquidity and withdrawable liquidity are different quantities, and only the second one is yours.",
+    "Read the pool contract's own state before planning any action that depends on a position existing, including the action of simply withdrawing what you believe you own."
+  ],
+  "reusable": [],
+  "evidence": [],
+  "related": [
+    "self-reported-rewards-vs-balance"
+  ],
+  "supersedes": [],
+  "source": "project-registry",
+  "links": {},
+  "path": "/ideas/security-audit/synthetic-pool-chart-spoof/",
+  "url": "https://ideas.broke2builtai.com/ideas/security-audit/synthetic-pool-chart-spoof/",
+  "repo_path": "ideas/security-audit/synthetic-pool-chart-spoof",
+  "updated": null,
+  "related_all": [
+    "self-reported-rewards-vs-balance"
+  ]
+}

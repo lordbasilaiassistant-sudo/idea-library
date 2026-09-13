@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "ideas": [
+    {
+      "id": "five-hundred-tokens-zero-volume",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "Five hundred tokens, one hundred and forty generic names, and zero trading volume",
+      "description": "Deploys were free and gas was sponsored, so we launched at volume to see whether quantity could substitute for narrative. It cannot, and the result was unambiguous.",
+      "category": "crypto-onchain",
+      "outcome": "failed",
+      "verdict": "Launch quantity has no relationship to trading volume, because a token with no narrative, no distinctive art and no community signal gives a buyer nothing to act on however many exist.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-02",
+      "ended": "2026-05",
+      "effort": "months",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "base",
+        "solana",
+        "canvas",
+        "launchpad-sdk"
+      ],
+      "tags": [
+        "token-launch",
+        "trading",
+        "oversaturated",
+        "craft-floor",
+        "distribution-gap",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "token-launch",
+          "trading"
+        ],
+        "mechanic": [
+          "oversaturated",
+          "craft-floor",
+          "distribution-gap"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Free deploys and sponsored gas remove the cost of launching and change nothing about the cost of being worth buying, which is why a launch count is not a strategy.",
+        "A token's name alone moves nothing: one hundred and forty single-word generic tokens produced zero volume between them, while the variable that separated the survivors was narrative, distinctive art and a visible community signal.",
+        "Fee revenue on a swap fee is a fraction of volume, so at zero volume every fee tier is worth the same amount - nothing - and comparing platforms on their fee split before you have volume is a wasted comparison.",
+        "Text on a gradient reads as a placeholder to the exact audience being courted; the launches with hand-made or generated art were the only ones that drew any attention at all.",
+        "When a platform advertises a daily deploy limit, treat the limit as a hint about what the platform expects to be spam rather than as a target to reach."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "forty-three-services-no-customers",
+        "sdk-launch-discovery-gap",
+        "deploy-time-metadata-window"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/crypto-onchain/five-hundred-tokens-zero-volume/",
+      "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/five-hundred-tokens-zero-volume/",
+      "repo_path": "ideas/crypto-onchain/five-hundred-tokens-zero-volume",
+      "updated": null,
+      "related_all": [
+        "deploy-time-metadata-window",
+        "forty-three-services-no-customers",
+        "sdk-launch-discovery-gap"
+      ]
+    },
+    {
+      "id": "forty-three-services-no-customers",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "We built forty-three paid micro-services and never found a single customer",
+      "description": "Thirty-five working paid endpoints, eight broken, zero external buyers. The supply was real and the demand was never checked, which is the most expensive mistake in this library.",
+      "category": "web-saas",
+      "outcome": "failed",
+      "verdict": "Every unit of effort went into supply and none into demand, so we ended with a catalogue of working services that nobody had ever asked for and no channel through which anyone could.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-03",
+      "ended": "2026-04",
+      "effort": "months",
+      "cost_usd": null,
+      "revenue_usd": null,
+      "stack": [
+        "node",
+        "cloudflare-workers",
+        "x402",
+        "base"
+      ],
+      "tags": [
+        "payments",
+        "api-integration",
+        "marketplace",
+        "distribution-gap",
+        "oversaturated",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "payments",
+          "api-integration",
+          "marketplace"
+        ],
+        "mechanic": [
+          "distribution-gap",
+          "oversaturated"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Counting shipped services measures effort, not progress; forty-three endpoints and zero customers is the same business as zero endpoints and zero customers, minus the months.",
+        "Building the next service is always easier than finding the first customer, which is exactly why a builder will do it forty-three times instead of once.",
+        "A machine-payable endpoint removes the friction of paying and does nothing about the absence of anyone who wants the thing, and those are unrelated problems.",
+        "Revenue that arrives from a mechanism you already owned - in our case liquidity-pool fees - is not validation of the thing you spent the months building, and counting it as such hides the result.",
+        "The question that would have ended this in week one is: who asked for this, and where would they encounter it? Neither had an answer at any point."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "fee-claim-needs-trading-first",
+        "five-hundred-tokens-zero-volume"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/web-saas/forty-three-services-no-customers/",
+      "url": "https://ideas.broke2builtai.com/ideas/web-saas/forty-three-services-no-customers/",
+      "repo_path": "ideas/web-saas/forty-three-services-no-customers",
+      "updated": null,
+      "related_all": [
+        "fee-claim-needs-trading-first",
+        "five-hundred-tokens-zero-volume",
+        "scan-for-money-loop"
+      ]
+    }
+  ]
+}

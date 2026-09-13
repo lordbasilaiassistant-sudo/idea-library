@@ -1,0 +1,69 @@
+{
+  "id": "autotrader-journal-hid-losses",
+  "aliases": [],
+  "projects": [],
+  "reviewed": null,
+  "title": "An automated trading fleet that reported itself as roughly break-even while losing money",
+  "description": "The fleet's own journal was the only record of its performance, and an audit found it was accounting for about a third of the actual loss.",
+  "category": "ai-agents",
+  "outcome": "failed",
+  "verdict": "The fleet lost money and, by our own reconciliation, its self-reported journal captured only a fraction of that loss, because it recorded the events the code knew how to write down rather than the money that moved.",
+  "what_would_settle_it": null,
+  "confidence": "medium",
+  "started": "2026-05",
+  "ended": "2026-06",
+  "effort": "weeks",
+  "cost_usd": null,
+  "revenue_usd": 0,
+  "stack": [
+    "node",
+    "ethers-v6",
+    "base"
+  ],
+  "tags": [
+    "agent-harness",
+    "trading",
+    "verification-gap",
+    "silent-failure",
+    "deployed"
+  ],
+  "tags_by_axis": {
+    "domain": [
+      "agent-harness",
+      "trading"
+    ],
+    "mechanic": [
+      "verification-gap",
+      "silent-failure"
+    ],
+    "stage": [
+      "deployed"
+    ]
+  },
+  "lessons": [
+    "An automated system's own log is a record of what its authors anticipated, so using it as the performance measurement means grading the system with a ruler it cut itself.",
+    "Reconcile an automated trader against wallet balance change over the period, because balance is the only number that cannot be shaped by a bug in the code that reports it.",
+    "Costs that arrive through paths the journal has no writer for - failed transactions, slippage, gas on reverts, dust left in intermediate tokens - are exactly the costs that go unrecorded.",
+    "A high request rate against several endpoints is concentration of activity rather than evidence of volume, and reading it as traction inverts what the number means."
+  ],
+  "reusable": [],
+  "evidence": [],
+  "related": [
+    "secrets-committed-to-source",
+    "never-funded-agent"
+  ],
+  "supersedes": [],
+  "source": "project-registry",
+  "links": {},
+  "path": "/ideas/ai-agents/autotrader-journal-hid-losses/",
+  "url": "https://ideas.broke2builtai.com/ideas/ai-agents/autotrader-journal-hid-losses/",
+  "repo_path": "ideas/ai-agents/autotrader-journal-hid-losses",
+  "updated": null,
+  "related_all": [
+    "hardcoded-event-topic-hash",
+    "never-funded-agent",
+    "retail-arbitrage-is-closed",
+    "secrets-committed-to-source",
+    "self-reported-rewards-vs-balance"
+  ]
+}

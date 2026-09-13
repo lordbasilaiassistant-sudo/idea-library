@@ -9,6 +9,8 @@ on:
     paths:
       - 'ideas/**'
       - 'data/**'
+      - 'docs/ORGANIZATION.md'
+      - 'docs/EVIDENCE.md'
       - 'scripts/wiki.mjs'
       - 'scripts/lib/**'
       - '.github/workflows/wiki.yml'
@@ -34,7 +36,10 @@ jobs:
           git clone "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git" wiki
 
       - name: Generate
-        run: node scripts/wiki.mjs --out wiki
+        run: |
+          node scripts/validate.mjs
+          node scripts/wiki.mjs --out wiki
+          node scripts/scrub.mjs wiki
 
       - name: Publish
         working-directory: wiki

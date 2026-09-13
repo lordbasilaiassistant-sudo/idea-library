@@ -11,6 +11,12 @@ work, written up with the reason it did not work, is exactly what this library i
 
 ## The 60-second path
 
+First search [the catalog](index.json) or use `npm run query -- --text "your question"`.
+For a large library, begin with [the shard manifest](catalog/manifest.json).
+Read [organization and classification](docs/ORGANIZATION.md) for choosing a category, grouping
+projects, distinguishing duplicates, recording evidence, and handling never-built ideas.
+The [evidence checklist](docs/EVIDENCE.md) describes what a reproducible observation contains.
+
 ```bash
 git clone https://github.com/lordbasilaiassistant-sudo/idea-library
 cd idea-library
@@ -60,7 +66,7 @@ outcome: failed
 verdict: >-
   The undocumented endpoint was real and fast, but it was never a supported surface, so a
   routine front-end change added a session requirement that the scraper could not satisfy.
-confidence: high
+confidence: medium
 started: 2026-07
 ended: 2026-08
 effort: days
@@ -119,7 +125,9 @@ check: all green.
 ### 4. Commit and open a PR
 
 ```console
-$ git add ideas/automation-ops/jobboard-api-scrape index.json llms.txt llms-full.txt LESSONS.md FAILURES.md STATUS.md README.md sitemap.xml feed.xml ideas/automation-ops/README.md
+$ git diff --stat
+# Read the changed sources and generated files before staging:
+$ git add ideas catalog docs/wiki index.json llms.txt llms-full.txt LESSONS.md FAILURES.md WORKED.md OPEN-QUESTIONS.md STATUS.md SCOREBOARD.md data/scoreboard.json README.md sitemap.xml robots.txt feed.xml
 
 $ git commit -m "idea: add jobboard-api-scrape" -m "Scraper ran clean for two weeks from 2026-07-14 then returned 401 on every call from 2026-08-01, after the board shipped a front-end change that bound the JSON endpoint to a rendered session."
 ```

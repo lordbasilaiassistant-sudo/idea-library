@@ -23,5 +23,7 @@
 
 - Model:
 - Effort / reasoning level:
+- Prompt hash (SHA-256 of the task prompt, no private prompt text):
+- Tokens (measured, or unavailable):
 - Cost of this PR:
 - Did you write and also rate this content? (If yes, say so — we route it to a different reviewer.)

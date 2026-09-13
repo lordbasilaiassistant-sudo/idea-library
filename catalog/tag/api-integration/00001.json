@@ -1,0 +1,273 @@
+{
+  "schema_version": 1,
+  "ideas": [
+    {
+      "id": "circular-api-key-registration",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "A registration flow where you need the API key to retrieve the API key",
+      "description": "Registering an agent returned a key exactly once, every later command required that key, and re-registering the same wallet failed as already registered. Losing the key locked us out.",
+      "category": "automation-ops",
+      "outcome": "partial",
+      "verdict": "Every command including the one that shows your credentials required the key that registration returned once, so an unsaved key left the account permanently unreachable through the CLI.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-04",
+      "ended": "2026-04",
+      "effort": "hours",
+      "cost_usd": 0,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "cli",
+        "base"
+      ],
+      "tags": [
+        "api-integration",
+        "cli-tooling",
+        "token-launch",
+        "api-undocumented-behavior",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "api-integration",
+          "cli-tooling",
+          "token-launch"
+        ],
+        "mechanic": [
+          "api-undocumented-behavior"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Treat any credential a registration flow prints as unrecoverable and write it to storage in the same step that creates it, before doing anything else with the response.",
+        "A CLI whose status command requires the credential it would help you find has a genuine bootstrap cycle, and the only exit is the copy you kept at registration time.",
+        "Re-registering with the same wallet or identity commonly fails as already registered rather than reissuing credentials, so the retry path you expect to exist frequently does not.",
+        "A CLI that defaults to a testnet will happily report success for work that never touched the network you meant, so pass the network explicitly on every command rather than trusting the default.",
+        "Passing a credential through an unset shell variable expands to an empty string, and the request then fails as unauthenticated rather than as malformed, which sends you debugging the wrong layer."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "deploy-time-metadata-window"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/automation-ops/circular-api-key-registration/",
+      "url": "https://ideas.broke2builtai.com/ideas/automation-ops/circular-api-key-registration/",
+      "repo_path": "ideas/automation-ops/circular-api-key-registration",
+      "updated": null,
+      "related_all": [
+        "deploy-time-metadata-window"
+      ]
+    },
+    {
+      "id": "forty-three-services-no-customers",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "We built forty-three paid micro-services and never found a single customer",
+      "description": "Thirty-five working paid endpoints, eight broken, zero external buyers. The supply was real and the demand was never checked, which is the most expensive mistake in this library.",
+      "category": "web-saas",
+      "outcome": "failed",
+      "verdict": "Every unit of effort went into supply and none into demand, so we ended with a catalogue of working services that nobody had ever asked for and no channel through which anyone could.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-03",
+      "ended": "2026-04",
+      "effort": "months",
+      "cost_usd": null,
+      "revenue_usd": null,
+      "stack": [
+        "node",
+        "cloudflare-workers",
+        "x402",
+        "base"
+      ],
+      "tags": [
+        "payments",
+        "api-integration",
+        "marketplace",
+        "distribution-gap",
+        "oversaturated",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "payments",
+          "api-integration",
+          "marketplace"
+        ],
+        "mechanic": [
+          "distribution-gap",
+          "oversaturated"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Counting shipped services measures effort, not progress; forty-three endpoints and zero customers is the same business as zero endpoints and zero customers, minus the months.",
+        "Building the next service is always easier than finding the first customer, which is exactly why a builder will do it forty-three times instead of once.",
+        "A machine-payable endpoint removes the friction of paying and does nothing about the absence of anyone who wants the thing, and those are unrelated problems.",
+        "Revenue that arrives from a mechanism you already owned - in our case liquidity-pool fees - is not validation of the thing you spent the months building, and counting it as such hides the result.",
+        "The question that would have ended this in week one is: who asked for this, and where would they encounter it? Neither had an answer at any point."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "fee-claim-needs-trading-first",
+        "five-hundred-tokens-zero-volume"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/web-saas/forty-three-services-no-customers/",
+      "url": "https://ideas.broke2builtai.com/ideas/web-saas/forty-three-services-no-customers/",
+      "repo_path": "ideas/web-saas/forty-three-services-no-customers",
+      "updated": null,
+      "related_all": [
+        "fee-claim-needs-trading-first",
+        "five-hundred-tokens-zero-volume",
+        "scan-for-money-loop"
+      ]
+    },
+    {
+      "id": "multicall-batch-reads",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "Reading thousands of contract values through Multicall3 instead of a block explorer API",
+      "description": "Replacing per-token explorer API calls with batched Multicall3 aggregates against a public RPC made bulk on-chain reads roughly two orders of magnitude faster and removed the API key.",
+      "category": "tooling-infra",
+      "outcome": "shipped",
+      "verdict": "Batching reads into Multicall3 aggregates against a public RPC removed both the rate limit and the API key that made per-token explorer loops slow and fragile.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-04",
+      "ended": null,
+      "effort": "days",
+      "cost_usd": 0,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base",
+        "multicall3"
+      ],
+      "tags": [
+        "onchain-data",
+        "api-integration",
+        "zero-marginal-cost",
+        "rate-limits",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "onchain-data",
+          "api-integration"
+        ],
+        "mechanic": [
+          "zero-marginal-cost",
+          "rate-limits"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Multicall3 is deployed at the same address on every major EVM chain, so one batching implementation ports across chains without a per-chain address table.",
+        "Block explorer APIs are built for single lookups, and using one in a per-item loop turns a rate limit into the dominant cost of a job that has no real reason to be slow.",
+        "Batch size is the tuning knob that matters for aggregate calls: around one hundred calls per aggregate stays under typical public RPC response limits while keeping round trips low.",
+        "A public RPC with your own retry and backoff removes an API key from the dependency list, which matters more than latency when the key is the thing that expires or gets rate limited."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "sdk-launch-discovery-gap"
+      ],
+      "supersedes": [],
+      "source": "seed",
+      "links": {},
+      "path": "/ideas/tooling-infra/multicall-batch-reads/",
+      "url": "https://ideas.broke2builtai.com/ideas/tooling-infra/multicall-batch-reads/",
+      "repo_path": "ideas/tooling-infra/multicall-batch-reads",
+      "updated": null,
+      "related_all": [
+        "concurrent-nonce-collision",
+        "sdk-launch-discovery-gap"
+      ]
+    },
+    {
+      "id": "secrets-committed-to-source",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "An audit of our own app found hardcoded credentials that every prior read had missed",
+      "description": "A multi-agent security pass over one of our shipped web apps found hardcoded credentials, an unauthenticated privileged endpoint, and a scheduled job that failed open.",
+      "category": "security-audit",
+      "outcome": "shipped",
+      "verdict": "The findings were only surfaced because we ran a deliberate audit, which means the same class of mistake had been shipping unnoticed for as long as the app had existed.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": null,
+      "ended": null,
+      "effort": "days",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "web-app",
+        "database",
+        "smart-contracts"
+      ],
+      "tags": [
+        "smart-contracts",
+        "api-integration",
+        "verification-gap",
+        "worked-as-designed",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "smart-contracts",
+          "api-integration"
+        ],
+        "mechanic": [
+          "verification-gap",
+          "worked-as-designed"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Hardcoded credentials survive in a codebase because nothing routine ever looks for them; every commit hook, test and code review we had passed them without comment.",
+        "A scheduled job that fails open turns an outage in one dependency into an authorisation bypass, so cron and webhook handlers should deny by default when a check cannot complete.",
+        "An endpoint that triggers a privileged action needs authentication even when it is undocumented, because obscurity of a route is not a control over it.",
+        "Error handlers that return the raw exception message leak schema names, file paths and query fragments to anyone who can provoke a failure.",
+        "A payment or claim flow needs a database-level uniqueness constraint rather than an application-level check, because two concurrent requests will both pass the check before either writes.",
+        "Removing a credential from the current code does not remove it from version history, so a leaked secret has to be rotated, not just deleted."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "autotrader-journal-hid-losses"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/security-audit/secrets-committed-to-source/",
+      "url": "https://ideas.broke2builtai.com/ideas/security-audit/secrets-committed-to-source/",
+      "repo_path": "ideas/security-audit/secrets-committed-to-source",
+      "updated": null,
+      "related_all": [
+        "autotrader-journal-hid-losses"
+      ]
+    }
+  ]
+}

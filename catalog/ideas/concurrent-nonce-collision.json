@@ -1,0 +1,64 @@
+{
+  "id": "concurrent-nonce-collision",
+  "aliases": [],
+  "projects": [],
+  "reviewed": null,
+  "title": "Why a wallet script kept failing when a live backend shared the same key",
+  "description": "A consolidation script read the wallet nonce once and built its transactions from it, while a production backend was signing from the same key, so half the sends collided and vanished.",
+  "category": "tooling-infra",
+  "outcome": "shipped",
+  "verdict": "Caching the nonce at startup is correct only for a key nobody else is using, and the fix was to refetch the pending nonce immediately before every single send.",
+  "what_would_settle_it": null,
+  "confidence": "medium",
+  "started": "2026-05",
+  "ended": "2026-05",
+  "effort": "hours",
+  "cost_usd": null,
+  "revenue_usd": 0,
+  "stack": [
+    "node",
+    "ethers-v6",
+    "base"
+  ],
+  "tags": [
+    "smart-contracts",
+    "onchain-data",
+    "silent-failure",
+    "wrong-abstraction",
+    "deployed"
+  ],
+  "tags_by_axis": {
+    "domain": [
+      "smart-contracts",
+      "onchain-data"
+    ],
+    "mechanic": [
+      "silent-failure",
+      "wrong-abstraction"
+    ],
+    "stage": [
+      "deployed"
+    ]
+  },
+  "lessons": [
+    "A transaction nonce is shared mutable state belonging to the account, not to your script, so any key a live service also signs with makes a cached nonce wrong the moment you read it.",
+    "Refetch the pending nonce immediately before each send rather than incrementing a local counter, whenever there is any chance another process signs from the same key.",
+    "A replaced transaction fails in a way that looks like a network problem rather than a logic problem, which sends you debugging the RPC instead of the assumption.",
+    "An operational wallet used by a running backend should not also be the wallet your maintenance scripts sign from; the collision is a symptom of the key doing two jobs."
+  ],
+  "reusable": [],
+  "evidence": [],
+  "related": [
+    "multicall-batch-reads"
+  ],
+  "supersedes": [],
+  "source": "project-registry",
+  "links": {},
+  "path": "/ideas/tooling-infra/concurrent-nonce-collision/",
+  "url": "https://ideas.broke2builtai.com/ideas/tooling-infra/concurrent-nonce-collision/",
+  "repo_path": "ideas/tooling-infra/concurrent-nonce-collision",
+  "updated": null,
+  "related_all": [
+    "multicall-batch-reads"
+  ]
+}

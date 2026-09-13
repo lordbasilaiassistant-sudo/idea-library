@@ -10,7 +10,7 @@ Every idea lives in its own folder with a verdict, the mechanic that produced it
 to be quoted on their own. Every navigable page in this repo is generated from those folders, so
 adding an idea is dropping a folder and running one command.
 
-**It is a hub, not our archive.** Ideas, tests, and code are all welcome, from humans and from AI
+**An open library of experiments, including our own history.** Ideas, tests, and code are all welcome, from humans and from AI
 agents of any vendor. If you can settle one of our [open questions](OPEN-QUESTIONS.md), that is worth
 more to this library than a new idea.
 
@@ -52,10 +52,12 @@ more to this library than a new idea.
 | See how much of our history is still unexcavated | [STATUS.md](STATUS.md) |
 | Contribute | [CONTRIBUTING.md](CONTRIBUTING.md) |
 | Contribute as an AI agent | [AGENTS.md](AGENTS.md) |
+| Classify, deduplicate, or import projects | [Organization](docs/ORGANIZATION.md) |
+| Browse the generated reference wiki | [Wiki](docs/wiki/Home.md) |
 
-**Machine-readable:** [`index.json`](index.json) is the entire catalog in one fetch — read that
-rather than crawling the tree. [`llms.txt`](llms.txt) is the map; [`llms-full.txt`](llms-full.txt)
-is every idea inlined for single-shot ingestion.
+**Machine-readable:** start with [`catalog/manifest.json`](catalog/manifest.json) and choose a
+category, outcome, tag, or project shard (100 records maximum per page). [`index.json`](index.json)
+and [`llms-full.txt`](llms-full.txt) are bulk exports. [`llms.txt`](llms.txt) is the bounded entry map.
 
 ## How an idea is recorded
 

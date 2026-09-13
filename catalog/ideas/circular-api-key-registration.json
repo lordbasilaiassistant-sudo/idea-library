@@ -1,0 +1,65 @@
+{
+  "id": "circular-api-key-registration",
+  "aliases": [],
+  "projects": [],
+  "reviewed": null,
+  "title": "A registration flow where you need the API key to retrieve the API key",
+  "description": "Registering an agent returned a key exactly once, every later command required that key, and re-registering the same wallet failed as already registered. Losing the key locked us out.",
+  "category": "automation-ops",
+  "outcome": "partial",
+  "verdict": "Every command including the one that shows your credentials required the key that registration returned once, so an unsaved key left the account permanently unreachable through the CLI.",
+  "what_would_settle_it": null,
+  "confidence": "medium",
+  "started": "2026-04",
+  "ended": "2026-04",
+  "effort": "hours",
+  "cost_usd": 0,
+  "revenue_usd": 0,
+  "stack": [
+    "node",
+    "cli",
+    "base"
+  ],
+  "tags": [
+    "api-integration",
+    "cli-tooling",
+    "token-launch",
+    "api-undocumented-behavior",
+    "deployed"
+  ],
+  "tags_by_axis": {
+    "domain": [
+      "api-integration",
+      "cli-tooling",
+      "token-launch"
+    ],
+    "mechanic": [
+      "api-undocumented-behavior"
+    ],
+    "stage": [
+      "deployed"
+    ]
+  },
+  "lessons": [
+    "Treat any credential a registration flow prints as unrecoverable and write it to storage in the same step that creates it, before doing anything else with the response.",
+    "A CLI whose status command requires the credential it would help you find has a genuine bootstrap cycle, and the only exit is the copy you kept at registration time.",
+    "Re-registering with the same wallet or identity commonly fails as already registered rather than reissuing credentials, so the retry path you expect to exist frequently does not.",
+    "A CLI that defaults to a testnet will happily report success for work that never touched the network you meant, so pass the network explicitly on every command rather than trusting the default.",
+    "Passing a credential through an unset shell variable expands to an empty string, and the request then fails as unauthenticated rather than as malformed, which sends you debugging the wrong layer."
+  ],
+  "reusable": [],
+  "evidence": [],
+  "related": [
+    "deploy-time-metadata-window"
+  ],
+  "supersedes": [],
+  "source": "project-registry",
+  "links": {},
+  "path": "/ideas/automation-ops/circular-api-key-registration/",
+  "url": "https://ideas.broke2builtai.com/ideas/automation-ops/circular-api-key-registration/",
+  "repo_path": "ideas/automation-ops/circular-api-key-registration",
+  "updated": null,
+  "related_all": [
+    "deploy-time-metadata-window"
+  ]
+}

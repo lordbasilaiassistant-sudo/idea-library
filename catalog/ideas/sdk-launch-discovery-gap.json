@@ -1,0 +1,68 @@
+{
+  "id": "sdk-launch-discovery-gap",
+  "aliases": [],
+  "projects": [],
+  "reviewed": null,
+  "title": "Launching tokens through an SDK instead of the web UI, and losing every discovery hook",
+  "description": "Batch-launching tokens programmatically worked and cost pennies, but SDK-deployed tokens never appeared in the trending feed the web UI populates, so nobody ever saw them.",
+  "category": "crypto-onchain",
+  "outcome": "failed",
+  "verdict": "The SDK deploy produced identical on-chain state to a web-UI deploy but skipped the platform's server-side discovery hooks, so the launches were invisible and the cheap batch pipeline had nothing to feed.",
+  "what_would_settle_it": null,
+  "confidence": "medium",
+  "started": "2026-05",
+  "ended": "2026-05",
+  "effort": "weeks",
+  "cost_usd": null,
+  "revenue_usd": 0,
+  "stack": [
+    "typescript",
+    "ethers",
+    "base",
+    "launchpad-sdk"
+  ],
+  "tags": [
+    "token-launch",
+    "smart-contracts",
+    "distribution-gap",
+    "api-undocumented-behavior",
+    "deployed"
+  ],
+  "tags_by_axis": {
+    "domain": [
+      "token-launch",
+      "smart-contracts"
+    ],
+    "mechanic": [
+      "distribution-gap",
+      "api-undocumented-behavior"
+    ],
+    "stage": [
+      "deployed"
+    ]
+  },
+  "lessons": [
+    "A launchpad SDK and its web UI can produce identical on-chain state while the UI additionally fires server-side discovery hooks that the SDK cannot reach.",
+    "Setting an `interface` or `referrer` field in SDK calldata to impersonate the web client does not reproduce the web client's discovery behaviour, because those hooks run on the platform's servers and never read calldata.",
+    "Cheap batch deployment is worth nothing when the binding constraint is discovery; measure whether anyone can find the output before optimising the cost of producing it.",
+    "A high-volume address in a token's trade history is more often a shared router contract than a bot, and mistaking one for the other sends you hunting a whitelist that does not exist."
+  ],
+  "reusable": [],
+  "evidence": [],
+  "related": [
+    "multicall-batch-reads"
+  ],
+  "supersedes": [],
+  "source": "seed",
+  "links": {},
+  "path": "/ideas/crypto-onchain/sdk-launch-discovery-gap/",
+  "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/sdk-launch-discovery-gap/",
+  "repo_path": "ideas/crypto-onchain/sdk-launch-discovery-gap",
+  "updated": null,
+  "related_all": [
+    "deploy-time-metadata-window",
+    "fee-claim-needs-trading-first",
+    "five-hundred-tokens-zero-volume",
+    "multicall-batch-reads"
+  ]
+}

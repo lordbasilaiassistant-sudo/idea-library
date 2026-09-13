@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "ideas": [
+    {
+      "id": "circular-api-key-registration",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "A registration flow where you need the API key to retrieve the API key",
+      "description": "Registering an agent returned a key exactly once, every later command required that key, and re-registering the same wallet failed as already registered. Losing the key locked us out.",
+      "category": "automation-ops",
+      "outcome": "partial",
+      "verdict": "Every command including the one that shows your credentials required the key that registration returned once, so an unsaved key left the account permanently unreachable through the CLI.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-04",
+      "ended": "2026-04",
+      "effort": "hours",
+      "cost_usd": 0,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "cli",
+        "base"
+      ],
+      "tags": [
+        "api-integration",
+        "cli-tooling",
+        "token-launch",
+        "api-undocumented-behavior",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "api-integration",
+          "cli-tooling",
+          "token-launch"
+        ],
+        "mechanic": [
+          "api-undocumented-behavior"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Treat any credential a registration flow prints as unrecoverable and write it to storage in the same step that creates it, before doing anything else with the response.",
+        "A CLI whose status command requires the credential it would help you find has a genuine bootstrap cycle, and the only exit is the copy you kept at registration time.",
+        "Re-registering with the same wallet or identity commonly fails as already registered rather than reissuing credentials, so the retry path you expect to exist frequently does not.",
+        "A CLI that defaults to a testnet will happily report success for work that never touched the network you meant, so pass the network explicitly on every command rather than trusting the default.",
+        "Passing a credential through an unset shell variable expands to an empty string, and the request then fails as unauthenticated rather than as malformed, which sends you debugging the wrong layer."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "deploy-time-metadata-window"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/automation-ops/circular-api-key-registration/",
+      "url": "https://ideas.broke2builtai.com/ideas/automation-ops/circular-api-key-registration/",
+      "repo_path": "ideas/automation-ops/circular-api-key-registration",
+      "updated": null,
+      "related_all": [
+        "deploy-time-metadata-window"
+      ]
+    },
+    {
+      "id": "deploy-time-metadata-window",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "Why a token's image and description cannot be fixed after deployment",
+      "description": "Launchpad indexers snapshot a token's metadata once, at deploy time. Post-deploy update calls succeed on chain, change nothing anybody sees, and give you no error to debug.",
+      "category": "crypto-onchain",
+      "outcome": "failed",
+      "verdict": "Metadata update calls after deployment succeed on chain but are never re-indexed, so every token launched with a placeholder image stayed placeholder forever with no failure signal.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-04",
+      "ended": "2026-05",
+      "effort": "weeks",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "ethers",
+        "viem",
+        "base"
+      ],
+      "tags": [
+        "token-launch",
+        "smart-contracts",
+        "silent-failure",
+        "api-undocumented-behavior",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "token-launch",
+          "smart-contracts"
+        ],
+        "mechanic": [
+          "silent-failure",
+          "api-undocumented-behavior"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Launchpad indexers snapshot token metadata at deploy time only; a later updateMetadata call changes contract state without changing anything a user or aggregator will ever see.",
+        "A transaction that succeeds on chain is not evidence that the effect you wanted happened, because the part that mattered ran on an indexer that was never listening.",
+        "The listing IS the product for a launched token: image, description and links are set in the deploy transaction or not at all.",
+        "viem coerces a JavaScript object passed as a string argument into the literal text [object Object], so metadata must be JSON.stringify-ed before it goes into calldata."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "sdk-launch-discovery-gap",
+        "fee-claim-needs-trading-first"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/crypto-onchain/deploy-time-metadata-window/",
+      "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/deploy-time-metadata-window/",
+      "repo_path": "ideas/crypto-onchain/deploy-time-metadata-window",
+      "updated": null,
+      "related_all": [
+        "circular-api-key-registration",
+        "fee-claim-needs-trading-first",
+        "five-hundred-tokens-zero-volume",
+        "hardcoded-event-topic-hash",
+        "sdk-launch-discovery-gap"
+      ]
+    },
+    {
+      "id": "sdk-launch-discovery-gap",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "Launching tokens through an SDK instead of the web UI, and losing every discovery hook",
+      "description": "Batch-launching tokens programmatically worked and cost pennies, but SDK-deployed tokens never appeared in the trending feed the web UI populates, so nobody ever saw them.",
+      "category": "crypto-onchain",
+      "outcome": "failed",
+      "verdict": "The SDK deploy produced identical on-chain state to a web-UI deploy but skipped the platform's server-side discovery hooks, so the launches were invisible and the cheap batch pipeline had nothing to feed.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-05",
+      "ended": "2026-05",
+      "effort": "weeks",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "typescript",
+        "ethers",
+        "base",
+        "launchpad-sdk"
+      ],
+      "tags": [
+        "token-launch",
+        "smart-contracts",
+        "distribution-gap",
+        "api-undocumented-behavior",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "token-launch",
+          "smart-contracts"
+        ],
+        "mechanic": [
+          "distribution-gap",
+          "api-undocumented-behavior"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "A launchpad SDK and its web UI can produce identical on-chain state while the UI additionally fires server-side discovery hooks that the SDK cannot reach.",
+        "Setting an `interface` or `referrer` field in SDK calldata to impersonate the web client does not reproduce the web client's discovery behaviour, because those hooks run on the platform's servers and never read calldata.",
+        "Cheap batch deployment is worth nothing when the binding constraint is discovery; measure whether anyone can find the output before optimising the cost of producing it.",
+        "A high-volume address in a token's trade history is more often a shared router contract than a bot, and mistaking one for the other sends you hunting a whitelist that does not exist."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "multicall-batch-reads"
+      ],
+      "supersedes": [],
+      "source": "seed",
+      "links": {},
+      "path": "/ideas/crypto-onchain/sdk-launch-discovery-gap/",
+      "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/sdk-launch-discovery-gap/",
+      "repo_path": "ideas/crypto-onchain/sdk-launch-discovery-gap",
+      "updated": null,
+      "related_all": [
+        "deploy-time-metadata-window",
+        "fee-claim-needs-trading-first",
+        "five-hundred-tokens-zero-volume",
+        "multicall-batch-reads"
+      ]
+    }
+  ]
+}

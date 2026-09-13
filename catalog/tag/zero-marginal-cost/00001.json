@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "ideas": [
+    {
+      "id": "multicall-batch-reads",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "Reading thousands of contract values through Multicall3 instead of a block explorer API",
+      "description": "Replacing per-token explorer API calls with batched Multicall3 aggregates against a public RPC made bulk on-chain reads roughly two orders of magnitude faster and removed the API key.",
+      "category": "tooling-infra",
+      "outcome": "shipped",
+      "verdict": "Batching reads into Multicall3 aggregates against a public RPC removed both the rate limit and the API key that made per-token explorer loops slow and fragile.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-04",
+      "ended": null,
+      "effort": "days",
+      "cost_usd": 0,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base",
+        "multicall3"
+      ],
+      "tags": [
+        "onchain-data",
+        "api-integration",
+        "zero-marginal-cost",
+        "rate-limits",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "onchain-data",
+          "api-integration"
+        ],
+        "mechanic": [
+          "zero-marginal-cost",
+          "rate-limits"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "Multicall3 is deployed at the same address on every major EVM chain, so one batching implementation ports across chains without a per-chain address table.",
+        "Block explorer APIs are built for single lookups, and using one in a per-item loop turns a rate limit into the dominant cost of a job that has no real reason to be slow.",
+        "Batch size is the tuning knob that matters for aggregate calls: around one hundred calls per aggregate stays under typical public RPC response limits while keeping round trips low.",
+        "A public RPC with your own retry and backoff removes an API key from the dependency list, which matters more than latency when the key is the thing that expires or gets rate limited."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "sdk-launch-discovery-gap"
+      ],
+      "supersedes": [],
+      "source": "seed",
+      "links": {},
+      "path": "/ideas/tooling-infra/multicall-batch-reads/",
+      "url": "https://ideas.broke2builtai.com/ideas/tooling-infra/multicall-batch-reads/",
+      "repo_path": "ideas/tooling-infra/multicall-batch-reads",
+      "updated": null,
+      "related_all": [
+        "concurrent-nonce-collision",
+        "sdk-launch-discovery-gap"
+      ]
+    },
+    {
+      "id": "never-funded-agent",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "Can an agent that is never given any starting capital find its own first income?",
+      "description": "An on-chain agent created its own wallet, received no funding from us at any point, and accumulated value entirely from routes it found itself. Whether that generalises is unsettled.",
+      "category": "ai-agents",
+      "outcome": "inconclusive",
+      "verdict": "The agent did accumulate value with a starting balance of zero and no transfer from us, but a single agent on a single chain over one period cannot distinguish a repeatable method from a favourable window.",
+      "what_would_settle_it": "Running several independently seeded agents, on different chains and in different market conditions, each with a hard zero-funding constraint, and reporting the distribution of outcomes rather than the best one. A method should survive a bad month.",
+      "confidence": "medium",
+      "started": "2026-06",
+      "ended": null,
+      "effort": "months",
+      "cost_usd": 0,
+      "revenue_usd": null,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "cloudflare-workers",
+        "base"
+      ],
+      "tags": [
+        "agent-harness",
+        "onchain-data",
+        "capital-required",
+        "zero-marginal-cost",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "agent-harness",
+          "onchain-data"
+        ],
+        "mechanic": [
+          "capital-required",
+          "zero-marginal-cost"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "An agent with a starting balance of zero has a denominator that no later funding can restore, so a single transfer in permanently destroys the result the experiment exists to produce.",
+        "Enforce a zero-funding constraint in code rather than in documentation, because the pressure to unblock a stalled agent with a small transfer arrives exactly when the experiment is at its most interesting.",
+        "Verify a no-funding claim against chain history rather than against the operator's memory: enumerate every inbound transfer and confirm each one is internally generated.",
+        "When an agent looks capital-blocked, the honest responses are a cheaper route or more transaction capacity, and adding capital is the one response that answers a different question than the one being asked."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [],
+      "supersedes": [],
+      "source": "seed",
+      "links": {},
+      "path": "/ideas/ai-agents/never-funded-agent/",
+      "url": "https://ideas.broke2builtai.com/ideas/ai-agents/never-funded-agent/",
+      "repo_path": "ideas/ai-agents/never-funded-agent",
+      "updated": null,
+      "related_all": [
+        "autotrader-journal-hid-losses"
+      ]
+    }
+  ]
+}

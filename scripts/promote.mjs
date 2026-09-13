@@ -34,6 +34,7 @@ if (!slug) {
   console.error('usage: node scripts/promote.mjs <slug> [--category <category>]');
   process.exit(1);
 }
+if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) die('draft slug must be kebab-case');
 
 const srcDir = join(ROOT, '_inbox', 'drafts', slug);
 const srcFile = join(srcDir, 'idea.md');

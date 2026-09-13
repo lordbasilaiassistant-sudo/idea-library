@@ -6,9 +6,10 @@
  * so nothing rots. Every output carries a GENERATED banner and CI fails on hand-edits.
  */
 
-import { writeFileSync, mkdirSync, existsSync, readFileSync } from 'node:fs';
+import { writeFileSync, mkdirSync, existsSync, readFileSync, readdirSync, unlinkSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { ROOT, loadIdeas, loadTaxonomy, loadSources, ideaPath, readJSON as readJSONFile, GENERATED_BANNER } from './lib/ideas.mjs';
+import { generateCatalog } from './lib/catalog.mjs';
 
 // Where things actually live. `site` is null until a site is really deployed — see
 // data/site.json. Until then every generated URL points at the repo, which resolves.
@@ -27,8 +28,11 @@ const catUrl = (c) => (HAS_SITE ? `${SITE}/ideas/${c}/` : `${TREE}/ideas/${c}`);
 const tax = loadTaxonomy();
 const sources = loadSources();
 const ideas = loadIdeas().filter((i) => !i._error);
+const ideasById = new Map(ideas.map(i => [i.id, i]));
+const writtenPaths = new Set();
 
 const write = (rel, content) => {
+  writtenPaths.add(rel);
   const p = join(ROOT, rel);
   mkdirSync(dirname(p), { recursive: true });
   const next = content.endsWith('\n') ? content : content + '\n';
@@ -44,7 +48,7 @@ const write = (rel, content) => {
 // is now a pure function of repository CONTENT, which is what recomputable has to
 // mean to be worth anything.
 const ideaDate = (i) => {
-  const d = i.ended || i.started || null;
+  const d = i.reviewed || null;
   if (!d) return null;
   const parts = String(d).split('-');
   const [y, m, day] = [parts[0], parts[1] || '01', parts[2] || '01'];
@@ -66,6 +70,9 @@ const esc = (s) => String(s).replace(/\|/g, '\\|').replace(/\n/g, ' ');
 // ---------------------------------------------------------------------------
 const catalog = ideas.map((i) => ({
   id: i.id,
+  aliases: i.aliases ?? [],
+  projects: i.projects ?? [],
+  reviewed: i.reviewed ?? null,
   title: i.title,
   description: i.description,
   category: i.category,
@@ -130,6 +137,18 @@ write('index.json', JSON.stringify({
   digs: sources.digs.map((d) => ({ ...d, yield: counts.by_source[d.id] ?? 0 })),
   ideas: catalog,
 }, null, 2));
+generateCatalog(catalog, write);
+// This namespace is generated only. Remove obsolete JSON leaves after successful generation;
+// a removed idea or facet must not survive in an old shard or deployment.
+function pruneCatalog(dir = join(ROOT, 'catalog'), prefix = 'catalog') {
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    if (entry.isSymbolicLink()) throw new Error('Symlinks are not allowed in generated catalog output');
+    const path = `${prefix}/${entry.name}`;
+    if (entry.isDirectory()) pruneCatalog(join(dir, entry.name), path);
+    else if (entry.name.endsWith('.json') && !writtenPaths.has(path)) unlinkSync(join(dir, entry.name));
+  }
+}
+pruneCatalog();
 
 // ---------------------------------------------------------------------------
 // llms.txt + llms-full.txt
@@ -144,7 +163,8 @@ const llms = [
   '',
   '## Start here',
   '',
-  `- [index.json](${docUrl('index.json')}): the entire catalog in one fetch. Read this first; do not crawl the tree.`,
+  `- [catalog/manifest.json](${docUrl('catalog/manifest.json')}): start here; counts, facets, and pages of at most 100 records.`,
+  `- [index.json](${docUrl('index.json')}): full structured bulk export; optional for large libraries.`,
   `- [llms-full.txt](${docUrl('llms-full.txt')}): every idea inlined, for single-shot ingestion.`,
   `- [AGENTS.md](${docUrl('AGENTS.md')}): how to contribute. Applies to every agent, any vendor.`,
   `- [LESSONS.md](${docUrl('LESSONS.md')}): every lesson in the library, grouped by failure mechanic.`,
@@ -158,9 +178,10 @@ const llms = [
     .filter((c) => counts.by_category[c.id] > 0)
     .map((c) => `- [${c.label}](${catUrl(c.id)}) (${counts.by_category[c.id]}): ${c.definition}`),
   '',
-  '## Ideas',
+  '## Retrieval',
   '',
-  ...catalog.map((c) => `- [${c.title}](${c.url}) — \`${c.outcome}\`: ${c.description}`),
+  'Choose category, outcome, tag, or project pages from the manifest. Follow each listed path relative to the repository or site root.',
+  'Fetch catalog/ideas/<id>.json for one record, then its canonical URL for the full narrative and evidence.',
   '',
   '## Citation',
   '',
@@ -177,7 +198,7 @@ write('llms-full.txt', [
   '# Full corpus',
   '',
   ...catalog.map((c) => {
-    const src = ideas.find((i) => i.id === c.id);
+    const src = ideasById.get(c.id);
     return [
       `## ${c.title}`,
       '',
@@ -385,8 +406,10 @@ if (HAS_SITE) {
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     `  <url><loc>${SITE}/</loc></url>`,
+    ...Array.from({ length: Math.ceil(ideas.length / 100) }, (_, n) => `  <url><loc>${SITE}/browse/${n ? `page/${n + 1}/` : ''}</loc></url>`),
     ...tax.categories.filter((c) => counts.by_category[c.id] > 0)
       .map((c) => `  <url><loc>${SITE}/ideas/${c.id}/</loc></url>`),
+    ...tax.categories.flatMap(c => Array.from({ length: Math.max(0, Math.ceil(counts.by_category[c.id] / 100) - 1) }, (_, n) => `  <url><loc>${SITE}/ideas/${c.id}/page/${n + 2}/</loc></url>`)),
     ...catalog.map((c) =>
       `  <url><loc>${c.url}</loc>${c.updated ? `<lastmod>${c.updated}</lastmod>` : ''}</url>`),
     '</urlset>',

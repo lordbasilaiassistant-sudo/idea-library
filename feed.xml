@@ -4,114 +4,99 @@
   <link>https://ideas.broke2builtai.com/</link>
   <description>Ideas we ran, and what actually happened.</description>
   <item>
-    <title>We re-derived the same dead strategy across many sessions without noticing</title>
-    <link>https://ideas.broke2builtai.com/ideas/experiments/scan-for-money-loop/</link>
-    <guid>https://ideas.broke2builtai.com/ideas/experiments/scan-for-money-loop/</guid>
-    <pubDate>Wed, 01 Jul 2026 00:00:00 GMT</pubDate>
-    <description>An on-chain search strategy failed, and we kept coming back to it because each new session started without any record that the last one had already tried it. (abandoned)</description>
-  </item>
-  <item>
     <title>An automated trading fleet that reported itself as roughly break-even while losing money</title>
     <link>https://ideas.broke2builtai.com/ideas/ai-agents/autotrader-journal-hid-losses/</link>
     <guid>https://ideas.broke2builtai.com/ideas/ai-agents/autotrader-journal-hid-losses/</guid>
-    <pubDate>Mon, 01 Jun 2026 00:00:00 GMT</pubDate>
     <description>The fleet's own journal was the only record of its performance, and an audit found it was accounting for about a third of the actual loss. (failed)</description>
   </item>
   <item>
     <title>Can an agent that is never given any starting capital find its own first income?</title>
     <link>https://ideas.broke2builtai.com/ideas/ai-agents/never-funded-agent/</link>
     <guid>https://ideas.broke2builtai.com/ideas/ai-agents/never-funded-agent/</guid>
-    <pubDate>Mon, 01 Jun 2026 00:00:00 GMT</pubDate>
     <description>An on-chain agent created its own wallet, received no funding from us at any point, and accumulated value entirely from routes it found itself. Whether that generalises is unsettled. (inconclusive)</description>
-  </item>
-  <item>
-    <title>Cross-DEX arbitrage and DEX scalping are both closed to a small wallet</title>
-    <link>https://ideas.broke2builtai.com/ideas/crypto-onchain/retail-arbitrage-is-closed/</link>
-    <guid>https://ideas.broke2builtai.com/ideas/crypto-onchain/retail-arbitrage-is-closed/</guid>
-    <pubDate>Mon, 01 Jun 2026 00:00:00 GMT</pubDate>
-    <description>We tested two classic on-chain trading strategies from a tiny wallet on a fast L2. Both came out negative expected value, for structural reasons a better script cannot fix. (failed)</description>
-  </item>
-  <item>
-    <title>A liquidity pool that showed a price chart and held no liquidity</title>
-    <link>https://ideas.broke2builtai.com/ideas/security-audit/synthetic-pool-chart-spoof/</link>
-    <guid>https://ideas.broke2builtai.com/ideas/security-audit/synthetic-pool-chart-spoof/</guid>
-    <pubDate>Mon, 01 Jun 2026 00:00:00 GMT</pubDate>
-    <description>A price aggregator displayed a pool with a chart and a market. On chain there was no liquidity position to withdraw and never had been. (shipped)</description>
-  </item>
-  <item>
-    <title>Why a token's image and description cannot be fixed after deployment</title>
-    <link>https://ideas.broke2builtai.com/ideas/crypto-onchain/deploy-time-metadata-window/</link>
-    <guid>https://ideas.broke2builtai.com/ideas/crypto-onchain/deploy-time-metadata-window/</guid>
-    <pubDate>Fri, 01 May 2026 00:00:00 GMT</pubDate>
-    <description>Launchpad indexers snapshot a token's metadata once, at deploy time. Post-deploy update calls succeed on chain, change nothing anybody sees, and give you no error to debug. (failed)</description>
-  </item>
-  <item>
-    <title>Five hundred tokens, one hundred and forty generic names, and zero trading volume</title>
-    <link>https://ideas.broke2builtai.com/ideas/crypto-onchain/five-hundred-tokens-zero-volume/</link>
-    <guid>https://ideas.broke2builtai.com/ideas/crypto-onchain/five-hundred-tokens-zero-volume/</guid>
-    <pubDate>Fri, 01 May 2026 00:00:00 GMT</pubDate>
-    <description>Deploys were free and gas was sponsored, so we launched at volume to see whether quantity could substitute for narrative. It cannot, and the result was unambiguous. (failed)</description>
-  </item>
-  <item>
-    <title>Launching tokens through an SDK instead of the web UI, and losing every discovery hook</title>
-    <link>https://ideas.broke2builtai.com/ideas/crypto-onchain/sdk-launch-discovery-gap/</link>
-    <guid>https://ideas.broke2builtai.com/ideas/crypto-onchain/sdk-launch-discovery-gap/</guid>
-    <pubDate>Fri, 01 May 2026 00:00:00 GMT</pubDate>
-    <description>Batch-launching tokens programmatically worked and cost pennies, but SDK-deployed tokens never appeared in the trending feed the web UI populates, so nobody ever saw them. (failed)</description>
-  </item>
-  <item>
-    <title>A protocol reported claimable rewards that did not exist when claimed</title>
-    <link>https://ideas.broke2builtai.com/ideas/security-audit/self-reported-rewards-vs-balance/</link>
-    <guid>https://ideas.broke2builtai.com/ideas/security-audit/self-reported-rewards-vs-balance/</guid>
-    <pubDate>Fri, 01 May 2026 00:00:00 GMT</pubDate>
-    <description>A contract's view function showed a pending reward balance. Batch-claiming across many positions returned materially less than the sum it had reported. (shipped)</description>
-  </item>
-  <item>
-    <title>Why a wallet script kept failing when a live backend shared the same key</title>
-    <link>https://ideas.broke2builtai.com/ideas/tooling-infra/concurrent-nonce-collision/</link>
-    <guid>https://ideas.broke2builtai.com/ideas/tooling-infra/concurrent-nonce-collision/</guid>
-    <pubDate>Fri, 01 May 2026 00:00:00 GMT</pubDate>
-    <description>A consolidation script read the wallet nonce once and built its transactions from it, while a production backend was signing from the same key, so half the sends collided and vanished. (shipped)</description>
   </item>
   <item>
     <title>A registration flow where you need the API key to retrieve the API key</title>
     <link>https://ideas.broke2builtai.com/ideas/automation-ops/circular-api-key-registration/</link>
     <guid>https://ideas.broke2builtai.com/ideas/automation-ops/circular-api-key-registration/</guid>
-    <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
     <description>Registering an agent returned a key exactly once, every later command required that key, and re-registering the same wallet failed as already registered. Losing the key locked us out. (partial)</description>
+  </item>
+  <item>
+    <title>Why a token's image and description cannot be fixed after deployment</title>
+    <link>https://ideas.broke2builtai.com/ideas/crypto-onchain/deploy-time-metadata-window/</link>
+    <guid>https://ideas.broke2builtai.com/ideas/crypto-onchain/deploy-time-metadata-window/</guid>
+    <description>Launchpad indexers snapshot a token's metadata once, at deploy time. Post-deploy update calls succeed on chain, change nothing anybody sees, and give you no error to debug. (failed)</description>
   </item>
   <item>
     <title>A permissionless fee claim that pays nothing because no one has traded</title>
     <link>https://ideas.broke2builtai.com/ideas/crypto-onchain/fee-claim-needs-trading-first/</link>
     <guid>https://ideas.broke2builtai.com/ideas/crypto-onchain/fee-claim-needs-trading-first/</guid>
-    <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
     <description>The fee collection function was open to any caller and needed no API key, which felt like a found revenue rail until we noticed fees only exist once other people trade the token. (inconclusive)</description>
   </item>
   <item>
-    <title>Reading thousands of contract values through Multicall3 instead of a block explorer API</title>
-    <link>https://ideas.broke2builtai.com/ideas/tooling-infra/multicall-batch-reads/</link>
-    <guid>https://ideas.broke2builtai.com/ideas/tooling-infra/multicall-batch-reads/</guid>
-    <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
-    <description>Replacing per-token explorer API calls with batched Multicall3 aggregates against a public RPC made bulk on-chain reads roughly two orders of magnitude faster and removed the API key. (shipped)</description>
+    <title>Five hundred tokens, one hundred and forty generic names, and zero trading volume</title>
+    <link>https://ideas.broke2builtai.com/ideas/crypto-onchain/five-hundred-tokens-zero-volume/</link>
+    <guid>https://ideas.broke2builtai.com/ideas/crypto-onchain/five-hundred-tokens-zero-volume/</guid>
+    <description>Deploys were free and gas was sponsored, so we launched at volume to see whether quantity could substitute for narrative. It cannot, and the result was unambiguous. (failed)</description>
   </item>
   <item>
-    <title>We built forty-three paid micro-services and never found a single customer</title>
-    <link>https://ideas.broke2builtai.com/ideas/web-saas/forty-three-services-no-customers/</link>
-    <guid>https://ideas.broke2builtai.com/ideas/web-saas/forty-three-services-no-customers/</guid>
-    <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
-    <description>Thirty-five working paid endpoints, eight broken, zero external buyers. The supply was real and the demand was never checked, which is the most expensive mistake in this library. (failed)</description>
+    <title>Cross-DEX arbitrage and DEX scalping are both closed to a small wallet</title>
+    <link>https://ideas.broke2builtai.com/ideas/crypto-onchain/retail-arbitrage-is-closed/</link>
+    <guid>https://ideas.broke2builtai.com/ideas/crypto-onchain/retail-arbitrage-is-closed/</guid>
+    <description>We tested two classic on-chain trading strategies from a tiny wallet on a fast L2. Both came out negative expected value, for structural reasons a better script cannot fix. (failed)</description>
   </item>
   <item>
-    <title>A single mistyped event hash made every scanner return zero results for weeks</title>
-    <link>https://ideas.broke2builtai.com/ideas/tooling-infra/hardcoded-event-topic-hash/</link>
-    <guid>https://ideas.broke2builtai.com/ideas/tooling-infra/hardcoded-event-topic-hash/</guid>
-    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
-    <description>Every token scanner we wrote reported nothing found. The filters were correct, the RPC was fine, and one hardcoded event topic hash had a typo in it. (shipped)</description>
+    <title>Launching tokens through an SDK instead of the web UI, and losing every discovery hook</title>
+    <link>https://ideas.broke2builtai.com/ideas/crypto-onchain/sdk-launch-discovery-gap/</link>
+    <guid>https://ideas.broke2builtai.com/ideas/crypto-onchain/sdk-launch-discovery-gap/</guid>
+    <description>Batch-launching tokens programmatically worked and cost pennies, but SDK-deployed tokens never appeared in the trending feed the web UI populates, so nobody ever saw them. (failed)</description>
+  </item>
+  <item>
+    <title>We re-derived the same dead strategy across many sessions without noticing</title>
+    <link>https://ideas.broke2builtai.com/ideas/experiments/scan-for-money-loop/</link>
+    <guid>https://ideas.broke2builtai.com/ideas/experiments/scan-for-money-loop/</guid>
+    <description>An on-chain search strategy failed, and we kept coming back to it because each new session started without any record that the last one had already tried it. (abandoned)</description>
   </item>
   <item>
     <title>An audit of our own app found hardcoded credentials that every prior read had missed</title>
     <link>https://ideas.broke2builtai.com/ideas/security-audit/secrets-committed-to-source/</link>
     <guid>https://ideas.broke2builtai.com/ideas/security-audit/secrets-committed-to-source/</guid>
     <description>A multi-agent security pass over one of our shipped web apps found hardcoded credentials, an unauthenticated privileged endpoint, and a scheduled job that failed open. (shipped)</description>
+  </item>
+  <item>
+    <title>A protocol reported claimable rewards that did not exist when claimed</title>
+    <link>https://ideas.broke2builtai.com/ideas/security-audit/self-reported-rewards-vs-balance/</link>
+    <guid>https://ideas.broke2builtai.com/ideas/security-audit/self-reported-rewards-vs-balance/</guid>
+    <description>A contract's view function showed a pending reward balance. Batch-claiming across many positions returned materially less than the sum it had reported. (shipped)</description>
+  </item>
+  <item>
+    <title>A liquidity pool that showed a price chart and held no liquidity</title>
+    <link>https://ideas.broke2builtai.com/ideas/security-audit/synthetic-pool-chart-spoof/</link>
+    <guid>https://ideas.broke2builtai.com/ideas/security-audit/synthetic-pool-chart-spoof/</guid>
+    <description>A price aggregator displayed a pool with a chart and a market. On chain there was no liquidity position to withdraw and never had been. (shipped)</description>
+  </item>
+  <item>
+    <title>Why a wallet script kept failing when a live backend shared the same key</title>
+    <link>https://ideas.broke2builtai.com/ideas/tooling-infra/concurrent-nonce-collision/</link>
+    <guid>https://ideas.broke2builtai.com/ideas/tooling-infra/concurrent-nonce-collision/</guid>
+    <description>A consolidation script read the wallet nonce once and built its transactions from it, while a production backend was signing from the same key, so half the sends collided and vanished. (shipped)</description>
+  </item>
+  <item>
+    <title>A single mistyped event hash made every scanner return zero results for weeks</title>
+    <link>https://ideas.broke2builtai.com/ideas/tooling-infra/hardcoded-event-topic-hash/</link>
+    <guid>https://ideas.broke2builtai.com/ideas/tooling-infra/hardcoded-event-topic-hash/</guid>
+    <description>Every token scanner we wrote reported nothing found. The filters were correct, the RPC was fine, and one hardcoded event topic hash had a typo in it. (shipped)</description>
+  </item>
+  <item>
+    <title>Reading thousands of contract values through Multicall3 instead of a block explorer API</title>
+    <link>https://ideas.broke2builtai.com/ideas/tooling-infra/multicall-batch-reads/</link>
+    <guid>https://ideas.broke2builtai.com/ideas/tooling-infra/multicall-batch-reads/</guid>
+    <description>Replacing per-token explorer API calls with batched Multicall3 aggregates against a public RPC made bulk on-chain reads roughly two orders of magnitude faster and removed the API key. (shipped)</description>
+  </item>
+  <item>
+    <title>We built forty-three paid micro-services and never found a single customer</title>
+    <link>https://ideas.broke2builtai.com/ideas/web-saas/forty-three-services-no-customers/</link>
+    <guid>https://ideas.broke2builtai.com/ideas/web-saas/forty-three-services-no-customers/</guid>
+    <description>Thirty-five working paid endpoints, eight broken, zero external buyers. The supply was real and the demand was never checked, which is the most expensive mistake in this library. (failed)</description>
   </item>
 </channel></rss>

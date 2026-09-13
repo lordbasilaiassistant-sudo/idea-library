@@ -23,7 +23,7 @@
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { ROOT, loadTaxonomy, loadIdeas } from './lib/ideas.mjs';
+import { ROOT, loadTaxonomy, loadIdeas, loadSources } from './lib/ideas.mjs';
 
 const args = new Map();
 const argv = process.argv.slice(2);
@@ -35,7 +35,7 @@ for (let i = 0; i < argv.length; i++) {
 }
 
 const from = args.get('from');
-const dig = args.get('dig') || 'projects-md';
+const dig = args.get('dig') || 'project-registry';
 const limit = Number(args.get('limit') || 0);
 const only = args.get('only');
 
@@ -45,6 +45,7 @@ if (!from) {
 }
 
 const tax = loadTaxonomy();
+if (!loadSources().digs.some(d => d.id === dig)) throw new Error('Unknown source dig');
 const existing = new Set(loadIdeas().map((i) => i.id));
 
 // ---------------------------------------------------------------------------

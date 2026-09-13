@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "ideas": [
+    {
+      "id": "autotrader-journal-hid-losses",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "An automated trading fleet that reported itself as roughly break-even while losing money",
+      "description": "The fleet's own journal was the only record of its performance, and an audit found it was accounting for about a third of the actual loss.",
+      "category": "ai-agents",
+      "outcome": "failed",
+      "verdict": "The fleet lost money and, by our own reconciliation, its self-reported journal captured only a fraction of that loss, because it recorded the events the code knew how to write down rather than the money that moved.",
+      "what_would_settle_it": null,
+      "confidence": "medium",
+      "started": "2026-05",
+      "ended": "2026-06",
+      "effort": "weeks",
+      "cost_usd": null,
+      "revenue_usd": 0,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "base"
+      ],
+      "tags": [
+        "agent-harness",
+        "trading",
+        "verification-gap",
+        "silent-failure",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "agent-harness",
+          "trading"
+        ],
+        "mechanic": [
+          "verification-gap",
+          "silent-failure"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "An automated system's own log is a record of what its authors anticipated, so using it as the performance measurement means grading the system with a ruler it cut itself.",
+        "Reconcile an automated trader against wallet balance change over the period, because balance is the only number that cannot be shaped by a bug in the code that reports it.",
+        "Costs that arrive through paths the journal has no writer for - failed transactions, slippage, gas on reverts, dust left in intermediate tokens - are exactly the costs that go unrecorded.",
+        "A high request rate against several endpoints is concentration of activity rather than evidence of volume, and reading it as traction inverts what the number means."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [
+        "secrets-committed-to-source",
+        "never-funded-agent"
+      ],
+      "supersedes": [],
+      "source": "project-registry",
+      "links": {},
+      "path": "/ideas/ai-agents/autotrader-journal-hid-losses/",
+      "url": "https://ideas.broke2builtai.com/ideas/ai-agents/autotrader-journal-hid-losses/",
+      "repo_path": "ideas/ai-agents/autotrader-journal-hid-losses",
+      "updated": null,
+      "related_all": [
+        "hardcoded-event-topic-hash",
+        "never-funded-agent",
+        "retail-arbitrage-is-closed",
+        "secrets-committed-to-source",
+        "self-reported-rewards-vs-balance"
+      ]
+    },
+    {
+      "id": "never-funded-agent",
+      "aliases": [],
+      "projects": [],
+      "reviewed": null,
+      "title": "Can an agent that is never given any starting capital find its own first income?",
+      "description": "An on-chain agent created its own wallet, received no funding from us at any point, and accumulated value entirely from routes it found itself. Whether that generalises is unsettled.",
+      "category": "ai-agents",
+      "outcome": "inconclusive",
+      "verdict": "The agent did accumulate value with a starting balance of zero and no transfer from us, but a single agent on a single chain over one period cannot distinguish a repeatable method from a favourable window.",
+      "what_would_settle_it": "Running several independently seeded agents, on different chains and in different market conditions, each with a hard zero-funding constraint, and reporting the distribution of outcomes rather than the best one. A method should survive a bad month.",
+      "confidence": "medium",
+      "started": "2026-06",
+      "ended": null,
+      "effort": "months",
+      "cost_usd": 0,
+      "revenue_usd": null,
+      "stack": [
+        "node",
+        "ethers-v6",
+        "cloudflare-workers",
+        "base"
+      ],
+      "tags": [
+        "agent-harness",
+        "onchain-data",
+        "capital-required",
+        "zero-marginal-cost",
+        "deployed"
+      ],
+      "tags_by_axis": {
+        "domain": [
+          "agent-harness",
+          "onchain-data"
+        ],
+        "mechanic": [
+          "capital-required",
+          "zero-marginal-cost"
+        ],
+        "stage": [
+          "deployed"
+        ]
+      },
+      "lessons": [
+        "An agent with a starting balance of zero has a denominator that no later funding can restore, so a single transfer in permanently destroys the result the experiment exists to produce.",
+        "Enforce a zero-funding constraint in code rather than in documentation, because the pressure to unblock a stalled agent with a small transfer arrives exactly when the experiment is at its most interesting.",
+        "Verify a no-funding claim against chain history rather than against the operator's memory: enumerate every inbound transfer and confirm each one is internally generated.",
+        "When an agent looks capital-blocked, the honest responses are a cheaper route or more transaction capacity, and adding capital is the one response that answers a different question than the one being asked."
+      ],
+      "reusable": [],
+      "evidence": [],
+      "related": [],
+      "supersedes": [],
+      "source": "seed",
+      "links": {},
+      "path": "/ideas/ai-agents/never-funded-agent/",
+      "url": "https://ideas.broke2builtai.com/ideas/ai-agents/never-funded-agent/",
+      "repo_path": "ideas/ai-agents/never-funded-agent",
+      "updated": null,
+      "related_all": [
+        "autotrader-journal-hid-losses"
+      ]
+    }
+  ]
+}

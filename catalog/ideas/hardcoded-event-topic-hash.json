@@ -1,0 +1,67 @@
+{
+  "id": "hardcoded-event-topic-hash",
+  "aliases": [],
+  "projects": [],
+  "reviewed": null,
+  "title": "A single mistyped event hash made every scanner return zero results for weeks",
+  "description": "Every token scanner we wrote reported nothing found. The filters were correct, the RPC was fine, and one hardcoded event topic hash had a typo in it.",
+  "category": "tooling-infra",
+  "outcome": "shipped",
+  "verdict": "A copied-and-mistyped event topic hash matched nothing, so every log query returned an empty set and reported it as a clean result rather than as an error.",
+  "what_would_settle_it": null,
+  "confidence": "medium",
+  "started": "2026-02",
+  "ended": "2026-02",
+  "effort": "weeks",
+  "cost_usd": 0,
+  "revenue_usd": 0,
+  "stack": [
+    "node",
+    "ethers-v6",
+    "base"
+  ],
+  "tags": [
+    "onchain-data",
+    "cli-tooling",
+    "silent-failure",
+    "verification-gap",
+    "deployed"
+  ],
+  "tags_by_axis": {
+    "domain": [
+      "onchain-data",
+      "cli-tooling"
+    ],
+    "mechanic": [
+      "silent-failure",
+      "verification-gap"
+    ],
+    "stage": [
+      "deployed"
+    ]
+  },
+  "lessons": [
+    "Derive an event topic hash in code with a helper such as ethers.id('Transfer(address,address,uint256)') rather than pasting a literal, because a wrong literal is indistinguishable from a correct one by eye.",
+    "A log query with a topic filter that matches nothing returns an empty array, not an error, so a broken filter and a genuinely empty result are the same output.",
+    "Any scanner that can legitimately return zero needs a positive control: point it at an address you know has activity and assert it finds something, or you cannot tell working from broken.",
+    "Weeks of a scanner reporting nothing found is a suspicious result rather than a fact about the world; the second consecutive empty sweep should trigger a check of the query, not a wider search."
+  ],
+  "reusable": [],
+  "evidence": [],
+  "related": [
+    "autotrader-journal-hid-losses",
+    "deploy-time-metadata-window"
+  ],
+  "supersedes": [],
+  "source": "project-registry",
+  "links": {},
+  "path": "/ideas/tooling-infra/hardcoded-event-topic-hash/",
+  "url": "https://ideas.broke2builtai.com/ideas/tooling-infra/hardcoded-event-topic-hash/",
+  "repo_path": "ideas/tooling-infra/hardcoded-event-topic-hash",
+  "updated": null,
+  "related_all": [
+    "autotrader-journal-hid-losses",
+    "deploy-time-metadata-window",
+    "self-reported-rewards-vs-balance"
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "id": "deploy-time-metadata-window",
+  "aliases": [],
+  "projects": [],
+  "reviewed": null,
+  "title": "Why a token's image and description cannot be fixed after deployment",
+  "description": "Launchpad indexers snapshot a token's metadata once, at deploy time. Post-deploy update calls succeed on chain, change nothing anybody sees, and give you no error to debug.",
+  "category": "crypto-onchain",
+  "outcome": "failed",
+  "verdict": "Metadata update calls after deployment succeed on chain but are never re-indexed, so every token launched with a placeholder image stayed placeholder forever with no failure signal.",
+  "what_would_settle_it": null,
+  "confidence": "medium",
+  "started": "2026-04",
+  "ended": "2026-05",
+  "effort": "weeks",
+  "cost_usd": null,
+  "revenue_usd": 0,
+  "stack": [
+    "ethers",
+    "viem",
+    "base"
+  ],
+  "tags": [
+    "token-launch",
+    "smart-contracts",
+    "silent-failure",
+    "api-undocumented-behavior",
+    "deployed"
+  ],
+  "tags_by_axis": {
+    "domain": [
+      "token-launch",
+      "smart-contracts"
+    ],
+    "mechanic": [
+      "silent-failure",
+      "api-undocumented-behavior"
+    ],
+    "stage": [
+      "deployed"
+    ]
+  },
+  "lessons": [
+    "Launchpad indexers snapshot token metadata at deploy time only; a later updateMetadata call changes contract state without changing anything a user or aggregator will ever see.",
+    "A transaction that succeeds on chain is not evidence that the effect you wanted happened, because the part that mattered ran on an indexer that was never listening.",
+    "The listing IS the product for a launched token: image, description and links are set in the deploy transaction or not at all.",
+    "viem coerces a JavaScript object passed as a string argument into the literal text [object Object], so metadata must be JSON.stringify-ed before it goes into calldata."
+  ],
+  "reusable": [],
+  "evidence": [],
+  "related": [
+    "sdk-launch-discovery-gap",
+    "fee-claim-needs-trading-first"
+  ],
+  "supersedes": [],
+  "source": "project-registry",
+  "links": {},
+  "path": "/ideas/crypto-onchain/deploy-time-metadata-window/",
+  "url": "https://ideas.broke2builtai.com/ideas/crypto-onchain/deploy-time-metadata-window/",
+  "repo_path": "ideas/crypto-onchain/deploy-time-metadata-window",
+  "updated": null,
+  "related_all": [
+    "circular-api-key-registration",
+    "fee-claim-needs-trading-first",
+    "five-hundred-tokens-zero-volume",
+    "hardcoded-event-topic-hash",
+    "sdk-launch-discovery-gap"
+  ]
+}
